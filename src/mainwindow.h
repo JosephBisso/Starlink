@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QObject>
+#include <QNetworkAccessManager>
+#include <QUrl>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +20,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    void startRequest(const QUrl requestedUrl);
+    QNetworkAccessManager *manager;
+    QNetworkRequest request;
+    QNetworkReply *reply = NULL;
+    void saveFile(QString*);
+
+    QString defaultFileName;
+    QUrl userUrl;
+
 };
 #endif // MAINWINDOW_H
