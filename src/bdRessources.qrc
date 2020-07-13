@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Datenbank.sqlite</file>
+        <file>bdIMG.jpg</file>
     </qresource>
 </RCC>

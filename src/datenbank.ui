@@ -10,12 +10,17 @@
     <height>432</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Shell Dlg 2</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Datenbank</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../img/bdIMG.jpg</normaloff>../img/bdIMG.jpg</iconset>
+    <normaloff>:/bdIMG.jpg</normaloff>:/bdIMG.jpg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

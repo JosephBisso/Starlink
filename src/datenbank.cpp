@@ -13,14 +13,26 @@ Datenbank::~Datenbank()
     delete ui;
 }
 
-//...
+//Gibt den absoluten Pfad 'PfadFilfe' für eine Datei 'File' im Ordner "dir"
+QString Datenbank::PfadGeber(QString dir, QString file)
+{
+    QFileInfo ref("main.cpp");
+    QString refString = ref.absoluteFilePath();
+    int y = refString.lastIndexOf("build");
+    int z = refString.lastIndexOf(".cpp");
+    QString refLast = refString.remove(y, z-y+5);
+    QString PfadFile = refLast + dir + "\\" + file;
+
+    return PfadFile;
+}
+
+//eine Verbindung zur Datenbank "Datenbank.sqlite" wird aufgebaut. Man bekommt danach eine Benachrichtigung
 void Datenbank::on_dbConnect_clicked()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
-       //db.setDatabaseName("qrc:/Datenbank.sqlite");
 
-       db.setDatabaseName("Datenbank.sqlite");
+       db.setDatabaseName(PfadGeber("src", "Datenbank.sqlite"));
 
        bool ok = db.open();
 
@@ -32,7 +44,7 @@ void Datenbank::on_dbConnect_clicked()
        }
 }
 
-//...
+//einen Auszug aus der Datenbank wird tabellarisch dargestellt
 void Datenbank::on_dbShow_clicked()
 {
     QSqlQueryModel *model = new QSqlQueryModel;
