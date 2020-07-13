@@ -47,8 +47,11 @@ public:
         if (Datenbank->objectName().isEmpty())
             Datenbank->setObjectName(QString::fromUtf8("Datenbank"));
         Datenbank->resize(587, 432);
+        QFont font;
+        font.setFamily(QString::fromUtf8("MS Shell Dlg 2"));
+        Datenbank->setFont(font);
         QIcon icon;
-        icon.addFile(QString::fromUtf8("../img/bdIMG.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/bdIMG.jpg"), QSize(), QIcon::Normal, QIcon::Off);
         Datenbank->setWindowIcon(icon);
         verticalLayout = new QVBoxLayout(Datenbank);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));

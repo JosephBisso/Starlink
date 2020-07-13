@@ -11,6 +11,8 @@
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
+#include <QFileInfo>
+
 
 namespace Ui {
 class Datenbank;
@@ -34,6 +36,8 @@ private slots:
     void on_dbDelete_clicked();
 
     void on_dbOK_accepted();
+
+    QString PfadGeber(QString dir, QString file); //Gibt den absoluten Pfad für eine Datei 'File' im Ordner "dir"
 
 private:
     Ui::Datenbank *ui;
