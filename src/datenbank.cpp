@@ -1,5 +1,6 @@
 #include "datenbank.h"
 #include "ui_datenbank.h"
+#include "dbvorschau.h"
 
 Datenbank::Datenbank(QWidget *parent) :
     QDialog(parent),
@@ -190,6 +191,169 @@ int  Datenbank::gibGesamtInfizierte (QString Monat, QString geoID)
    return -999;
 }
 
+//Gibt Anzahl von Toden am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//schief gelaufen ist.
+int  Datenbank::gibTode(QString Datum, QString geoID)
+{
+
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+    for (int i=0; i < recordsArray.size(); i++)
+    {
+        QJsonObject recordsObject = recordsArray[i].toObject();
+
+        QJsonValue jsDeaths = recordsObject["deaths"];
+        QJsonValue jsDate = recordsObject["dateRep"];
+        QJsonValue jsGeoId = recordsObject["geoId"];
+
+        if (jsGeoId == geoID  && jsDate == Datum)
+        {
+
+        Datenbank::Tode = jsDeaths.toInt();
+
+        return Datenbank::Tode;
+
+        }
+    }
+
+}
+    return -999;
+}
+
+
+//Gibt Gesamztanzahl von Toden im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//schief gelaufen ist.
+int  Datenbank::gibGesamtTode (QString Monat, QString geoID)
+{
+    Datenbank::Gesamt_Tode = 0;
+
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+   for (int i=0; i < recordsArray.size(); i++)
+   {
+       QJsonObject recordsObject = recordsArray[i].toObject();
+
+       QJsonValue jsDeath = recordsObject["deaths"];
+       QJsonValue jsMonth = recordsObject["month"];
+       QJsonValue jsGeoId = recordsObject["geoId"];
+
+       if (jsGeoId == geoID  && jsMonth == Monat)
+       {
+
+       Datenbank::Gesamt_Tode += jsDeath.toInt();
+
+       }
+   }
+
+   return Datenbank::Gesamt_Tode;
+
+    }
+
+   return -999;
+}
+
+//Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020. Für 2019, wird das auch
+//korrekt angegeben, weil Corona-Daten für keine Monate schon 2 Mal gesammelt wurden
+QString Datenbank::gibDatum(QString Tag, QString Monat)
+{
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+    for (int i=0; i <recordsArray.size(); i++)
+    {
+        QJsonObject recordsObject = recordsArray[i].toObject();
+
+        QJsonValue jsDate = recordsObject["dateRep"];
+        QJsonValue jsMonth = recordsObject["month"];
+        QJsonValue jsDay = recordsObject["day"];
+
+        if (jsDay == Tag  && jsMonth == Monat)
+        {
+        Datenbank::Datum = jsDate.toString();
+        Datenbank::Tag = jsDay.toString();
+        Datenbank::Monat = jsMonth.toString();
+
+        return Datenbank::Datum;
+
+        }
+    }
+}
+
+    return "-999";
+}
+
+//Gibt den englische Name aus Landkennzeichung "geoID". Auf Englisch weil
+//die Namen in der JSON Datei auf Englisch geschireben sind.
+QString Datenbank::gibLand(QString geoID)
+{
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+    for (int i=0; i < recordsArray.size(); i++)
+    {
+        QJsonObject recordsObject = recordsArray[i].toObject();
+
+        QJsonValue jsCountrie = recordsObject["countriesAndTerritories"];
+        QJsonValue jsGeoId = recordsObject["geoId"];
+
+        if (jsGeoId == geoID)
+        {
+
+        Datenbank::Land = jsCountrie.toString();
+        Datenbank::geoID = jsGeoId.toString();
+
+        return Datenbank::Land;
+
+        }
+    }
+
+}
+    return "-999";
+}
+
 //eine Verbindung zur Datenbank "covidShort.json" wird aufgebaut. Man bekommt danach eine Benachrichtigung
 void Datenbank::on_dbConnect_clicked()
 {
@@ -211,35 +375,19 @@ void Datenbank::on_dbConnect_clicked()
 //einen Auszug aus der Datenbank wird tabellarisch dargestellt
 void Datenbank::on_dbShow_clicked()
 {
-    QSqlQueryModel *model = new QSqlQueryModel;
-      model->setQuery("SELECT Datum, anzahlInfiziierte, anzahlTode, Gebiet  FROM covidraw WHERE Monat = '6' AND geoID = 'DE';");
-      model->setHeaderData(0, Qt::Horizontal, tr("Datum"));
-      model->setHeaderData(1, Qt::Horizontal, tr("anzahl von Infiziierte"));
-      model->setHeaderData(2, Qt::Horizontal, tr("anzahl von Toden"));
-      model->setHeaderData(4, Qt::Horizontal, tr("Land"));
-      QTableView *view = new QTableView;
-      view->setModel(model);
-      view->show();
+    dbVoschau* Vorschau = new dbVorschau(this);
+    Vorschau->exec();
 }
 
 //beta
 //...
 void Datenbank::on_dbUpdate_clicked()
 {
-    QSqlQuery query;
-    query.exec ("LOAD DATA INFILE 'C:\\Users\\M. AMOS\\Downloads\\Covid08072020.csv' INTO TABLE CovidRaw FIELDS TERMINATE BY ',' LINES TERMINATEDBY '\n' IGNORE 1 LINES");
-    QMessageBox::information(this, "Aktualisierung", "Daten aktualisiert");
+    jsDbShort();
+
+    QMessageBox::information(this, "Aktualisierung", "Daten erfolgreich aktualisiert");
 }
 
-//beta
-//...
-void Datenbank::on_dbDelete_clicked()
-{
-    QSqlQuery query;
-    query.exec("delete* ;");
-    query.exec("CREATE TABLE 'CovidRaw'('Datum'	TEXT,'Tag'	INTEGER,'Monat'	INTEGER,'Year'	INTEGER,'AnzahlInfiziierte'	INTEGER,'AnzahlTode'	INTEGER,'Gebiet'	TEXT,'GeoID'   TEXT, 'countryterritorycode'	TEXT,'popdata2018'	INTEGER,'Kontinent'	TEXT,PRIMARY KEY('countryterritorycode','Datum'));");
-    QMessageBox::information(this, "Aktualisierung", "Daten bereit zur Aktualisierung");
-}
 
 void Datenbank::on_dbOK_accepted()
 {

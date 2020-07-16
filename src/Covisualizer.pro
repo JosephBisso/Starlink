@@ -18,15 +18,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     datenbank.cpp \
+    dbvorschau.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     datenbank.h \
+    dbvorschau.h \
     mainwindow.h
 
 FORMS += \
     datenbank.ui \
+    dbvorschau.ui \
     mainwindow.ui
 
 # Default rules for deployment.

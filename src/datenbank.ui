@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>612</width>
     <height>432</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
    <string>Datenbank</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="bdRessources.qrc">
     <normaloff>:/bdIMG.jpg</normaloff>:/bdIMG.jpg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -52,10 +52,23 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Es werden Zahlen aus Deutschland vom einem Monat (Juni) vorgestellt </string>
-     </property>
+    <widget class="QFrame" name="formFrame">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Es werden Zahlen aus verschiedenen Länder vom Juni vorgestellt. Sind Daten zu sehen, dann ist die Datenbank verbunden.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Dies kann einige Sekunden dauern.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -81,40 +94,19 @@
    <item>
     <widget class="QPushButton" name="dbUpdate">
      <property name="text">
-      <string>Datenbank aktualisieren (Beta)</string>
+      <string>Datenbank aktualisieren</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Die Datenbank wird aktualiesiert (Beta)</string>
+      <string>Die Datenbank wird aktualiesiert. Bei First Use als Erstes machen</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="dbDelete">
-     <property name="text">
-      <string>Datenbank zurücksetzten (Beta)</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Die Datenbank wird zurückgesetzt (Beta)</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -142,6 +134,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="bdRessources.qrc"/>
+ </resources>
  <connections/>
 </ui>

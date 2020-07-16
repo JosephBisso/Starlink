@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dbVorschau</class>
+ <widget class="QDialog" name="dbVorschau">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>751</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Vorschau</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableWidget" name="tblVorschau">
+     <column>
+      <property name="text">
+       <string>Land</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Datum</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Anzahl Infiziierte</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Anzahl Tode</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Monat</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Gesamt Infiziierte</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Gesamt Tode</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="closeVorschau">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>closeVorschau</sender>
+   <signal>accepted()</signal>
+   <receiver>dbVorschau</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeVorschau</sender>
+   <signal>rejected()</signal>
+   <receiver>dbVorschau</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
