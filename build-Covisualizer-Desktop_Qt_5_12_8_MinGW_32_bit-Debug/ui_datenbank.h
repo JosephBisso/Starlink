@@ -30,15 +30,15 @@ public:
     QLabel *label;
     QFrame *line_2;
     QPushButton *dbShow;
+    QFrame *formFrame;
+    QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
+    QLabel *label_4;
     QFrame *line;
     QSpacerItem *horizontalSpacer;
     QPushButton *dbUpdate;
     QLabel *label_3;
     QFrame *line_3;
-    QPushButton *dbDelete;
-    QLabel *label_4;
-    QFrame *line_4;
     QSpacerItem *horizontalSpacer_2;
     QDialogButtonBox *dbOK;
 
@@ -46,7 +46,7 @@ public:
     {
         if (Datenbank->objectName().isEmpty())
             Datenbank->setObjectName(QString::fromUtf8("Datenbank"));
-        Datenbank->resize(587, 432);
+        Datenbank->resize(612, 432);
         QFont font;
         font.setFamily(QString::fromUtf8("MS Shell Dlg 2"));
         Datenbank->setFont(font);
@@ -77,10 +77,22 @@ public:
 
         verticalLayout->addWidget(dbShow);
 
-        label_2 = new QLabel(Datenbank);
+        formFrame = new QFrame(Datenbank);
+        formFrame->setObjectName(QString::fromUtf8("formFrame"));
+        verticalLayout_2 = new QVBoxLayout(formFrame);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        label_2 = new QLabel(formFrame);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        verticalLayout->addWidget(label_2);
+        verticalLayout_2->addWidget(label_2);
+
+        label_4 = new QLabel(formFrame);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        verticalLayout_2->addWidget(label_4);
+
+
+        verticalLayout->addWidget(formFrame);
 
         line = new QFrame(Datenbank);
         line->setObjectName(QString::fromUtf8("line"));
@@ -110,23 +122,6 @@ public:
 
         verticalLayout->addWidget(line_3);
 
-        dbDelete = new QPushButton(Datenbank);
-        dbDelete->setObjectName(QString::fromUtf8("dbDelete"));
-
-        verticalLayout->addWidget(dbDelete);
-
-        label_4 = new QLabel(Datenbank);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        verticalLayout->addWidget(label_4);
-
-        line_4 = new QFrame(Datenbank);
-        line_4->setObjectName(QString::fromUtf8("line_4"));
-        line_4->setFrameShape(QFrame::HLine);
-        line_4->setFrameShadow(QFrame::Sunken);
-
-        verticalLayout->addWidget(line_4);
-
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         verticalLayout->addItem(horizontalSpacer_2);
@@ -149,11 +144,10 @@ public:
         dbConnect->setText(QApplication::translate("Datenbank", "Verbindung zur Datenbank aufbauen", nullptr));
         label->setText(QApplication::translate("Datenbank", "Es wird eine neue Datenbank erstellt oder eine Verbindung zur existierenden Datenbank augebaut", nullptr));
         dbShow->setText(QApplication::translate("Datenbank", "Vorschau", nullptr));
-        label_2->setText(QApplication::translate("Datenbank", "Es werden Zahlen aus Deutschland vom einem Monat (Juni) vorgestellt ", nullptr));
-        dbUpdate->setText(QApplication::translate("Datenbank", "Datenbank aktualisieren (Beta)", nullptr));
-        label_3->setText(QApplication::translate("Datenbank", "Die Datenbank wird aktualiesiert (Beta)", nullptr));
-        dbDelete->setText(QApplication::translate("Datenbank", "Datenbank zur\303\274cksetzten (Beta)", nullptr));
-        label_4->setText(QApplication::translate("Datenbank", "Die Datenbank wird zur\303\274ckgesetzt (Beta)", nullptr));
+        label_2->setText(QApplication::translate("Datenbank", "Es werden Zahlen aus verschiedenen L\303\244nder vom Juni vorgestellt. Sind Daten zu sehen, dann ist die Datenbank verbunden.", nullptr));
+        label_4->setText(QApplication::translate("Datenbank", "Dies kann einige Sekunden dauern.", nullptr));
+        dbUpdate->setText(QApplication::translate("Datenbank", "Datenbank aktualisieren", nullptr));
+        label_3->setText(QApplication::translate("Datenbank", "Die Datenbank wird aktualiesiert. Bei First Use als Erstes machen", nullptr));
     } // retranslateUi
 
 };

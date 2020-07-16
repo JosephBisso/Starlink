@@ -65,7 +65,7 @@ void Datenbank::jsDbShort()
 
             if (Kontinent == "Europe" )
             {
-                reArrayShort.append(recordsArray[i]);
+                reArrayShort.append(recordsArray[i]); //Nur Länder aus der EU werden gespeichert.
             }
 
 
@@ -77,7 +77,7 @@ void Datenbank::jsDbShort()
 
         QJsonDocument jsDbShort(reObjectShort);
 
-        QFile file2(PfadGeber("Starlink", "covidShort.json" ));
+        QFile file2(PfadGeber("src", "covidShort.json" ));
         file2.open(QIODevice::WriteOnly);
         file2.write(jsDbShort.toJson());
         file2.close();
@@ -88,7 +88,7 @@ void Datenbank::jsDbShort()
 
 
 }
-//Verbindet die JSON Datenbank
+//Verbindet die JSON Datenbank und gint ihn zurück
 QJsonDocument Datenbank::jsDbConnect()
 {
     QFile file (PfadGeber("src", "covidShort.json"));
@@ -107,11 +107,11 @@ QJsonDocument Datenbank::jsDbConnect()
     return jsonDoc;
 }
 
-//Gibt Anzahl von Infizierten am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//Setzt und Gibt Anzahl von Infizierten am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
 int  Datenbank::gibInfiierte(QString Datum, QString geoID)
 {
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -148,13 +148,13 @@ int  Datenbank::gibInfiierte(QString Datum, QString geoID)
    return -999;
 }
 
-//Gibt Gesamztanzahl von Infizierten im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
-//schief gelaufen ist.
+//Setzt und gibt Gesamztanzahl von Infizierten im "Monat" für ein Land mit Kennzeichnung "geoID".
+//Gib "-999", wenn etwas schief gelaufen ist.
 int  Datenbank::gibGesamtInfizierte (QString Monat, QString geoID)
 {
     Datenbank::Gesamt_Infi = 0;
 
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -191,12 +191,12 @@ int  Datenbank::gibGesamtInfizierte (QString Monat, QString geoID)
    return -999;
 }
 
-//Gibt Anzahl von Toden am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//Setzt und Gibt Anzahl von Toden am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
 int  Datenbank::gibTode(QString Datum, QString geoID)
 {
 
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -232,13 +232,13 @@ int  Datenbank::gibTode(QString Datum, QString geoID)
 }
 
 
-//Gibt Gesamztanzahl von Toden im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//Setzt und Gibt Gesamztanzahl von Toden im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
 int  Datenbank::gibGesamtTode (QString Monat, QString geoID)
 {
     Datenbank::Gesamt_Tode = 0;
 
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -275,11 +275,11 @@ int  Datenbank::gibGesamtTode (QString Monat, QString geoID)
    return -999;
 }
 
-//Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020. Für 2019, wird das auch
+//Setzt und Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020. Für 2019, wird das auch
 //korrekt angegeben, weil Corona-Daten für keine Monate schon 2 Mal gesammelt wurden
 QString Datenbank::gibDatum(QString Tag, QString Monat)
 {
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -315,11 +315,11 @@ QString Datenbank::gibDatum(QString Tag, QString Monat)
     return "-999";
 }
 
-//Gibt den englische Name aus Landkennzeichung "geoID". Auf Englisch weil
+//Setzt und Gibt den englische Name aus Landkennzeichung "geoID". Auf Englisch weil
 //die Namen in der JSON Datei auf Englisch geschireben sind.
 QString Datenbank::gibLand(QString geoID)
 {
-    QFile file (PfadGeber("Starlink", "covidShort.json"));
+    QFile file (PfadGeber("src", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -375,12 +375,11 @@ void Datenbank::on_dbConnect_clicked()
 //einen Auszug aus der Datenbank wird tabellarisch dargestellt
 void Datenbank::on_dbShow_clicked()
 {
-    dbVoschau* Vorschau = new dbVorschau(this);
+    dbVorschau* Vorschau = new dbVorschau(this);
     Vorschau->exec();
 }
 
-//beta
-//...
+
 void Datenbank::on_dbUpdate_clicked()
 {
     jsDbShort();
