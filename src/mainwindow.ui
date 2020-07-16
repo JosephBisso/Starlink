@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
-    <height>1100</height>
+    <width>100</width>
+    <height>100</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -25,8 +25,15 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="bdRessources.qrc">
+    <normaloff>:/Landkarte.jpg</normaloff>:/Landkarte.jpg</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_pic">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -37,8 +44,8 @@
     </property>
     <property name="minimumSize">
      <size>
-      <width>1000</width>
-      <height>1000</height>
+      <width>500</width>
+      <height>500</height>
      </size>
     </property>
     <property name="maximumSize">
@@ -47,8 +54,17 @@
       <height>1000</height>
      </size>
     </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="bdRessources.qrc">:/Landkarte.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Frankreich">
@@ -72,17 +88,17 @@
       <height>151</height>
      </size>
     </property>
-    <property name="text">
-     <string>Frankreich</string>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <property name="autoDefault">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="default">
      <bool>false</bool>
     </property>
     <property name="flat">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Deutschland">
@@ -94,8 +110,11 @@
       <height>151</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Deutschland</string>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Spanien">
@@ -106,9 +125,6 @@
       <width>151</width>
       <height>161</height>
      </rect>
-    </property>
-    <property name="text">
-     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -123,9 +139,6 @@
       <height>131</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
-    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -139,8 +152,8 @@
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Andorra</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Belgien">
@@ -152,8 +165,8 @@
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Belgien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Niederlande">
@@ -165,8 +178,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Niederlande</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Schweiz">
@@ -178,8 +191,8 @@
       <height>61</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Schweiz</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Oesterreich">
@@ -191,8 +204,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Österreich</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Grossbritannien">
@@ -204,8 +217,8 @@
       <height>221</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Großbritannien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Irland">
@@ -217,8 +230,8 @@
       <height>91</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Irland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Island">
@@ -230,8 +243,8 @@
       <height>81</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Island</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Polen">
@@ -243,8 +256,8 @@
       <height>101</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Polen</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Tschechien">
@@ -256,8 +269,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Tschechien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Slowakei">
@@ -269,8 +282,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Slowakei</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Ungarn">
@@ -282,8 +295,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Ungarn</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Italien">
@@ -295,8 +308,8 @@
       <height>231</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Italien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Slowenien">
@@ -308,8 +321,8 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Slowenien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Kroatien">
@@ -321,8 +334,8 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Kroatien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Bosnien">
@@ -334,8 +347,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Bosnien Herzegowina</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Montenegro">
@@ -347,8 +360,8 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Montenegro</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Kosovo">
@@ -360,11 +373,8 @@
       <height>21</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Kosovo</string>
-    </property>
     <property name="flat">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Serbien">
@@ -376,8 +386,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Serbien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Rumanien">
@@ -389,8 +399,8 @@
       <height>111</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Rumämien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Albanien">
@@ -402,8 +412,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Albanien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Mazedonien">
@@ -415,8 +425,8 @@
       <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Mazedonien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Bulgarien">
@@ -428,8 +438,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Bulgarien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Griechenland">
@@ -441,8 +451,8 @@
       <height>151</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Griechenland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Moldawien">
@@ -454,8 +464,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Moldawien</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Ukraine">
@@ -467,8 +477,8 @@
       <height>91</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Ukraine</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Weissrussland">
@@ -480,8 +490,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Weißrussland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Daenemark">
@@ -493,8 +503,8 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Dänemark</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Norwegen">
@@ -506,8 +516,8 @@
       <height>241</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Norwegen</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Schweden">
@@ -519,8 +529,8 @@
       <height>281</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Schweden</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Finnland">
@@ -532,8 +542,8 @@
       <height>241</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Finnland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Estland">
@@ -545,8 +555,8 @@
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Estland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Lettland">
@@ -558,8 +568,8 @@
       <height>41</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Lettland</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Litauen">
@@ -571,10 +581,49 @@
       <height>61</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Litauen</string>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
+   <zorder>label_pic</zorder>
+   <zorder>Finnland</zorder>
+   <zorder>Montenegro</zorder>
+   <zorder>Tschechien</zorder>
+   <zorder>Moldawien</zorder>
+   <zorder>Slowenien</zorder>
+   <zorder>Bosnien</zorder>
+   <zorder>Griechenland</zorder>
+   <zorder>Estland</zorder>
+   <zorder>Norwegen</zorder>
+   <zorder>Lettland</zorder>
+   <zorder>Ungarn</zorder>
+   <zorder>Deutschland</zorder>
+   <zorder>Kosovo</zorder>
+   <zorder>Mazedonien</zorder>
+   <zorder>Portugal</zorder>
+   <zorder>Ukraine</zorder>
+   <zorder>Serbien</zorder>
+   <zorder>Weissrussland</zorder>
+   <zorder>Schweden</zorder>
+   <zorder>Rumanien</zorder>
+   <zorder>Spanien</zorder>
+   <zorder>Polen</zorder>
+   <zorder>Belgien</zorder>
+   <zorder>Andorra</zorder>
+   <zorder>Schweiz</zorder>
+   <zorder>Bulgarien</zorder>
+   <zorder>Niederlande</zorder>
+   <zorder>Italien</zorder>
+   <zorder>Irland</zorder>
+   <zorder>Island</zorder>
+   <zorder>Grossbritannien</zorder>
+   <zorder>Frankreich</zorder>
+   <zorder>Albanien</zorder>
+   <zorder>Oesterreich</zorder>
+   <zorder>Litauen</zorder>
+   <zorder>Kroatien</zorder>
+   <zorder>Daenemark</zorder>
+   <zorder>Slowakei</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -591,8 +640,6 @@
     </property>
     <addaction name="actionNew_Windows"/>
    </widget>
-   <addaction name="menuFile"/>
-  </widget>
    <widget class="QMenu" name="menuDatei">
     <property name="title">
      <string>Datei</string>
@@ -600,11 +647,17 @@
     <addaction name="actionDatenbank"/>
    </widget>
    <addaction name="menuDatei"/>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew_Windows">
    <property name="text">
     <string>Wie benutze ich die Karte?</string>
+   </property>
+  </action>
+  <action name="actionDatenba">
+   <property name="text">
+    <string>Datenbank</string>
    </property>
   </action>
   <action name="actionDatenbank">
@@ -613,6 +666,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="bdRessources.qrc"/>
+ </resources>
  <connections/>
 </ui>

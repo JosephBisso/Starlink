@@ -16,14 +16,20 @@ dbVorschau::~dbVorschau()
     delete ui;
 }
 
-//Die Tabelle wird gefüllt
+//Die Tabelle wird gefüllt. Das ausführliche Schreiben der Methoden dient zur Verifikation deren Effektivität
 void dbVorschau::VorschauFillTable()
 {
     //Objekt der Klasse Datenbank erstellen, um die Methoden der Klasse Datenbank benutzen zu können
-    Datenbank DbVorschauDE, DbVorschauFR, DbVorschauIT, DbVorschauAL, DbVorschauES;
+    databank DbVorschauDE, DbVorschauFR, DbVorschauIT, DbVorschauAL, DbVorschauES;
 
     QString Datum = DbVorschauDE.gibDatum("01", "06"); //setzt und gibt Datum aus Tag "01" und Monat "06".
                                                        //Hier: 01/06/2020.
+
+    QString Datum2 = DbVorschauAL.gibDatum("01", "05");
+
+    QString Monat = DbVorschauDE.gibMonat("06");
+    QString Monat2 = DbVorschauAL.gibMonat("05");
+
 
     QString InfiziierteDE = QString::number(DbVorschauDE.gibInfiierte(Datum, "DE"));
    // Die Anzahl von Infiierte am "Datum" für Deutschland aus der Datenbank
@@ -43,18 +49,18 @@ void dbVorschau::VorschauFillTable()
     QString gsmtTodeFR = QString::number (DbVorschauFR.gibGesamtTode("06", "FR"));
 
 
-    QString InfiziierteIT = QString::number(DbVorschauIT.gibInfiierte(Datum, "IT"));
-    QString TodeIT = QString::number(DbVorschauIT.gibTode(Datum, "IT" ));
+    QString InfiziierteIT = QString::number(DbVorschauIT.gibInfiierte(Datum2, "IT"));
+    QString TodeIT = QString::number(DbVorschauIT.gibTode(Datum2, "IT" ));
     QString LandIT = DbVorschauIT.gibLand("IT");
-    QString gsmtInfiIT = QString::number (DbVorschauIT.gibGesamtInfizierte("06", "IT"));
-    QString gsmtTodeIT = QString::number (DbVorschauIT.gibGesamtTode("06", "IT"));
+    QString gsmtInfiIT = QString::number (DbVorschauIT.gibGesamtInfizierte("05", "IT"));
+    QString gsmtTodeIT = QString::number (DbVorschauIT.gibGesamtTode("05", "IT"));
 
 
-    QString InfiziierteAL = QString::number(DbVorschauAL.gibInfiierte(Datum, "AL"));
-    QString TodeAL = QString::number(DbVorschauAL.gibTode(Datum, "AL" ));
+    QString InfiziierteAL = QString::number(DbVorschauAL.gibInfiierte(Datum2, "AL"));
+    QString TodeAL = QString::number(DbVorschauAL.gibTode(Datum2, "AL" ));
     QString LandAL = DbVorschauAL.gibLand("AL");
-    QString gsmtInfiAL = QString::number (DbVorschauAL.gibGesamtInfizierte("06", "AL"));
-    QString gsmtTodeAL = QString::number (DbVorschauAL.gibGesamtTode("06", "AL"));
+    QString gsmtInfiAL = QString::number (DbVorschauAL.gibGesamtInfizierte("05", "AL"));
+    QString gsmtTodeAL = QString::number (DbVorschauAL.gibGesamtTode("05", "AL"));
 
 
     QString InfiziierteES = QString::number(DbVorschauES.gibInfiierte(Datum, "ES"));
@@ -67,7 +73,7 @@ void dbVorschau::VorschauFillTable()
     ui->tblVorschau->setRowCount(0);
     ui->tblVorschau->insertRow(0);
     ui->tblVorschau->setItem(0, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(0, 4, new QTableWidgetItem("Juni")); //hier "Juni" anstatt "06" fürs Verständnis
+    ui->tblVorschau->setItem(0, 4, new QTableWidgetItem(Monat));
     ui->tblVorschau->setItem(0, 2, new QTableWidgetItem(InfiziierteDE));
     ui->tblVorschau->setItem(0, 5, new QTableWidgetItem(gsmtInfiDE));
     ui->tblVorschau->setItem(0, 3, new QTableWidgetItem(TodeDE));
@@ -76,7 +82,7 @@ void dbVorschau::VorschauFillTable()
 
     ui->tblVorschau->insertRow(1);
     ui->tblVorschau->setItem(1, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(1, 4, new QTableWidgetItem("Juni"));
+    ui->tblVorschau->setItem(1, 4, new QTableWidgetItem(Monat));
     ui->tblVorschau->setItem(1, 2, new QTableWidgetItem(InfiziierteFR));
     ui->tblVorschau->setItem(1, 5, new QTableWidgetItem(gsmtInfiFR));
     ui->tblVorschau->setItem(1, 3, new QTableWidgetItem(TodeFR));
@@ -85,7 +91,7 @@ void dbVorschau::VorschauFillTable()
 
     ui->tblVorschau->insertRow(2);
     ui->tblVorschau->setItem(2, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(2, 4, new QTableWidgetItem("Juni"));
+    ui->tblVorschau->setItem(2, 4, new QTableWidgetItem(Monat));
     ui->tblVorschau->setItem(2, 2, new QTableWidgetItem(InfiziierteES));
     ui->tblVorschau->setItem(2, 5, new QTableWidgetItem(gsmtInfiES));
     ui->tblVorschau->setItem(2, 3, new QTableWidgetItem(TodeES));
@@ -93,8 +99,8 @@ void dbVorschau::VorschauFillTable()
     ui->tblVorschau->setItem(2, 0, new QTableWidgetItem(LandES));
 
     ui->tblVorschau->insertRow(3);
-    ui->tblVorschau->setItem(3, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(3, 4, new QTableWidgetItem("Juni"));
+    ui->tblVorschau->setItem(3, 1, new QTableWidgetItem(Datum2));
+    ui->tblVorschau->setItem(3, 4, new QTableWidgetItem(Monat2));
     ui->tblVorschau->setItem(3, 2, new QTableWidgetItem(InfiziierteIT));
     ui->tblVorschau->setItem(3, 5, new QTableWidgetItem(gsmtInfiIT));
     ui->tblVorschau->setItem(3, 3, new QTableWidgetItem(TodeIT));
@@ -102,8 +108,8 @@ void dbVorschau::VorschauFillTable()
     ui->tblVorschau->setItem(3, 0, new QTableWidgetItem(LandIT));
 
     ui->tblVorschau->insertRow(4);
-    ui->tblVorschau->setItem(4, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(4, 4, new QTableWidgetItem("Juni"));
+    ui->tblVorschau->setItem(4, 1, new QTableWidgetItem(Datum2));
+    ui->tblVorschau->setItem(4, 4, new QTableWidgetItem(Monat2));
     ui->tblVorschau->setItem(4, 2, new QTableWidgetItem(InfiziierteAL));
     ui->tblVorschau->setItem(4, 5, new QTableWidgetItem(gsmtInfiAL));
     ui->tblVorschau->setItem(4, 3, new QTableWidgetItem(TodeAL));

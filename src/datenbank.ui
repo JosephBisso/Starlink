@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>612</width>
+    <width>630</width>
     <height>432</height>
    </rect>
   </property>
@@ -20,7 +20,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="bdRessources.qrc">
-    <normaloff>:/bdIMG.jpg</normaloff>:/bdIMG.jpg</iconset>
+    <normaloff>:/dbIMG.png</normaloff>:/dbIMG.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -8,14 +8,19 @@
 #include <QtCore>
 #include <QMessageBox>
 
+#include "databank.h"
 #include "datenbank.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap pix("C:/Users/Toni H/Desktop/Landkarte.jpg");
+
+    databank File;
+    QPixmap pix(File.PfadGeber("img", "Landkarte.jpg" ));
+
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
 
