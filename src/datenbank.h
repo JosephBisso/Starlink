@@ -12,6 +12,11 @@
 #include <QSqlQueryModel>
 #include <QTableView>
 #include <QFileInfo>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QFile>
 
 
 namespace Ui {

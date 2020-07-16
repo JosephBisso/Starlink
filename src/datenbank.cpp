@@ -26,22 +26,186 @@ QString Datenbank::PfadGeber(QString dir, QString file)
     return PfadFile;
 }
 
-//eine Verbindung zur Datenbank "Datenbank.sqlite" wird aufgebaut. Man bekommt danach eine Benachrichtigung
+//Reduziert Daten in Datenbank auf die nötigen (EU-Länder)
+void Datenbank::jsDbShort()
+{
+    QJsonArray reArrayShort;
+
+    QFile file (PfadGeber("lib", "covid13072020.json" ));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+
+        QJsonObject jsonObject = jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+        for (int i=0; i < recordsArray.size(); i++)
+        {
+            QJsonObject recordsObject = recordsArray[i].toObject();
+            QJsonValue jsKontinent = recordsObject["continentExp"];
+            QString Kontinent = jsKontinent.toString();
+
+            QJsonValue jsDate = recordsObject["dateRep"];
+            QJsonValue jsMonth = recordsObject["month"];
+            QJsonValue jsYear = recordsObject["year"];
+            QJsonValue jsDay = recordsObject["day"];
+            QJsonValue jsCases = recordsObject["cases"];
+            QJsonValue jsDeaths = recordsObject["deaths"];
+            QJsonValue jsCountrie = recordsObject["countriesAndTerritories"];
+            QJsonValue jsGeoId = recordsObject["geoId"];
+            QJsonValue jsA = recordsObject["countryterritoryCode"];
+            QJsonValue jsB = recordsObject["popData2019"];
+            QJsonValue jsC = recordsObject["Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
+
+            if (Kontinent == "Europe" )
+            {
+                reArrayShort.append(recordsArray[i]);
+            }
+
+
+        }
+
+
+        QJsonObject reObjectShort;
+        reObjectShort["records"] = reArrayShort;
+
+        QJsonDocument jsDbShort(reObjectShort);
+
+        QFile file2(PfadGeber("Starlink", "covidShort.json" ));
+        file2.open(QIODevice::WriteOnly);
+        file2.write(jsDbShort.toJson());
+        file2.close();
+
+
+
+    }
+
+
+}
+//Verbindet die JSON Datenbank
+QJsonDocument Datenbank::jsDbConnect()
+{
+    QFile file (PfadGeber("src", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        return jsonDoc;
+    }
+
+    return jsonDoc;
+}
+
+//Gibt Anzahl von Infizierten am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//schief gelaufen ist.
+int  Datenbank::gibInfiierte(QString Datum, QString geoID)
+{
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+   for (int i=0; i < recordsArray.size(); i++)
+   {
+       QJsonObject recordsObject = recordsArray[i].toObject();
+
+       QJsonValue jsCases = recordsObject["cases"];
+       QJsonValue jsDate = recordsObject["dateRep"];
+       QJsonValue jsGeoId = recordsObject["geoId"];
+
+       if (jsGeoId == geoID  && jsDate == Datum)
+       {
+
+       Datenbank::Infiziierte = jsCases.toInt();
+
+       return Datenbank::Infiziierte;
+
+       }
+   }
+
+    }
+
+   return -999;
+}
+
+//Gibt Gesamztanzahl von Infizierten im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
+//schief gelaufen ist.
+int  Datenbank::gibGesamtInfizierte (QString Monat, QString geoID)
+{
+    Datenbank::Gesamt_Infi = 0;
+
+    QFile file (PfadGeber("Starlink", "covidShort.json"));
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+   for (int i=0; i < recordsArray.size(); i++)
+   {
+       QJsonObject recordsObject = recordsArray[i].toObject();
+
+       QJsonValue jsCases = recordsObject["cases"];
+       QJsonValue jsMonth = recordsObject["month"];
+       QJsonValue jsGeoId = recordsObject["geoId"];
+
+       if (jsGeoId == geoID  && jsMonth == Monat)
+       {
+
+       Datenbank::Gesamt_Infi += jsCases.toInt();
+
+       }
+   }
+
+   return Datenbank::Gesamt_Infi;
+
+    }
+
+   return -999;
+}
+
+//eine Verbindung zur Datenbank "covidShort.json" wird aufgebaut. Man bekommt danach eine Benachrichtigung
 void Datenbank::on_dbConnect_clicked()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    jsDbConnect();
 
+    if (jsDbConnect().isEmpty())
+    {
+        QMessageBox::information(this, "Verbindung", "Verbindung zur Datenbank könnte nicht aufgebaut werden."
+                                                     "Versuchen Sie die Datenbank erstmal zu aktualiesiren");
 
-       db.setDatabaseName(PfadGeber("src", "Datenbank.sqlite"));
+    }
 
-       bool ok = db.open();
+    else {
 
-       if (ok == true) {
-           QMessageBox::information(this, "Verbindung", "Verbindung zur Datenbank erfolgreich aufgebaut");}
-
-       else {
-           QMessageBox::information(this, "Verbindung", "Keine Verbindung zur Datenbank möglich");
-       }
+        QMessageBox::information(this, "Verdindung","Verbindung zur Datenbank gelungen"  );
+    }
 }
 
 //einen Auszug aus der Datenbank wird tabellarisch dargestellt
