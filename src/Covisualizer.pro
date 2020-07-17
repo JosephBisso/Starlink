@@ -1,6 +1,8 @@
 QT += core gui
 QT += network
 
+INCLUDEPATH += C:/Users/david/Desktop/TU Braunschweig/Anwendungsorientierte Programmierung für Ingos/pm-starlink/lib
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
