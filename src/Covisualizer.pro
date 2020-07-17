@@ -1,7 +1,11 @@
 QT += core gui
 QT += network
 
-INCLUDEPATH += C:/Users/david/Desktop/TU Braunschweig/Anwendungsorientierte Programmierung für Ingos/pm-starlink/lib
+# Integration von OpenSSL-Bibliotheken unter dem angegeben Pfad
+LIBS +=-L$$quote(C:/Users/david/Desktop/CovisualizerBuild/lib)
+-libcrypto-1_1-x64
+-libssl-1_1-x64
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,10 +23,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    downloader.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    downloader.h \
     mainwindow.h
 
 FORMS += \
