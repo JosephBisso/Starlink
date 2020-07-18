@@ -24,7 +24,7 @@ Datenbank::~Datenbank()
 //Das wird hier im if Satz genutzt
 void Datenbank::on_dbConnect_clicked()
 {
-    ui->progressBar->setValue(60); //ProgressBar in der UI.
+    ui->progressBar->setValue(80); //ProgressBar in der UI.
 
 
     if (datenbank.jsDbConnect().isEmpty())
@@ -47,11 +47,11 @@ void Datenbank::on_dbConnect_clicked()
 //einen Auszug aus der Datenbank wird tabellarisch dargestellt
 void Datenbank::on_dbShow_clicked()
 {
-    ui->progressBar->setValue(30); //ProgressBar in der UI.
+    ui->progressBar->setValue(45); //ProgressBar in der UI.
 
     dbVorschau* Vorschau = new dbVorschau(this);
 
-    ui->progressBar->setValue(95);
+    ui->progressBar->setValue(100);
 
     Vorschau->exec();
 
