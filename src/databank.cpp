@@ -7,24 +7,6 @@ databank::databank(QObject *parent) : QObject(parent)
 
 }
 
-//Gibt den absoluten Pfad 'PfadFilfe' für eine Datei 'File' im Ordner "dir"
-
-/*Der Pfad der Datei "main.cpp", die sich beim Ausführen des Programms normalerweise im
- * einem Build Ordner befindet wird als QString gewonnen, die letzten Zeichen des Pfades
- * die normalerweise zu dem Build Ordner führen wird gelöscht und durch
- * den gewünschten Ordner "dir", \\, und die gewünschte Datein "file" ersetzt
- */
-QString databank::PfadGeber(QString dir, QString file)
-{
-    QFileInfo ref("main.cpp");
-    QString refString = ref.absoluteFilePath();
-    int y = refString.lastIndexOf("build");
-    int z = refString.lastIndexOf(".cpp");
-    QString refLast = refString.remove(y, z-y+5);
-    QString PfadFile = refLast + dir + "\\" + file;
-
-    return PfadFile;
-}
 
 //Reduziert Daten in Datenbank auf die nötigen (EU-Länder)
 
@@ -34,7 +16,8 @@ QString databank::PfadGeber(QString dir, QString file)
  * Die JSON Datei wird durchgelesen und alle Objekte, die als Kontinent Europa
  * haben (in der JsonDatei: "continentExp" : "Europe") werden in einem neuen
  * QJsonArray hinzugefügt. Die Zeilen zum Schreiben einer Json Datei kommen wieder
- * aus der Vorlesung. Wenn alles wie geplant funktionniert wird done = true gesetzt.
+ * aus der Vorlesung. Da die eben geschriebene Datei nur ein Auszug aus der Hauptdatei ist,
+ * wird sie nur als ZwischenSpeicher gespeichert (im Build Ordner). Wenn alles wie geplant funktionniert wird done = true gesetzt.
  */
 void databank::jsDbShort()
 {
@@ -75,7 +58,7 @@ void databank::jsDbShort()
 
         QJsonDocument jsDbShort(reObjectShort);
 
-        QFile file2(PfadGeber("lib", "covidShort.json" ));
+        QFile file2("covidShort.json");
 
         if(file2.open(QIODevice::WriteOnly))
         {
@@ -99,7 +82,7 @@ void databank::jsDbShort()
  */
 QJsonDocument databank::jsDbConnect()
 {
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -122,7 +105,7 @@ QJsonDocument databank::jsDbConnect()
 //wenn die Datei nicht gelesen werden konnte
 int  databank::gibInfiierte(QString Datum, QString geoID)
 {
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -167,7 +150,7 @@ int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
 {
     databank::Gesamt_Infi = 0;
 
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -210,7 +193,7 @@ int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
 int  databank::gibTode(QString Datum, QString geoID)
 {
 
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -253,7 +236,7 @@ int  databank::gibGesamtTode (QString Monat, QString geoID)
 {
     databank::Gesamt_Tode = 0;
 
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -300,7 +283,7 @@ int  databank::gibGesamtTode (QString Monat, QString geoID)
  */
 QString databank::gibDatum(QString Tag, QString Monat)
 {
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 
@@ -365,7 +348,7 @@ QString databank::gibMonat(QString Monat)
 //die Namen in der JSON Datei auf Englisch geschrieben sind.
 QString databank::gibLand(QString geoID)
 {
-    QFile file (PfadGeber("lib", "covidShort.json"));
+    QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
 

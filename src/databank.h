@@ -16,8 +16,6 @@ class databank : public QObject
 public:
     explicit databank(QObject *parent = nullptr);
 
-    QString PfadGeber(QString dir, QString file); //Gibt den absoluten Pfad für eine Datei 'File' im Ordner "dir"
-
     int  gibInfiierte(QString Datum, QString geoID); //Setzt und Gibt Anzahl von Infizierten am "Datum" für ein Land
                                                      //mit Kennzeichnung "geoID"
 
