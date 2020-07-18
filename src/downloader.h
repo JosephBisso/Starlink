@@ -11,6 +11,7 @@
 #include <QDir>
 #include <QtDebug>
 
+
 class Downloader : public QWidget
 {
     Q_OBJECT
@@ -20,6 +21,8 @@ public:
     void getFile(QUrl fileURL, QString fileName);
 
 private:
+    QFile *openFileForWrite(const QString &fileName);
+
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QFile *file;

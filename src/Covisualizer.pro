@@ -2,7 +2,7 @@ QT += core gui
 QT += network
 
 # Integration von OpenSSL-Bibliotheken unter dem angegeben Pfad
-LIBS +=-L$$quote(C:/Users/david/Desktop/CovisualizerBuild/lib)
+LIBS += -L$$OUT_PWD/lib
 -libcrypto-1_1-x64
 -libssl-1_1-x64
 
@@ -38,3 +38,5 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

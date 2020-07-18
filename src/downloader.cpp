@@ -16,16 +16,6 @@ Downloader::~Downloader()
 
 void Downloader::getFile(QUrl fileURL, QString fileName)
 {
-
-    QDir dir;
-    if(dir.exists(fileName)){
-        //qDebug() << "Existis: " + folderName;
-    }
-    else{
-        dir.mkdir(fileName);
-        //() << "Created: " + folderName;
-    }
-
     QNetworkRequest request;
     request.setUrl(fileURL);
     reply = manager->get(request);
@@ -44,7 +34,7 @@ void Downloader::getFile(QUrl fileURL, QString fileName)
 
 void Downloader::onDownloadProgress(qint64 bytesRead,qint64 bytesTotal)
 {
-    qDebug(QString::number(bytesRead).toLatin1() +" - "+ QString::number(bytesTotal).toLatin1());
+    qDebug() << bytesRead << " - " << bytesTotal;
 }
 
 void Downloader::onFinished(QNetworkReply *reply)
@@ -72,10 +62,12 @@ void Downloader::onReadyRead()
     qDebug() << "Ready";
     file->open(QIODevice::WriteOnly);
     file->write(reply->readAll());
+
 }
 
 void Downloader::onReplyFinished()
 {
+
     if(file->isOpen())
     {
         file->close();
