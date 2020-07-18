@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>Landkarte.jpg</file>
         <file>dbIMG.png</file>
+        <file>covidRaw.json</file>
     </qresource>
 </RCC>

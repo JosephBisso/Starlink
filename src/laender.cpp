@@ -7,7 +7,10 @@ Laender::Laender(QObject *parent) : QObject(parent)
    //int ok = DbLandDaten.Infiziierte;
 
 }
-
+ // Für ein Tag "dd", und Monat "mm" und für ein Land mit geoID "geoID"
+//wird erstmal die geoID gespeichert und dann die Daten aus der Datenbank "covidShort.Json"
+//dank derMethonde aus der Klasse databank  gelesen und  im Attribut "DbLandDaten" vom Typ databank
+// der Klasse Laender gespeichert.
 void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 {
     DbLandDaten.geoID = geoID;

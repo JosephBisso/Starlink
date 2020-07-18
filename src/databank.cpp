@@ -1,11 +1,19 @@
 #include "databank.h"
 
+#include <QMessageBox>
+
 databank::databank(QObject *parent) : QObject(parent)
 {
 
 }
 
 //Gibt den absoluten Pfad 'PfadFilfe' für eine Datei 'File' im Ordner "dir"
+
+/*Der Pfad der Datei "main.cpp", die sich beim Ausführen des Programms normalerweise im
+ * einem Build Ordner befindet wird als QString gewonnen, die letzten Zeichen des Pfades
+ * die normalerweise zu dem Build Ordner führen wird gelöscht und durch
+ * den gewünschten Ordner "dir", \\, und die gewünschte Datein "file" ersetzt
+ */
 QString databank::PfadGeber(QString dir, QString file)
 {
     QFileInfo ref("main.cpp");
@@ -19,11 +27,22 @@ QString databank::PfadGeber(QString dir, QString file)
 }
 
 //Reduziert Daten in Datenbank auf die nötigen (EU-Länder)
+
+/*Das Attribut (bool) done, zum Sicherstellen, ob der Vorgang erfolgreich war oder nicht .
+ * Die Daten covidRaw.json mit den Covid Zahlen wird geöffnet un in einem QJsonDocument gespeichert
+ *Die Zeilen zum Lesen von Json Datei wurden aus der Vorlesung geguckt und angepast.
+ * Die JSON Datei wird durchgelesen und alle Objekte, die als Kontinent Europa
+ * haben (in der JsonDatei: "continentExp" : "Europe") werden in einem neuen
+ * QJsonArray hinzugefügt. Die Zeilen zum Schreiben einer Json Datei kommen wieder
+ * aus der Vorlesung. Wenn alles wie geplant funktionniert wird done = true gesetzt.
+ */
 void databank::jsDbShort()
 {
+    this->done = false;
+
     QJsonArray reArrayShort;
 
-    QFile file (PfadGeber("lib", "covid13072020.json" ));
+    QFile file (":/covidRaw.json");
 
     QJsonDocument jsonDoc;
 
@@ -42,18 +61,6 @@ void databank::jsDbShort()
             QJsonValue jsKontinent = recordsObject["continentExp"];
             QString Kontinent = jsKontinent.toString();
 
-            QJsonValue jsDate = recordsObject["dateRep"];
-            QJsonValue jsMonth = recordsObject["month"];
-            QJsonValue jsYear = recordsObject["year"];
-            QJsonValue jsDay = recordsObject["day"];
-            QJsonValue jsCases = recordsObject["cases"];
-            QJsonValue jsDeaths = recordsObject["deaths"];
-            QJsonValue jsCountrie = recordsObject["countriesAndTerritories"];
-            QJsonValue jsGeoId = recordsObject["geoId"];
-            QJsonValue jsA = recordsObject["countryterritoryCode"];
-            QJsonValue jsB = recordsObject["popData2019"];
-            QJsonValue jsC = recordsObject["Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
-
             if (Kontinent == "Europe" )
             {
                 reArrayShort.append(recordsArray[i]); //Nur Länder aus der EU werden gespeichert.
@@ -68,21 +75,31 @@ void databank::jsDbShort()
 
         QJsonDocument jsDbShort(reObjectShort);
 
-        QFile file2(PfadGeber("src", "covidShort.json" ));
-        file2.open(QIODevice::WriteOnly);
-        file2.write(jsDbShort.toJson());
-        file2.close();
+        QFile file2(PfadGeber("lib", "covidShort.json" ));
+
+        if(file2.open(QIODevice::WriteOnly))
+        {
+           file2.write(jsDbShort.toJson());
+           file2.close();
+
+           this->done = true;
+        }
 
 
 
     }
 
 
+
 }
 //Verbindet die JSON Datenbank und gint ihn zurück
+
+/*Die zuvor geschriebene Json Datei "covidShort.json" mit nur Europaländer drin wird geöffnet
+ * und in einem QJsonDocument gespeichert
+ */
 QJsonDocument databank::jsDbConnect()
 {
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -98,11 +115,14 @@ QJsonDocument databank::jsDbConnect()
     return jsonDoc;
 }
 
-//Setzt und Gibt Anzahl von Infizierten am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
-//schief gelaufen ist.
+
+//Liest die Anzahl von Infizierten am "Datum" für ein Land mit Kennzeichnung "geoID"
+// aus der Json Datein "covidShort.json" (in der Json Datei:"dateRep", "geoId", "Cases"), gibt
+//sie uns zurück und speichert sie im Attribut "Infiziierte" der Klasse databank. Gib "-999",
+//wenn die Datei nicht gelesen werden konnte
 int  databank::gibInfiierte(QString Datum, QString geoID)
 {
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -139,13 +159,15 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
    return -999;
 }
 
-//Setzt und gibt Gesamztanzahl von Infizierten im "Monat" für ein Land mit Kennzeichnung "geoID".
-//Gib "-999", wenn etwas schief gelaufen ist.
+//Liest die Anzahl von Infizierten in einem Monat im Format "mm" für ein Land mit Kennzeichnung "geoID"
+// aus der Json Datein "covidShort.json" und additionniert sie (in der Json Datei:"month", "geoId", "Cases")
+//Das Ergebnis wird uns zurückgeben und im Attribut "Gesamt_Infi" der Klasse databank gespeichert. Gib "-999",
+//wenn die Datei nicht gelesen werden konnte
 int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
 {
     databank::Gesamt_Infi = 0;
 
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -182,12 +204,13 @@ int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
    return -999;
 }
 
+//Analog zur obigen Methode gibIfiziierte
 //Setzt und Gibt Anzahl von Toden am "Datum" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
 int  databank::gibTode(QString Datum, QString geoID)
 {
 
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -223,13 +246,14 @@ int  databank::gibTode(QString Datum, QString geoID)
 }
 
 
+//Analog zur obigen Methode gibGesamtInfiziierte
 //Setzt und Gibt Gesamztanzahl von Toden im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
 int  databank::gibGesamtTode (QString Monat, QString geoID)
 {
     databank::Gesamt_Tode = 0;
 
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -268,9 +292,15 @@ int  databank::gibGesamtTode (QString Monat, QString geoID)
 
 //Setzt und Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020. Für 2019, wird das auch
 //korrekt angegeben, weil Corona-Daten für keine Monate schon 2 Mal gesammelt wurden
+
+/*Liest das "Datum" für ein Tag im Format "dd" und Monat "mm "aus der Json Datein
+ * "covidShort.json" (in der Json Datei:"dateRep", "day", "month"), gibt
+ *es uns zurück und speichert sie im Attribut "Datum" der Klasse databank. Gib "-999",
+ *wenn die Datei nicht gelesen werden konnte
+ */
 QString databank::gibDatum(QString Tag, QString Monat)
 {
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 
@@ -309,8 +339,6 @@ QString databank::gibDatum(QString Tag, QString Monat)
 //Gibt aus Monat im Format "mm" den Namen des Monats.
 QString databank::gibMonat(QString Monat)
 {
-    gibDatum("01", Monat);
-
     QString nMonat;
 
     switch(Monat.toInt())
@@ -332,11 +360,12 @@ QString databank::gibMonat(QString Monat)
     return nMonat;
 }
 
-//Setzt und Gibt den englische Name aus Landkennzeichung "geoID". Auf Englisch weil
-//die Namen in der JSON Datei auf Englisch geschireben sind.
+//Lies aus der Json Datein "covidShort.json" , speichert und Gibt den
+//englischen Namen aus Landkennzeichung "geoID". Auf Englisch weil
+//die Namen in der JSON Datei auf Englisch geschrieben sind.
 QString databank::gibLand(QString geoID)
 {
-    QFile file (PfadGeber("src", "covidShort.json"));
+    QFile file (PfadGeber("lib", "covidShort.json"));
 
     QJsonDocument jsonDoc;
 

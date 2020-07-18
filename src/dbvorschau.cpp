@@ -1,6 +1,7 @@
 #include "dbvorschau.h"
 #include "ui_dbvorschau.h"
 #include "datenbank.h"
+#include "ui_datenbank.h"
 
 dbVorschau::dbVorschau(QWidget *parent) :
     QDialog(parent),
@@ -46,8 +47,7 @@ void dbVorschau::VorschauFillTable()
     QString TodeFR = QString::number(DbVorschauFR.gibTode(Datum, "FR" ));
     QString LandFR = DbVorschauFR.gibLand("FR");
     QString gsmtInfiFR = QString::number (DbVorschauFR.gibGesamtInfizierte("06", "FR"));
-    QString gsmtTodeFR = QString::number (DbVorschauFR.gibGesamtTode("06", "FR"));
-
+    QString gsmtTodeFR = QString::number (DbVorschauFR.gibGesamtTode("06", "FR")); 
 
     QString InfiziierteIT = QString::number(DbVorschauIT.gibInfiierte(Datum2, "IT"));
     QString TodeIT = QString::number(DbVorschauIT.gibTode(Datum2, "IT" ));
@@ -69,6 +69,7 @@ void dbVorschau::VorschauFillTable()
     QString gsmtInfiES = QString::number (DbVorschauES.gibGesamtInfizierte("06", "ES"));
     QString gsmtTodeES = QString::number (DbVorschauES.gibGesamtTode("06", "ES"));
 
+//Tabelle wird gefüllt. Zeilen aus der Vorlesung geguckt und angepasst.
 
     ui->tblVorschau->setRowCount(0);
     ui->tblVorschau->insertRow(0);

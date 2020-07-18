@@ -88,6 +88,9 @@
       <height>151</height>
      </size>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="checkable">
      <bool>false</bool>
     </property>
@@ -110,6 +113,9 @@
       <height>151</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="default">
      <bool>false</bool>
     </property>
@@ -126,6 +132,9 @@
       <height>161</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -138,6 +147,9 @@
       <width>61</width>
       <height>131</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -152,6 +164,9 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -164,6 +179,9 @@
       <width>71</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -178,6 +196,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -190,6 +211,9 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -204,6 +228,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -216,6 +243,9 @@
       <width>91</width>
       <height>221</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -230,6 +260,9 @@
       <height>91</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -242,6 +275,9 @@
       <width>91</width>
       <height>81</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -256,6 +292,9 @@
       <height>101</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -268,6 +307,9 @@
       <width>71</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -282,6 +324,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -294,6 +339,9 @@
       <width>91</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -308,6 +356,9 @@
       <height>231</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -320,6 +371,9 @@
       <width>71</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -334,6 +388,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -346,6 +403,9 @@
       <width>51</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -360,6 +420,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -372,6 +435,9 @@
       <width>31</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -386,6 +452,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -398,6 +467,9 @@
       <width>81</width>
       <height>111</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -412,6 +484,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -424,6 +499,9 @@
       <width>41</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -438,6 +516,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -450,6 +531,9 @@
       <width>151</width>
       <height>151</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -464,6 +548,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -476,6 +563,9 @@
       <width>231</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -490,6 +580,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -502,6 +595,9 @@
       <width>71</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -516,6 +612,9 @@
       <height>241</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -528,6 +627,9 @@
       <width>101</width>
       <height>281</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -542,6 +644,9 @@
       <height>241</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -554,6 +659,9 @@
       <width>71</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -568,6 +676,9 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="flat">
      <bool>true</bool>
     </property>
@@ -580,6 +691,9 @@
       <width>71</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="flat">
      <bool>true</bool>

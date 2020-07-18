@@ -8,6 +8,7 @@
 #include <QJsonValue>
 #include <QFile>
 #include <QObject>
+#include <QMessageBox>
 
 class databank : public QObject
 {
@@ -37,6 +38,7 @@ public:
 
     QJsonDocument jsDbConnect(); //Verbindet die JSON Datenbank
 
+
     void jsDbShort(); //Reduziert Daten in Datenbank auf die nötigen (EU-Länder)
 
 public:
@@ -62,6 +64,8 @@ public:
     QString geoID; //Landkennzeichung
 
     QString Kontinent;
+
+    bool done;
 
 signals:
 

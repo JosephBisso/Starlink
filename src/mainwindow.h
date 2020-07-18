@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "mydialog.h"
+
+#include "datenbank.h"
 #include "frankreich.h"
 #include "deutschland.h"
 #include "spanien.h"
@@ -56,6 +58,11 @@ public:
 
 private slots:
     void on_actionDatenbank_triggered();
+
+private:
+
+    databank dbMain;
+
 
 private slots:
     void on_actionNew_Windows_triggered();

@@ -18,11 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    databank File;
-    QPixmap pix(File.PfadGeber("img", "Landkarte.jpg" ));
+    QPixmap pix(":/Landkarte.jpg");
 
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
+    dbMain.jsDbShort();
 
 }
 
