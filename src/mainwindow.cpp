@@ -7,6 +7,7 @@
 #include <QtGui>
 #include <QtCore>
 #include <QMessageBox>
+#include "downloader.h"
 
 #include "databank.h"
 #include "datenbank.h"
@@ -24,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     dbMain.jsDbShort();
 
+
 }
+
 
 MainWindow::~MainWindow()
 {

@@ -1,5 +1,13 @@
 QT       += core gui
 QT       += sql #...
+QT += core gui
+QT += network
+
+# Integration von OpenSSL-Bibliotheken unter dem angegeben Pfad
+LIBS += -L$$OUT_PWD/lib
+-libcrypto-1_1-x64
+-libssl-1_1-x64
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,6 +29,7 @@ SOURCES += \
     datenbank.cpp \
     dbvorschau.cpp \
     laender.cpp \
+    downloader.cpp \
     main.cpp \
     albanien.cpp \
     andorra.cpp \
@@ -104,6 +113,8 @@ HEADERS += \
     ukraine.h \
     ungarn.h \
     weissrussland.h
+    downloader.h \
+    mainwindow.h
 
 
 FORMS += \
@@ -158,3 +169,5 @@ RESOURCES += \
 
 DISTFILES +=
 
+
+DISTFILES +=

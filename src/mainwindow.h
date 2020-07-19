@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "mydialog.h"
+#include <QObject>
+#include <QNetworkAccessManager>
+#include <QUrl>
 
 #include "datenbank.h"
 #include "frankreich.h"
@@ -48,7 +51,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow :  public QMainWindow
 {
     Q_OBJECT
 
@@ -144,5 +147,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     MyDialog *mDialog;
+
 };
 #endif // MAINWINDOW_H
