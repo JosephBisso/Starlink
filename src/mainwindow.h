@@ -21,16 +21,5 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    void startRequest(const QUrl requestedUrl);
-    QNetworkAccessManager *manager;
-    QNetworkRequest request;
-    QNetworkReply *reply = NULL;
-    void saveFile(QString*);
-
-    QString defaultFileName;
-    QUrl userUrl;
-
-signals:
-    void refreshButtonClicked();
 };
 #endif // MAINWINDOW_H
