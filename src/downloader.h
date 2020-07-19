@@ -10,7 +10,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QtDebug>
-
+#include <QUrl>
 
 class Downloader : public QWidget
 {
@@ -26,9 +26,9 @@ private:
     QFile *file;
     QString fileName;
     QUrl defaultURL;
-    QUrl *fileURL = nullptr;
-    QUrl *userURL = nullptr;
-    void getFile(QUrl *fileURL, const QString fileName);
+    QUrl* fileURL = nullptr;
+    QUrl* userURL = nullptr;
+    void getFile(QUrl* fileURL, const QString fileName);
 
 signals:
     void updateSuccessful();

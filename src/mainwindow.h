@@ -59,15 +59,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private:
+    databank dbMain;
+
+    Ui::MainWindow *ui;
+    MyDialog *mDialog;
+
+signals:
+    void refreshButton_clicked();
+
 private slots:
     void on_actionDatenbank_triggered();
 
-private:
-
-    databank dbMain;
-
-
-private slots:
     void on_actionNew_Windows_triggered();
 
     void on_Frankreich_clicked();
@@ -144,9 +147,9 @@ private slots:
 
     void on_Litauen_clicked();
 
+    void on_refreshButton_clicked();
+
 private:
-    Ui::MainWindow *ui;
-    MyDialog *mDialog;
 
 };
 #endif // MAINWINDOW_H

@@ -9,6 +9,7 @@ Downloader::Downloader(QWidget *parent) :
     manager = new QNetworkAccessManager;
 
     QUrl defaultURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
+    qDebug() << defaultURL.toString();
 }
 
 Downloader::~Downloader()
@@ -30,10 +31,12 @@ void Downloader::updateRawData()
 {
     QString fileName = "/covidRaw.json";
     fileName.prepend(QDir::currentPath());
-
-    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
+    qDebug() << "fileURL: " << fileURL->toString();
+    qDebug() << "defaultURL: " << defaultURL.toString();
+//    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
         fileURL = &defaultURL;
-    }
+        qDebug() << "fileURL auf default: " << *fileURL;
+//    }
 
     getFile(fileURL,fileName);
 }
@@ -43,6 +46,7 @@ void Downloader::updateRawData()
 //Zusätzlich wird File-Objekt erzeugt, über das die Reply als Datei gespeichert werden kann.
 void Downloader::getFile(QUrl *fileURL, QString fileName)
 {
+    qDebug() << "Get-Request gestartet." << endl << "URL: " << fileURL;
     QNetworkRequest request;
     request.setUrl(*fileURL);
     reply = manager->get(request);

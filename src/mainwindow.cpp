@@ -307,3 +307,10 @@ void MainWindow::on_Litauen_clicked()
        mDialog.setModal(true);
        mDialog.exec();
 }
+
+void MainWindow::on_refreshButton_clicked()
+{
+    Downloader myDownloader;
+    connect(this, SIGNAL(refreshButton_clicked()),&myDownloader, SLOT(updateRawData()));
+    emit refreshButton_clicked();
+}

@@ -66,6 +66,9 @@
     <property name="scaledContents">
      <bool>true</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="Frankreich">
     <property name="geometry">
@@ -699,6 +702,30 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QCommandLinkButton" name="refreshButton">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>0</y>
+      <width>160</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string>Daten aktualisieren</string>
+    </property>
+   </widget>
    <zorder>label_pic</zorder>
    <zorder>Finnland</zorder>
    <zorder>Montenegro</zorder>
@@ -738,6 +765,7 @@
    <zorder>Kroatien</zorder>
    <zorder>Daenemark</zorder>
    <zorder>Slowakei</zorder>
+   <zorder>refreshButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
