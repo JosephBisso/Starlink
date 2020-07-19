@@ -112,9 +112,8 @@ HEADERS += \
     tschechien.h \
     ukraine.h \
     ungarn.h \
-    weissrussland.h
-    downloader.h \
-    mainwindow.h
+    weissrussland.h \
+    downloader.h
 
 
 FORMS += \
