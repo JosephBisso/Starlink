@@ -3,10 +3,9 @@
 Downloader::Downloader(QWidget *parent) :
     QWidget(parent)
 {
+
     manager = new QNetworkAccessManager;
 
-//    QString fileName = "C:/Users/david/Desktop/TU Braunschweig/Anwendungsorientierte Programmierung für Ingos/downloaded/index.html";
-//    QUrl fileURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
 }
 
 Downloader::~Downloader()
@@ -14,7 +13,17 @@ Downloader::~Downloader()
     manager->deleteLater();
 }
 
-void Downloader::getFile(QUrl fileURL, QString fileName)
+void Downloader::updateRawData()
+{
+    QString fileName = "/covidRaw.json";
+    fileName.prepend(QDir::currentPath());
+            //= "C:/Users/david/Desktop/CovisualizerBuild/covidRaw.json";
+    const QUrl fileURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
+
+    getFile(fileURL,fileName);
+}
+
+void Downloader::getFile(const QUrl fileURL, const QString fileName)
 {
     QNetworkRequest request;
     request.setUrl(fileURL);
@@ -24,7 +33,6 @@ void Downloader::getFile(QUrl fileURL, QString fileName)
 
     file = new QFile;
     file->setFileName(fileName);
-
 
     connect(reply,SIGNAL(downloadProgress(qint64,qint64)),this,SLOT(onDownloadProgress(qint64,qint64)));
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(onFinished(QNetworkReply*)));
@@ -50,8 +58,7 @@ void Downloader::onFinished(QNetworkReply *reply)
         };
     }
 
-    if(file->isOpen())
-    {
+    if(file->isOpen()){      // Redundant, weil in onReplyFinished vorhanden
         file->close();
         file->deleteLater();
     }
@@ -67,10 +74,12 @@ void Downloader::onReadyRead()
 
 void Downloader::onReplyFinished()
 {
-
-    if(file->isOpen())
-    {
+    if(file->isOpen()){
         file->close();
         file->deleteLater();
+    }
+
+    if (!reply->error()){
+        emit updateSuccessful();
     }
 }

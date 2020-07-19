@@ -18,20 +18,22 @@ class Downloader : public QWidget
 public:
     explicit Downloader(QWidget *parent = 0);
     virtual ~Downloader();
-    void getFile(QUrl fileURL, QString fileName);
 
 private:
-    QFile *openFileForWrite(const QString &fileName);
-
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QFile *file;
+    QString fileName;
+    const QUrl fileURL;
+    void getFile(const QUrl fileURL, const QString fileName);
 
-//signals:
-//    void updateSuccess();
+signals:
+    void updateSuccessful();
+    void updateFailed();
+    void refreshButtonClicked();
 
-//public slots:
-//    void updateRawData();
+public slots:
+    void updateRawData();
 
 private slots:
     void onDownloadProgress(qint64,qint64);
