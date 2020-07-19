@@ -6,6 +6,8 @@ Downloader::Downloader(QWidget *parent) :
 
     manager = new QNetworkAccessManager;
 
+    QUrl defaultURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
+
 }
 
 Downloader::~Downloader()
@@ -13,23 +15,30 @@ Downloader::~Downloader()
     manager->deleteLater();
 }
 
+void Downloader::changeURL(QUrl *newURL)
+{
+    fileURL = newURL;
+    return;
+}
+
 void Downloader::updateRawData()
 {
     QString fileName = "/covidRaw.json";
     fileName.prepend(QDir::currentPath());
             //= "C:/Users/david/Desktop/CovisualizerBuild/covidRaw.json";
-    const QUrl fileURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
+
+    if(!fileURL){
+        fileURL = &defaultURL;
+    }
 
     getFile(fileURL,fileName);
 }
 
-void Downloader::getFile(const QUrl fileURL, const QString fileName)
+void Downloader::getFile(QUrl *fileURL, QString fileName)
 {
     QNetworkRequest request;
-    request.setUrl(fileURL);
+    request.setUrl(*fileURL);
     reply = manager->get(request);
-
-
 
     file = new QFile;
     file->setFileName(fileName);
