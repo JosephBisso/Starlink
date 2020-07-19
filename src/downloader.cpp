@@ -1,8 +1,8 @@
-#include "downloader.h"
+ï»¿#include "downloader.h"
 
-//Die Downloader-Klasse übernimmt die Aktualisierung der Rohdaten, indem sie von einem Webserver eine JSON-Datei
-//herunterlädt und in das Programmverzeichnis speichert. Die Ausführung erfolgt über den Slot
-//"updateRawData". Außerdem kann die URL über die Methode "changeURL" angepasst werden.
+//Die Downloader-Klasse Ã¼bernimmt die Aktualisierung der Rohdaten, indem sie von einem Webserver eine JSON-Datei
+//herunterlÃ¤dt und in das Programmverzeichnis speichert. Die AusfÃ¼hrung erfolgt Ã¼ber den Slot
+//"updateRawData". AuÃŸerdem kann die URL Ã¼ber die Methode "changeURL" angepasst werden.
 Downloader::Downloader(QWidget *parent) :
     QWidget(parent)
 {
@@ -16,32 +16,31 @@ Downloader::~Downloader()
     manager->deleteLater();
 }
 
-//Ändern der URL (Datenquelle). Methode übernimmt neue URL als Zeiger.
+//Ã„ndern der URL (Datenquelle). Methode Ã¼bernimmt neue URL als Zeiger.
 void Downloader::changeURL(QUrl *newURL)
 {
     fileURL = newURL;
     return;
 }
 
-//Public Slot / Funktion zum Initialisieren des Downloads.
-// - definiert die URL, mit der Request durchgeführt werden soll
+//Public Slot/Funktion zum Initialisieren des Downloads.
+// - definiert die URL, mit der Request durchgefÃ¼hrt werden soll
 // - definiert den Dateinamen bzw. die Speicheradresse der Datei
 void Downloader::updateRawData()
 {
     QString fileName = "/covidRaw.json";
     fileName.prepend(QDir::currentPath());
-            //= "C:/Users/david/Desktop/CovisualizerBuild/covidRaw.json"
 
-    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
+    if(!fileURL){               //Schleife prÃ¼ft, ob der User die URL geÃ¤ndert hat.
         fileURL = &defaultURL;
     }
 
     getFile(fileURL,fileName);
 }
 
-//Methode übernimmt den Zeiger für die URL und den Dateipfad/Dateinamen und startet den eigentlichen Get-Request, indem
+//Methode Ã¼bernimmt den Zeiger fÃ¼r die URL und den Dateipfad/Dateinamen und startet den eigentlichen Get-Request, indem
 //ein QNetworkRequest-Objekt und ein Reply-Objekt initialisiert werden.
-//Zusätzlich wird File-Objekt erzeugt, über das die Reply als Datei gespeichert werden kann.
+//ZusÃ¤tzlich wird File-Objekt erzeugt, Ã¼ber das die Reply als Datei gespeichert werden kann.
 void Downloader::getFile(QUrl *fileURL, QString fileName)
 {
     QNetworkRequest request;
@@ -77,8 +76,8 @@ void Downloader::onFinished(QNetworkReply *reply)
         };
     }
 }
-//Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt über
-//das Signal "ready read" angezeigt wird. Die Methode überschreibt alle verfügbaren Daten in das QFile-Objekt
+//Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt Ã¼ber
+//das Signal "ready read" angezeigt wird. Die Methode Ã¼berschreibt alle verfÃ¼gbaren Daten in das QFile-Objekt
 void Downloader::onReadyRead()
 {
     qDebug() << "Ready";
@@ -87,7 +86,7 @@ void Downloader::onReadyRead()
 
 }
 
-//Wenn das Finished-Signal von Reply-Objekt ausgegeben wird, schließt diese Methode die zum Schreiben geöffnete Datei.
+//Wenn das Finished-Signal von Reply-Objekt ausgegeben wird, schlieÃŸt diese Methode die zum Schreiben geÃ¶ffnete Datei.
 //Damit ist der Download erfolgreich abgeschlossen und das Signal "updateSuccessful" wird emittiert.
 void Downloader::onReplyFinished()
 {

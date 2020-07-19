@@ -1,4 +1,4 @@
-#ifndef DOWNLOADER_H
+﻿#ifndef DOWNLOADER_H
 #define DOWNLOADER_H
 
 #include <QWidget>
