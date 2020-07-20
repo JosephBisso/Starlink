@@ -1,15 +1,12 @@
-ï»¿#include "downloader.h"
+#include "downloader.h"
 
-//Die Downloader-Klasse Ã¼bernimmt die Aktualisierung der Rohdaten, indem sie von einem Webserver eine JSON-Datei
-//herunterlÃ¤dt und in das Programmverzeichnis speichert. Die AusfÃ¼hrung erfolgt Ã¼ber den Slot
-//"updateRawData". AuÃŸerdem kann die URL Ã¼ber die Methode "changeURL" angepasst werden.
+//Die Downloader-Klasse übernimmt die Aktualisierung der Rohdaten, indem sie von einem Webserver eine JSON-Datei
+//herunterlädt und in das Programmverzeichnis speichert. Die Ausführung erfolgt über den Slot
+//"updateRawData". Außerdem kann die URL über die Methode "changeURL" angepasst werden.
 Downloader::Downloader(QWidget *parent) :
     QWidget(parent)
 {
     manager = new QNetworkAccessManager;
-
-    QUrl defaultURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
-    qDebug() << defaultURL.toString();
 }
 
 Downloader::~Downloader()
@@ -17,40 +14,32 @@ Downloader::~Downloader()
     manager->deleteLater();
 }
 
-//Ã„ndern der URL (Datenquelle). Methode Ã¼bernimmt neue URL als Zeiger.
+//Ändern der URL (Datenquelle). Methode übernimmt neue URL als Zeiger.
 void Downloader::changeURL(QUrl *newURL)
 {
     fileURL = newURL;
-    return;
 }
 
-//Public Slot/Funktion zum Initialisieren des Downloads.
-// - definiert die URL, mit der Request durchgefÃ¼hrt werden soll
+//Public Slot / Funktion zum Initialisieren des Downloads.
+// - definiert die URL, mit der Request durchgeführt werden soll
 // - definiert den Dateinamen bzw. die Speicheradresse der Datei
 void Downloader::updateRawData()
 {
-    QString fileName = "/covidRaw.json";
-    fileName.prepend(QDir::currentPath());
-    qDebug() << "fileURL: " << fileURL->toString();
-    qDebug() << "defaultURL: " << defaultURL.toString();
-    if(!fileURL){               //Schleife prÃ¼ft, ob der User die URL geÃ¤ndert hat.
-        fileURL = &defaultURL;
-        qDebug() << "fileURL auf default: " << *fileURL;
+    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
+        fileURL = &defaultURL;  // ansonsten wird der Default verwendet.
     }
 
     getFile(fileURL,fileName);
 }
 
-//Methode Ã¼bernimmt den Zeiger fÃ¼r die URL und den Dateipfad/Dateinamen und startet den eigentlichen Get-Request, indem
+//Methode übernimmt den Zeiger für die URL und den Dateipfad/Dateinamen und startet den eigentlichen Get-Request, indem
 //ein QNetworkRequest-Objekt und ein Reply-Objekt initialisiert werden.
-//ZusÃ¤tzlich wird File-Objekt erzeugt, Ã¼ber das die Reply als Datei gespeichert werden kann.
-void Downloader::getFile(QUrl *fileURL, QString fileName)
+//Zusätzlich wird File-Objekt erzeugt, über das die Reply als Datei gespeichert werden kann.
+void Downloader::getFile(QUrl* fileURL, QString fileName)
 {
-    qDebug() << "Get-Request gestartet." << endl << "URL: " << fileURL;
     QNetworkRequest request;
     request.setUrl(*fileURL);
-    reply = manager->get(request);
-
+    reply = manager->get(request); 
     file = new QFile;
     file->setFileName(fileName);
 
@@ -80,17 +69,16 @@ void Downloader::onFinished(QNetworkReply *reply)
         };
     }
 }
-//Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt Ã¼ber
-//das Signal "ready read" angezeigt wird. Die Methode Ã¼berschreibt alle verfÃ¼gbaren Daten in das QFile-Objekt.
+//Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt über
+//das Signal "ready read" angezeigt wird. Die Methode überschreibt alle verfügbaren Daten in das QFile-Objekt
 void Downloader::onReadyRead()
 {
     qDebug() << "Ready";
     file->open(QIODevice::WriteOnly);
     file->write(reply->readAll());
-
 }
 
-//Wenn das Finished-Signal von Reply-Objekt ausgegeben wird, schlieÃŸt diese Methode die zum Schreiben geÃ¶ffnete Datei.
+//Wenn das Finished-Signal vom Reply-Objekt ausgegeben wird, schließt diese Methode die zum Schreiben geöffnete Datei.
 //Damit ist der Download erfolgreich abgeschlossen und das Signal "updateSuccessful" wird emittiert.
 void Downloader::onReplyFinished()
 {
@@ -99,7 +87,7 @@ void Downloader::onReplyFinished()
         file->deleteLater();
     }
 
-    if (!reply->error()){
+    if (!reply->error() && !file->error()){
         emit updateSuccessful();
     }
 }

@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QtGui>
 #include <QtCore>
+#include <qicon.h>
 #include <QMessageBox>
 #include "downloader.h"
 
@@ -25,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     dbMain.jsDbShort();
 
+//    QDateTime upDateTime = QFileInfo("covidRaw.json").birthTime();
+//    QString refreshStateText = "Daten aktualisiert am: ";
+//    refreshStateText.append(upDateTime.toString());
+//    ui->refreshState->setText(refreshStateText);
 
 }
 
@@ -308,8 +313,23 @@ void MainWindow::on_Litauen_clicked()
        mDialog.exec();
 }
 
+//Slot deaktiviert den Button und erzeugt eine Instanz der Klasse Downloader zum Herunterladen neuer Daten.
 void MainWindow::on_refreshButton_clicked()
 {
+    ui->refreshButton->setDown(true);
     Downloader* myDownloader = new Downloader;
     myDownloader->updateRawData();
+    connect(myDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
+
+}
+
+//Dieser Slot reagiert auf das Signal "updateSuccessful" der Downloader-Klasse. Er verändert den Timestamp in der
+//Textbox, die die letzte Aktualisierung anzeigt und bringt den "refreshButton" wieder in Normalstellung.
+void MainWindow::dataUpdateConfirmed()
+{
+    QDateTime upDateTime = QDateTime::currentDateTime();
+    QString refreshStateText = "Daten aktualisiert am: ";
+    refreshStateText.append(upDateTime.toString());
+    ui->refreshState->setText(refreshStateText);
+    ui->refreshButton->setDown(false);
 }

@@ -1,4 +1,4 @@
-﻿#ifndef DOWNLOADER_H
+#ifndef DOWNLOADER_H
 #define DOWNLOADER_H
 
 #include <QWidget>
@@ -10,7 +10,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QtDebug>
-#include <QUrl>
+
 
 class Downloader : public QWidget
 {
@@ -24,12 +24,14 @@ public:
 private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
-    QFile *file;
-    QString fileName;
-    QUrl defaultURL;
+    QFile* file;
+    const QString fileName = "covidRaw.json";
+    QUrl defaultURL = QUrl("https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/ce379c1d-066a-4de8-a195-1d5e8338142a");
     QUrl* fileURL = nullptr;
     QUrl* userURL = nullptr;
     void getFile(QUrl* fileURL, const QString fileName);
+
+    QString debugTestString;
 
 signals:
     void updateSuccessful();

@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QUrl>
+#include <QDateTime>
 
 #include "datenbank.h"
 #include "frankreich.h"
@@ -51,7 +52,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow :  public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -63,7 +64,10 @@ private:
     databank dbMain;
 
     Ui::MainWindow *ui;
-    MyDialog *mDialog;
+    MyDialog *mDialog; 
+
+    QNetworkAccessManager myDownloader;
+    QDateTime upDate;
 
 signals:
     void refreshButton_clicked();
@@ -148,6 +152,8 @@ private slots:
     void on_Litauen_clicked();
 
     void on_refreshButton_clicked();
+
+    void dataUpdateConfirmed();
 
 private:
 
