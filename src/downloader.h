@@ -19,6 +19,7 @@ public:
     explicit Downloader(QWidget *parent = 0);
     virtual ~Downloader();
     void changeURL(QUrl *newURL);
+    void updateRawData();
 
 private:
     QNetworkAccessManager *manager;
@@ -33,9 +34,6 @@ private:
 signals:
     void updateSuccessful();
     void updateFailed();
-
-public slots:
-    void updateRawData();
 
 private slots:
     void onDownloadProgress(qint64,qint64);

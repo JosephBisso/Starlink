@@ -310,7 +310,6 @@ void MainWindow::on_Litauen_clicked()
 
 void MainWindow::on_refreshButton_clicked()
 {
-    Downloader myDownloader;
-    connect(this, SIGNAL(refreshButton_clicked()),&myDownloader, SLOT(updateRawData()));
-    emit refreshButton_clicked();
+    Downloader* myDownloader = new Downloader;
+    myDownloader->updateRawData();
 }

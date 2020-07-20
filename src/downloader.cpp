@@ -33,10 +33,10 @@ void Downloader::updateRawData()
     fileName.prepend(QDir::currentPath());
     qDebug() << "fileURL: " << fileURL->toString();
     qDebug() << "defaultURL: " << defaultURL.toString();
-//    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
+    if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
         fileURL = &defaultURL;
         qDebug() << "fileURL auf default: " << *fileURL;
-//    }
+    }
 
     getFile(fileURL,fileName);
 }
@@ -81,7 +81,7 @@ void Downloader::onFinished(QNetworkReply *reply)
     }
 }
 //Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt über
-//das Signal "ready read" angezeigt wird. Die Methode überschreibt alle verfügbaren Daten in das QFile-Objekt
+//das Signal "ready read" angezeigt wird. Die Methode überschreibt alle verfügbaren Daten in das QFile-Objekt.
 void Downloader::onReadyRead()
 {
     qDebug() << "Ready";
