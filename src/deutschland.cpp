@@ -7,6 +7,7 @@
 //Muss included sein!!!!!!!!!!!!!!1
 #include "laender.h"
 #include "databank.h" // aufpassen: datAbank und nicht datENbank
+#include <QtCharts>
 
 Deutschland::Deutschland(QWidget *parent) :
     QDialog(parent),
@@ -53,8 +54,6 @@ Deutschland::Deutschland(QWidget *parent) :
     Land.DbLandDaten.gibGesamtInfizierte("04", "DE");
 
     Land.DbLandDaten.gibGesamtTode("04", "DE");
-
-
 }
 
 Deutschland::~Deutschland()
