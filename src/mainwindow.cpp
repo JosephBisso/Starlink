@@ -26,11 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     dbMain.jsDbShort();
 
-//    QDateTime upDateTime = QFileInfo("covidRaw.json").birthTime();
-//    QString refreshStateText = "Daten aktualisiert am: ";
-//    refreshStateText.append(upDateTime.toString());
-//    ui->refreshState->setText(refreshStateText);
-
 }
 
 
