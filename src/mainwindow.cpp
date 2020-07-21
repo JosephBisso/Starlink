@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap pix(":/Landkarte.jpg");
+    QPixmap pix("img/Landkarte.jpg");
 
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 

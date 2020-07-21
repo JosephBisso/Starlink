@@ -25,7 +25,7 @@ void databank::jsDbShort()
 
     QJsonArray reArrayShort;
 
-    QFile file (":/covidRaw.json");
+    QFile file ("lib/covidRaw.json");
 
     QJsonDocument jsonDoc;
 
