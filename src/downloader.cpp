@@ -39,7 +39,9 @@ void Downloader::getFile(QUrl* fileURL, QString fileName)
 {
     QNetworkRequest request;
     request.setUrl(*fileURL);
-    reply = manager->get(request); 
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    reply = manager->get(request);
+
     file = new QFile;
     file->setFileName(fileName);
 
@@ -87,11 +89,6 @@ void Downloader::onReadyRead()
 //Damit ist der Download erfolgreich abgeschlossen und das Signal "updateSuccessful" wird emittiert.
 void Downloader::onReplyFinished()
 {
-    if(file->isOpen()){
-        file->close();
-        file->deleteLater();
-    }
-
     if(file->error()>0){
         QMessageBox msgBox;
         msgBox.setText("Fehler beim Speichern der Daten");
@@ -102,5 +99,10 @@ void Downloader::onReplyFinished()
 
     if (!reply->error() && !file->error()){
         emit updateSuccessful();
+    }
+
+    if(file->isOpen()){
+        file->close();
+        file->deleteLater();
     }
 }

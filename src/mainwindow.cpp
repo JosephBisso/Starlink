@@ -20,16 +20,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap pix(":/Landkarte.jpg");
+    QPixmap pix("img/Landkarte.jpg");
 
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
     dbMain.jsDbShort();
-
-//    QDateTime upDateTime = QFileInfo("covidRaw.json").birthTime();
-//    QString refreshStateText = "Daten aktualisiert am: ";
-//    refreshStateText.append(upDateTime.toString());
-//    ui->refreshState->setText(refreshStateText);
 
 }
 
