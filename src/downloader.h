@@ -26,7 +26,8 @@ private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QFile* file;
-    const QString fileName = "lib/covidRaw.json";
+    QDir filePath;
+    const QString fileName = "/covidRaw.json";
     QUrl defaultURL = QUrl("https://opendata.ecdc.europa.eu/covid19/casedistribution/json");
     QUrl* fileURL = nullptr;
     QUrl* userURL = nullptr;

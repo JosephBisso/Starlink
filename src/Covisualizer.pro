@@ -9,7 +9,7 @@ LIBS += -L$$OUT_PWD/../lib
 
 message($$_PRO_FILE_PWD_)
 message($$_PRO_FILE_)
-
+message($$OUT_PWD/../lib)
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
