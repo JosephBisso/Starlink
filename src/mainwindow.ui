@@ -26,8 +26,8 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="bdRessources.qrc">
-    <normaloff>:/Landkarte.jpg</normaloff>:/Landkarte.jpg</iconset>
+   <iconset resource="Ressources.qrc">
+    <normaloff>:/img/Landkarte.jpg</normaloff>:/img/Landkarte.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_pic">
@@ -61,7 +61,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="bdRessources.qrc">:/Landkarte.jpg</pixmap>
+     <pixmap>:/Landkarte.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -713,7 +713,7 @@
     </property>
     <property name="font">
      <font>
-      <family>MS Shell Dlg 2</family>
+      <family>Segoe UI</family>
       <weight>75</weight>
       <bold>true</bold>
       <kerning>true</kerning>
@@ -884,7 +884,7 @@
   </action>
  </widget>
  <resources>
-  <include location="bdRessources.qrc"/>
+  <include location="Ressources.qrc"/>
  </resources>
  <connections/>
 </ui>

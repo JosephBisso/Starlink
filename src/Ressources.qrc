@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/lib">
+        <file>covidRaw.json</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>Landkarte.jpg</file>
+    </qresource>
+</RCC>

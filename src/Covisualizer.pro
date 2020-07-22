@@ -1,8 +1,6 @@
 QT       += core gui
-QT       += sql #...
-QT += core gui
-QT += network
-QT += charts
+QT       += network
+QT       += charts
 
 # Integration von OpenSSL-Bibliotheken unter dem angegeben Pfad
 LIBS += -L$$OUT_PWD/lib
@@ -164,7 +162,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES +=
+RESOURCES += \
+    Ressources.qrc
 
 DISTFILES +=
 

@@ -6,12 +6,8 @@
 #include "databank.h"
 
 //...
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QSqlQuery>
 #include <iostream>
 #include <QMessageBox>
-#include <QSqlQueryModel>
 #include <QTableView>
 #include <QFileInfo>
 #include <QJsonDocument>
