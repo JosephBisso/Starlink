@@ -45,6 +45,7 @@ void Downloader::getFile(QUrl* fileURL, QString fileName)
     file = new QFile;
     file->setFileName(fileName);
 
+
     connect(reply,SIGNAL(downloadProgress(qint64,qint64)),this,SLOT(onDownloadProgress(qint64,qint64)));
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(onFinished(QNetworkReply*)));
     connect(reply,SIGNAL(readyRead()),this,SLOT(onReadyRead()));
@@ -83,6 +84,8 @@ void Downloader::onReadyRead()
     qDebug() << "Ready";
     file->open(QIODevice::WriteOnly);
     file->write(reply->readAll());
+
+
 }
 
 //Wenn das Finished-Signal vom Reply-Objekt ausgegeben wird, schließt diese Methode die zum Schreiben geöffnete Datei.

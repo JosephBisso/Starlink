@@ -36,6 +36,18 @@
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QPushButton" name="dbUpdate">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>630</width>
+          <height>20</height>
+         </size>
+        </property>
         <property name="text">
          <string>Datenbank aktualisieren</string>
         </property>
@@ -56,6 +68,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>632</width>
+          <height>13</height>
+         </size>
+        </property>
         <property name="text">
          <string>Die Datenbank wird aktualiesiert.</string>
         </property>
@@ -121,6 +139,12 @@
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
        <widget class="QPushButton" name="dbConnect">
+        <property name="minimumSize">
+         <size>
+          <width>630</width>
+          <height>20</height>
+         </size>
+        </property>
         <property name="text">
          <string>Verbindung zur Datenbank aufbauen</string>
         </property>
@@ -141,6 +165,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>632</width>
+          <height>13</height>
+         </size>
+        </property>
         <property name="text">
          <string>Es wird eine Verbindung zur existierenden Datenbank augebaut</string>
         </property>
@@ -206,6 +236,12 @@
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
        <widget class="QPushButton" name="dbShow">
+        <property name="minimumSize">
+         <size>
+          <width>630</width>
+          <height>20</height>
+         </size>
+        </property>
         <property name="text">
          <string>Vorschau</string>
         </property>
@@ -226,6 +262,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>632</width>
+          <height>13</height>
+         </size>
+        </property>
         <property name="text">
          <string>Es werden Zahlen aus verschiedenen Länder vom Juni vorgestellt. Sind Daten zu sehen, dann ist die Datenbank verbunden.</string>
         </property>
@@ -233,6 +275,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="minimumSize">
+         <size>
+          <width>632</width>
+          <height>13</height>
+         </size>
+        </property>
         <property name="text">
          <string>Dies kann einige Sekunden dauern.</string>
         </property>
@@ -328,6 +376,12 @@
       </item>
       <item>
        <widget class="QDialogButtonBox" name="dbOK">
+        <property name="minimumSize">
+         <size>
+          <width>122</width>
+          <height>2</height>
+         </size>
+        </property>
         <property name="standardButtons">
          <set>QDialogButtonBox::Ok</set>
         </property>

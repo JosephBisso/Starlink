@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(startUpDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
     startUpDownloader->deleteLater();
 
+
     ui->setupUi(this);
 
     QPixmap pix(":/img/Landkarte.jpg");
@@ -330,6 +331,7 @@ void MainWindow::on_refreshButton_clicked()
     Downloader* myDownloader = new Downloader;
     myDownloader->updateRawData();
     connect(myDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
+
 }
 
 

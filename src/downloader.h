@@ -22,10 +22,12 @@ public:
     void changeURL(QUrl *newURL);
     void updateRawData();
 
+    QFile* file; //Joseph: von private to public
+
 private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
-    QFile* file;
+
     const QString fileName = "covidRaw.json";
     QUrl defaultURL = QUrl("https://opendata.ecdc.europa.eu/covid19/casedistribution/json");
     QUrl* fileURL = nullptr;

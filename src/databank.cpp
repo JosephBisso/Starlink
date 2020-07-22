@@ -2,6 +2,8 @@
 
 #include <QMessageBox>
 
+#include "downloader.h"
+
 databank::databank(QObject *parent) : QObject(parent)
 {
 
@@ -25,13 +27,14 @@ void databank::jsDbShort()
 
     QJsonArray reArrayShort;
 
+    QJsonDocument jsonDoc;
+
     QFile file ("covidRaw.json");
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){file.setFileName(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){ file.setFileName(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
                                                                                                   wird stattdessen ein Backup File geöffnet
-                                                                                                  */
-
-    QJsonDocument jsonDoc;
+                                                                                            */
+     file.close();
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -332,12 +335,14 @@ QString databank::gibUpdateDatum()
 {
     QFile file ("covidRaw.json");
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){file.rename(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
+    QJsonDocument jsonDoc;
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){file.setFileName(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
                                                                                                   wird stattdessen ein Backup File geöffnet
                                                                                                   */
 
 
-    QJsonDocument jsonDoc;
+     file.close();
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
