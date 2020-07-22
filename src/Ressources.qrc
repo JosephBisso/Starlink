@@ -6,5 +6,7 @@
     <qresource prefix="/img">
         <file>Landkarte.jpg</file>
         <file>Icon_CundAuge_RotBlau.bmp</file>
+        <file>Icon_datenbank.png</file>
+        <file>icon_FrageZeichnen.png</file>
     </qresource>
 </RCC>

@@ -868,6 +868,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew_Windows">
+   <property name="icon">
+    <iconset resource="Ressources.qrc">
+     <normaloff>:/img/icon_FrageZeichnen.png</normaloff>:/img/icon_FrageZeichnen.png</iconset>
+   </property>
    <property name="text">
     <string>Wie benutze ich die Karte?</string>
    </property>
@@ -878,6 +882,10 @@
    </property>
   </action>
   <action name="actionDatenbank">
+   <property name="icon">
+    <iconset resource="Ressources.qrc">
+     <normaloff>:/img/Icon_datenbank.png</normaloff>:/img/Icon_datenbank.png</iconset>
+   </property>
    <property name="text">
     <string>Datenbank</string>
    </property>
