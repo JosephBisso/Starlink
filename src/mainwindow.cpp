@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QPixmap pix(":/img/Landkarte.jpg");
 
+
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
     dbMain.jsDbShort(); /*Eine Verbindung mit der Datenbank wird automatisch am Start des Programms aufgebaut
