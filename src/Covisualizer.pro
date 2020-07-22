@@ -170,7 +170,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Ressources.qrc
 
+RC_ICONS = covisual.ico
+
 DISTFILES +=
 
-
-DISTFILES +=
