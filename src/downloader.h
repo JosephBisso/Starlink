@@ -7,7 +7,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QFile>
-#include <QStringList>
 #include <QDir>
 #include <QtDebug>
 #include <QMessageBox>
