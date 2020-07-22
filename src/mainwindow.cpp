@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     Downloader* startUpDownloader = new Downloader;
     startUpDownloader->updateRawData();
     connect(startUpDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
-    startUpDownloader->deleteLater();
+//    startUpDownloader->deleteLater();
 
     ui->setupUi(this);
 
@@ -340,8 +340,5 @@ void MainWindow::dataUpdateConfirmed()
     QDateTime upDateTime = QDateTime::currentDateTime();
     QString refreshStateText = "Letzter Stand: ";
     refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
-//    QLabel* refreshLabel;
-//  refreshLabel->setText(refreshStateText);
-//    ui->refreshState->setText(refreshStateText);
     ui->statusbar->showMessage(refreshStateText);
 }

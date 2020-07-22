@@ -9,10 +9,6 @@ LIBS += -L$$OUT_PWD/../lib
 -libcrypto.lib
 -libssl.lib
 
-message($$_PRO_FILE_PWD_)
-message($$_PRO_FILE_)
-
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
