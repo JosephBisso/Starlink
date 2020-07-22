@@ -27,6 +27,10 @@ void databank::jsDbShort()
 
     QFile file ("covidRaw.json");
 
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){file.setFileName(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
+                                                                                                  wird stattdessen ein Backup File geöffnet
+                                                                                                  */
+
     QJsonDocument jsonDoc;
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -327,6 +331,11 @@ QString databank::gibDatum(QString Tag, QString Monat)
 QString databank::gibUpdateDatum()
 {
     QFile file ("covidRaw.json");
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){file.rename(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
+                                                                                                  wird stattdessen ein Backup File geöffnet
+                                                                                                  */
+
 
     QJsonDocument jsonDoc;
 

@@ -31,8 +31,9 @@ void Datenbank::on_dbConnect_clicked()
     {
         ui->progressBar->setValue(100);
 
-        QMessageBox::information(this, "Verbindung", "Verbindung zur Datenbank könnte nicht aufgebaut werden."
-                                                     "Versuchen Sie die Datenbank erstmal zu aktualiesiren");
+        QMessageBox::information(this, "Verbindung", "Verbindung zur Datenbank könnte nicht aufgebaut werden. "
+                                                     "Versuchen Sie die Daten (im MainWindow) erstmal zu aktualiesiren.  "
+                                                      "Eine unaktualisierte Backup-Datenbank wird stattdessen benutzt.");
 
     }
 
@@ -75,11 +76,11 @@ void Datenbank::on_dbUpdate_clicked()
 
         ui->progressBar->setValue(100);
 
-    QMessageBox::information(this, "Aktualisierung", "Daten erfolgreich aktualisiert");
+    QMessageBox::information(this, "Aktualisierung", "Daten erfolgreich aktualisiert. Letzter Stand im 'Vorschau' nachprüfen");
     }
     else
     {
-     QMessageBox::information(this, "Aktualisierung", "Daten könnten nicht aktualisiert werden");
+     QMessageBox::information(this, "Aktualisierung", "Daten könnten nicht aktualisiert werden. Letzter Stand im 'Vorschau' nachprüfen");
     }
 
     ui->progressBar->setValue(0);

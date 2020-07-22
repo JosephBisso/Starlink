@@ -10,6 +10,12 @@
     <height>350</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>751</width>
+    <height>350</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Vorschau</string>
   </property>
