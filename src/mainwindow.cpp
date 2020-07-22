@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QPixmap pix(":/img/Landkarte.jpg");
 
+
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
     dbMain.jsDbShort(); //Ein Auszug aus der covidRaw Datei wird erstellt.

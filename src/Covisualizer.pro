@@ -3,9 +3,12 @@ QT       += network
 QT       += charts
 
 # Integration von OpenSSL-Bibliotheken unter dem angegeben Pfad
-LIBS += -L$$OUT_PWD/lib
+LIBS += -L$$OUT_PWD/../lib
 -libcrypto-1_1-x64
 -libssl-1_1-x64
+
+message($$_PRO_FILE_PWD_)
+message($$_PRO_FILE_)
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
