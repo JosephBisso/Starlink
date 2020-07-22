@@ -42,16 +42,8 @@ void Downloader::getFile(QUrl* fileURL, QString fileName)
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     reply = manager->get(request);
 
-    QDir filePath;
-    filePath.current().cdUp();
-
-    qDebug() << filePath;
-    fileName.prepend(filePath.absolutePath());
-    qDebug() << fileName;
-
-
     file = new QFile;
-    file->setFileName(fileName.prepend(filePath.absolutePath()));
+    file->setFileName(fileName);
 
     connect(reply,SIGNAL(downloadProgress(qint64,qint64)),this,SLOT(onDownloadProgress(qint64,qint64)));
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(onFinished(QNetworkReply*)));
