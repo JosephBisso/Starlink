@@ -9,4 +9,7 @@
         <file>Icon_datenbank.png</file>
         <file>icon_FrageZeichnen.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>../img/iconCovisual.png</file>
+    </qresource>
 </RCC>
