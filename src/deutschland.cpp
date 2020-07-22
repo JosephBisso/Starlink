@@ -19,7 +19,7 @@ Deutschland::Deutschland(QWidget *parent) :
      * Beispiel Datenzugriff für Toni: Ich zeige dir, wie du auf die Daten zugreifst
      * (1) Erstmal ein Element aus der Klasse "Laender" erstellen
      * (2) Die Methode "gibLandDaten für den gewünschten "Tag" und "Monat" für ein land mit geoID "geoID"
-            Ich kann dir ein Liste von GeoIDs geben, wenn du sie nicht kennst
+            Liste von geoID in den Ressource Datei / lib
      * (3) Dann dich für eine der beiden unten beschrieben Vorgehensweisen entscheiden
      */
 

@@ -21,7 +21,7 @@ dbVorschau::~dbVorschau()
 void dbVorschau::VorschauFillTable()
 {
     //Objekt der Klasse Datenbank erstellen, um die Methoden der Klasse Datenbank benutzen zu können
-    databank DbVorschauDE, DbVorschauFR, DbVorschauIT, DbVorschauAL, DbVorschauES;
+    databank DbVorschauDE, DbVorschauFR, DbVorschauIT, DbVorschauAL, DbVorschauES, DbVorschauNL;
 
     QString Datum = DbVorschauDE.gibDatum("01", "06"); //setzt und gibt Datum aus Tag "01" und Monat "06".
                                                        //Hier: 01/06/2020.
@@ -69,52 +69,86 @@ void dbVorschau::VorschauFillTable()
     QString gsmtInfiES = QString::number (DbVorschauES.gibGesamtInfizierte("06", "ES"));
     QString gsmtTodeES = QString::number (DbVorschauES.gibGesamtTode("06", "ES"));
 
+    //hier wird das aktuelles Datum benutzt und auf das für die Datenbank benutzte Format ("01" anstatt "1") gesetzt.
+    QDate qdHeute = QDate::currentDate();
+    QString qsHeuteMonat = QString::number(qdHeute.month());
+        if (qsHeuteMonat.size()==1)
+        {
+            qsHeuteMonat.insert(0, "0");
+        }
+    QString qsHeuteTag = QString::number(qdHeute.day());
+        if (qsHeuteTag.size()==1)
+        {
+            qsHeuteTag.insert(0, "0");
+        }
+
+    QString Heute = DbVorschauNL.gibDatum(qsHeuteTag, qsHeuteMonat);
+    QString heuteMonat = DbVorschauNL.gibMonat(qsHeuteMonat);
+
+
+    QString InfiziierteNL = QString::number(DbVorschauNL.gibInfiierte(Heute, "NL"));
+    QString TodeNL = QString::number(DbVorschauNL.gibTode(Heute, "NL" ));
+    QString LandNL = DbVorschauNL.gibLand("NL");
+    QString gsmtInfiNL = QString::number (DbVorschauNL.gibGesamtInfizierte(qsHeuteMonat, "NL"));
+    QString gsmtTodeNL = QString::number (DbVorschauNL.gibGesamtTode(qsHeuteMonat, "NL"));
+
 //Tabelle wird gefüllt. Zeilen aus der Vorlesung geguckt und angepasst.
 
     ui->tblVorschau->setRowCount(0);
+
     ui->tblVorschau->insertRow(0);
-    ui->tblVorschau->setItem(0, 1, new QTableWidgetItem(Datum));
-    ui->tblVorschau->setItem(0, 4, new QTableWidgetItem(Monat));
-    ui->tblVorschau->setItem(0, 2, new QTableWidgetItem(InfiziierteDE));
-    ui->tblVorschau->setItem(0, 5, new QTableWidgetItem(gsmtInfiDE));
-    ui->tblVorschau->setItem(0, 3, new QTableWidgetItem(TodeDE));
-    ui->tblVorschau->setItem(0, 6, new QTableWidgetItem(gsmtTodeDE));
-    ui->tblVorschau->setItem(0, 0, new QTableWidgetItem(LandDE));
+    ui->tblVorschau->setItem(0, 1, new QTableWidgetItem(Heute));
+    ui->tblVorschau->setItem(0, 4, new QTableWidgetItem(heuteMonat));
+    ui->tblVorschau->setItem(0, 2, new QTableWidgetItem(InfiziierteNL));
+    ui->tblVorschau->setItem(0, 5, new QTableWidgetItem(gsmtInfiNL));
+    ui->tblVorschau->setItem(0, 3, new QTableWidgetItem(TodeNL));
+    ui->tblVorschau->setItem(0, 6, new QTableWidgetItem(gsmtTodeNL));
+    ui->tblVorschau->setItem(0, 0, new QTableWidgetItem(LandNL));
 
     ui->tblVorschau->insertRow(1);
     ui->tblVorschau->setItem(1, 1, new QTableWidgetItem(Datum));
     ui->tblVorschau->setItem(1, 4, new QTableWidgetItem(Monat));
-    ui->tblVorschau->setItem(1, 2, new QTableWidgetItem(InfiziierteFR));
-    ui->tblVorschau->setItem(1, 5, new QTableWidgetItem(gsmtInfiFR));
-    ui->tblVorschau->setItem(1, 3, new QTableWidgetItem(TodeFR));
-    ui->tblVorschau->setItem(1, 6, new QTableWidgetItem(gsmtTodeFR));
-    ui->tblVorschau->setItem(1, 0, new QTableWidgetItem(LandFR));
+    ui->tblVorschau->setItem(1, 2, new QTableWidgetItem(InfiziierteDE));
+    ui->tblVorschau->setItem(1, 5, new QTableWidgetItem(gsmtInfiDE));
+    ui->tblVorschau->setItem(1, 3, new QTableWidgetItem(TodeDE));
+    ui->tblVorschau->setItem(1, 6, new QTableWidgetItem(gsmtTodeDE));
+    ui->tblVorschau->setItem(1, 0, new QTableWidgetItem(LandDE));
 
     ui->tblVorschau->insertRow(2);
     ui->tblVorschau->setItem(2, 1, new QTableWidgetItem(Datum));
     ui->tblVorschau->setItem(2, 4, new QTableWidgetItem(Monat));
-    ui->tblVorschau->setItem(2, 2, new QTableWidgetItem(InfiziierteES));
-    ui->tblVorschau->setItem(2, 5, new QTableWidgetItem(gsmtInfiES));
-    ui->tblVorschau->setItem(2, 3, new QTableWidgetItem(TodeES));
-    ui->tblVorschau->setItem(2, 6, new QTableWidgetItem(gsmtTodeES));
-    ui->tblVorschau->setItem(2, 0, new QTableWidgetItem(LandES));
+    ui->tblVorschau->setItem(2, 2, new QTableWidgetItem(InfiziierteFR));
+    ui->tblVorschau->setItem(2, 5, new QTableWidgetItem(gsmtInfiFR));
+    ui->tblVorschau->setItem(2, 3, new QTableWidgetItem(TodeFR));
+    ui->tblVorschau->setItem(2, 6, new QTableWidgetItem(gsmtTodeFR));
+    ui->tblVorschau->setItem(2, 0, new QTableWidgetItem(LandFR));
 
     ui->tblVorschau->insertRow(3);
-    ui->tblVorschau->setItem(3, 1, new QTableWidgetItem(Datum2));
-    ui->tblVorschau->setItem(3, 4, new QTableWidgetItem(Monat2));
-    ui->tblVorschau->setItem(3, 2, new QTableWidgetItem(InfiziierteIT));
-    ui->tblVorschau->setItem(3, 5, new QTableWidgetItem(gsmtInfiIT));
-    ui->tblVorschau->setItem(3, 3, new QTableWidgetItem(TodeIT));
-    ui->tblVorschau->setItem(3, 6, new QTableWidgetItem(gsmtTodeIT));
-    ui->tblVorschau->setItem(3, 0, new QTableWidgetItem(LandIT));
+    ui->tblVorschau->setItem(3, 1, new QTableWidgetItem(Datum));
+    ui->tblVorschau->setItem(3, 4, new QTableWidgetItem(Monat));
+    ui->tblVorschau->setItem(3, 2, new QTableWidgetItem(InfiziierteES));
+    ui->tblVorschau->setItem(3, 5, new QTableWidgetItem(gsmtInfiES));
+    ui->tblVorschau->setItem(3, 3, new QTableWidgetItem(TodeES));
+    ui->tblVorschau->setItem(3, 6, new QTableWidgetItem(gsmtTodeES));
+    ui->tblVorschau->setItem(3, 0, new QTableWidgetItem(LandES));
 
     ui->tblVorschau->insertRow(4);
     ui->tblVorschau->setItem(4, 1, new QTableWidgetItem(Datum2));
     ui->tblVorschau->setItem(4, 4, new QTableWidgetItem(Monat2));
-    ui->tblVorschau->setItem(4, 2, new QTableWidgetItem(InfiziierteAL));
-    ui->tblVorschau->setItem(4, 5, new QTableWidgetItem(gsmtInfiAL));
-    ui->tblVorschau->setItem(4, 3, new QTableWidgetItem(TodeAL));
-    ui->tblVorschau->setItem(4, 6, new QTableWidgetItem(gsmtTodeAL));
-    ui->tblVorschau->setItem(4, 0, new QTableWidgetItem(LandAL));
+    ui->tblVorschau->setItem(4, 2, new QTableWidgetItem(InfiziierteIT));
+    ui->tblVorschau->setItem(4, 5, new QTableWidgetItem(gsmtInfiIT));
+    ui->tblVorschau->setItem(4, 3, new QTableWidgetItem(TodeIT));
+    ui->tblVorschau->setItem(4, 6, new QTableWidgetItem(gsmtTodeIT));
+    ui->tblVorschau->setItem(4, 0, new QTableWidgetItem(LandIT));
+
+    ui->tblVorschau->insertRow(5);
+    ui->tblVorschau->setItem(5, 1, new QTableWidgetItem(Datum2));
+    ui->tblVorschau->setItem(5, 4, new QTableWidgetItem(Monat2));
+    ui->tblVorschau->setItem(5, 2, new QTableWidgetItem(InfiziierteAL));
+    ui->tblVorschau->setItem(5, 5, new QTableWidgetItem(gsmtInfiAL));
+    ui->tblVorschau->setItem(5, 3, new QTableWidgetItem(TodeAL));
+    ui->tblVorschau->setItem(5, 6, new QTableWidgetItem(gsmtTodeAL));
+    ui->tblVorschau->setItem(5, 0, new QTableWidgetItem(LandAL));
+
 
 }

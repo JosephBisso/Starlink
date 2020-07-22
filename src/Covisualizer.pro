@@ -6,6 +6,8 @@ QT       += charts
 LIBS += -L$$OUT_PWD/lib
 -libcrypto-1_1-x64
 -libssl-1_1-x64
+-libcrypto.lib
+-libssl.lib
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

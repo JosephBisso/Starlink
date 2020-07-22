@@ -319,6 +319,40 @@ QString databank::gibDatum(QString Tag, QString Monat)
     return "-999";
 }
 
+//Gib das Datum der letzten Aktualierung
+
+/* Liest aus dem Eintrag mit Index 0 (der letzte hinzugefügte Eintrag) der Array "records"
+   das Datum (in der Json Datei:"dateRep")
+*/
+QString databank::gibUpdateDatum()
+{
+    QFile file (":/lib/covidRaw.json");
+
+    QJsonDocument jsonDoc;
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        QJsonObject jsonObject =jsonDoc.object();
+        QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+        QJsonObject recordsObject = recordsArray[0].toObject();
+
+        QJsonValue jsDate = recordsObject["dateRep"];
+
+        QString AktuelleDatum = jsDate.toString();
+
+        return AktuelleDatum;
+
+
+    }
+
+    return "Error 'Pfad': Auf die Datenbank könnte nicht zugregriffen werden.";
+}
+
 //Gibt aus Monat im Format "mm" den Namen des Monats.
 QString databank::gibMonat(QString Monat)
 {

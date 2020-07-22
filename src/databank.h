@@ -26,6 +26,8 @@ public:
 
     QString gibDatum(QString Tag, QString Monat); //Setzt und Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020.
 
+    QString gibUpdateDatum(); //Gib das Datum der letzten Aktualierung
+
     QString gibMonat(QString Monat); //Gib den Namen des Monats
 
     QString gibLand(QString geoID); //Setzt und Gibt den englische Name aus Landkennzeichung "geoID"

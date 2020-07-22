@@ -23,11 +23,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Covisualizer</string>
   </property>
   <property name="windowIcon">
    <iconset resource="Ressources.qrc">
-    <normaloff>:/img/Landkarte.jpg</normaloff>:/img/Landkarte.jpg</iconset>
+    <normaloff>:/img/Icon_CundAuge_RotBlau.bmp</normaloff>:/img/Icon_CundAuge_RotBlau.bmp</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_pic">
@@ -61,7 +61,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/Landkarte.jpg</pixmap>
+     <pixmap resource="Ressources.qrc">:/img/Landkarte.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

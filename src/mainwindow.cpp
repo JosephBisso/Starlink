@@ -24,7 +24,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->label_pic->setPixmap(pix.scaled(1000,1000));
 
-    dbMain.jsDbShort(); //Ein Auszug aus der covidRaw Datei wird erstellt.
+    dbMain.jsDbShort(); /*Eine Verbindung mit der Datenbank wird automatisch am Start des Programms aufgebaut
+                          und Auszug aus der covidRaw Datei wird dabei erstellt.
+                          dbMain ist ein privates
+                          Attribut vom Typ databank der Klasse MainWindow.
+                          jsBdShort ist eine
+                          Methode der Klasse databank
+                        */
 
 }
 
@@ -34,7 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//...
+//Ein neues Fenster zum Interagieren mit der Datenbank wird erstellt
 void MainWindow::on_actionDatenbank_triggered()
 {
     Datenbank* datenbank = new Datenbank(this);
@@ -45,6 +51,9 @@ void MainWindow::on_actionNew_Windows_triggered()
 {
     QMessageBox::information(this, "Information", "Um genauere Informationen zu den einzelnen Ländern zu bekommen, müssen diese ungefähr mittig angeklickt werden.");
 }
+
+//Hinweis: Es sind weitere Methoden nach den Länder-Signal Definitionen definiert
+
 
 void MainWindow::on_Frankreich_clicked()
 {
@@ -323,6 +332,6 @@ void MainWindow::dataUpdateConfirmed()
 {
     QDateTime upDateTime = QDateTime::currentDateTime();
     QString refreshStateText = "Daten aktualisiert am: ";
-    refreshStateText.append(upDateTime.toString());
+    refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
     ui->refreshState->setText(refreshStateText);
 }
