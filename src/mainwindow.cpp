@@ -18,6 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    Downloader* startUpDownloader = new Downloader;
+    startUpDownloader->updateRawData();
+    connect(startUpDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
+    startUpDownloader->deleteLater();
+
     ui->setupUi(this);
 
     QPixmap pix(":/img/Landkarte.jpg");
@@ -38,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
 }
 
@@ -332,7 +338,10 @@ void MainWindow::on_refreshButton_clicked()
 void MainWindow::dataUpdateConfirmed()
 {
     QDateTime upDateTime = QDateTime::currentDateTime();
-    QString refreshStateText = "Daten aktualisiert am: ";
+    QString refreshStateText = "Letzter Stand: ";
     refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
-    ui->refreshState->setText(refreshStateText);
+//    QLabel* refreshLabel;
+//  refreshLabel->setText(refreshStateText);
+//    ui->refreshState->setText(refreshStateText);
+    ui->statusbar->showMessage(refreshStateText);
 }

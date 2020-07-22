@@ -735,71 +735,6 @@
      <string>Daten aktualisieren</string>
     </property>
    </widget>
-   <widget class="QLabel" name="refreshState">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>920</y>
-      <width>360</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>54</red>
-          <green>54</green>
-          <blue>54</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>54</red>
-          <green>54</green>
-          <blue>54</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="96">
-          <red>164</red>
-          <green>166</green>
-          <blue>168</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="toolTipDuration">
-     <number>-1</number>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-    <property name="margin">
-     <number>5</number>
-    </property>
-   </widget>
    <zorder>label_pic</zorder>
    <zorder>Finnland</zorder>
    <zorder>Montenegro</zorder>
@@ -840,7 +775,6 @@
    <zorder>Daenemark</zorder>
    <zorder>Slowakei</zorder>
    <zorder>refreshButton</zorder>
-   <zorder>refreshState</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

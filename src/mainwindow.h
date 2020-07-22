@@ -153,6 +153,7 @@ private slots:
 
     void on_refreshButton_clicked();
 
+public slots:
     void dataUpdateConfirmed();
 
 private:

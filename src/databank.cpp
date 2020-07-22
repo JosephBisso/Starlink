@@ -25,7 +25,7 @@ void databank::jsDbShort()
 
     QJsonArray reArrayShort;
 
-    QFile file (":/lib/covidRaw.json");
+    QFile file ("covidRaw.json");
 
     QJsonDocument jsonDoc;
 
@@ -82,7 +82,7 @@ void databank::jsDbShort()
  */
 QJsonDocument databank::jsDbConnect()
 {
-    QFile file (":/lib/covidRaw.json");
+    QFile file ("covidRaw.json");
 
     QJsonDocument jsonDoc;
 
@@ -326,7 +326,7 @@ QString databank::gibDatum(QString Tag, QString Monat)
 */
 QString databank::gibUpdateDatum()
 {
-    QFile file (":/lib/covidRaw.json");
+    QFile file ("covidRaw.json");
 
     QJsonDocument jsonDoc;
 
