@@ -58,8 +58,9 @@ void MainWindow::on_actionNew_Windows_triggered()
     QMessageBox::information(this, "Information", "Um genauere Informationen zu den einzelnen Ländern zu bekommen, müssen diese ungefähr mittig angeklickt werden.");
 }
 
+//
 //Hinweis: Es sind weitere Methoden nach den Länder-Signal Definitionen definiert
-
+//
 
 void MainWindow::on_Frankreich_clicked()
 {
