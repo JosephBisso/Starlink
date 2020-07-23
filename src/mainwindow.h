@@ -13,7 +13,6 @@
 #include "deutschland.h"
 #include "spanien.h"
 #include "portugal.h"
-#include "andorra.h"
 #include "belgien.h"
 #include "niederlande.h"
 #include "schweiz.h"

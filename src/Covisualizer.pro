@@ -32,7 +32,6 @@ SOURCES += \
     downloader.cpp \
     main.cpp \
     albanien.cpp \
-    andorra.cpp \
     belgien.cpp \
     bulgarien.cpp \
     daenemark.cpp \
@@ -75,7 +74,6 @@ HEADERS += \
     datenbank.h \
     dbvorschau.h \
     albanien.h \
-    andorra.h \
     belgien.h \
     bulgarien.h \
     daenemark.h \
@@ -120,7 +118,6 @@ FORMS += \
     datenbank.ui \
     dbvorschau.ui \
     albanien.ui \
-    andorra.ui \
     belgien.ui \
     bulgarien.ui \
     daenemark.ui \

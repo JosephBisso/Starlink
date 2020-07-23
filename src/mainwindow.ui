@@ -158,22 +158,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="Andorra">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>750</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="Belgien">
     <property name="geometry">
      <rect>
@@ -759,7 +743,6 @@
    <zorder>Spanien</zorder>
    <zorder>Polen</zorder>
    <zorder>Belgien</zorder>
-   <zorder>Andorra</zorder>
    <zorder>Schweiz</zorder>
    <zorder>Bulgarien</zorder>
    <zorder>Niederlande</zorder>

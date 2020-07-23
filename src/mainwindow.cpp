@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mydialog.h"
-#include "frankreich.h"
-#include "deutschland.h"
 #include <QPixmap>
 #include <QtGui>
 #include <QtCore>
@@ -89,13 +87,6 @@ void MainWindow::on_Spanien_clicked()
 void MainWindow::on_Portugal_clicked()
 {
     Portugal mDialog;
-       mDialog.setModal(true);
-       mDialog.exec();
-}
-
-void MainWindow::on_Andorra_clicked()
-{
-    Andorra mDialog;
        mDialog.setModal(true);
        mDialog.exec();
 }
