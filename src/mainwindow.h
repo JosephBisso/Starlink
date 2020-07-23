@@ -84,8 +84,6 @@ private slots:
 
     void on_Portugal_clicked();
 
-    void on_Andorra_clicked();
-
     void on_Belgien_clicked();
 
     void on_Niederlande_clicked();
