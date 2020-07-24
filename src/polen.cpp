@@ -12,7 +12,7 @@ Polen::Polen(QWidget *parent) :
 
     //SEHR WICHTIG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //Liste von geoID von jedem EU-Land in den Ressource Datei / lib
-    QString geoID = "PO";
+    QString geoID = "PL";
 
     // Für Klemmens: Ab hier Copy/Paste
     Laender Land; //ein Element der Klasse Laender erstellen.
