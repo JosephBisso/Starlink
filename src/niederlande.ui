@@ -13,6 +13,14 @@
   <property name="windowTitle">
    <string>Niederlande</string>
   </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QGridLayout" name="gridLayout"/>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout"/>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

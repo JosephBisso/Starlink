@@ -72,7 +72,7 @@ Belgien::Belgien(QWidget *parent) :
 
     QChartView *chartView = new QChartView(chart);
        chartView->setRenderHint(QPainter::Antialiasing);
-    ui->verticalLayout_2->addWidget(chartView);
+    ui->verticalLayout->addWidget(chartView);
 }
 
 Belgien::~Belgien()
