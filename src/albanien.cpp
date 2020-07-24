@@ -52,12 +52,12 @@ Albanien::Albanien(QWidget *parent) :
 
 
 
-    QBarSet *set0 = new QBarSet("Inf");
+    QBarSet *set0 = new QBarSet("Infizierte");
     QBarSet *set1 = new QBarSet("Tode");// Einstellung der Legende in Inf(Infizierte) und Tode
 
                                                                //Variabel werden addiert
-    *set0 << InfJa << InfFe << InfMa << InfAp << InfMai << InfJun << InfJuli << InfAug << InfSep << InfOkt << InfNov << InfDez << InfJa + InfFe + InfMa + InfAp + InfMai + InfJun + InfJuli + InfAug + InfSep + InfOkt + InfNov + InfDez ;
-    *set1 << TodeJa << TodeFe << TodeMa << TodeAp << TodeMai << TodeJun << TodeJuli << TodeAug << TodeSep << TodeOkt << TodeNov << TodeDez << TodeJa + TodeFe + TodeMa + TodeAp + TodeMa + TodeJun + TodeJuli + TodeAug + TodeSep + TodeOkt + TodeNov + TodeDez;
+    *set0 << InfJa << InfFe << InfMa << InfAp << InfMai << InfJun << InfJuli << InfAug << InfSep << InfOkt << InfNov << InfDez ;
+    *set1 << TodeJa << TodeFe << TodeMa << TodeAp << TodeMai << TodeJun << TodeJuli << TodeAug << TodeSep << TodeOkt << TodeNov << TodeDez;
 
     QBarSeries *series = new QBarSeries();
     series->append(set0);
@@ -69,14 +69,14 @@ Albanien::Albanien(QWidget *parent) :
     chart->setAnimationOptions(QChart::SeriesAnimations);// Namensgebung sowie Animationseinstellung
 
     QStringList categories;
-    categories << "Januar" << "Febuar" << "März" << "April" << "Mai" << "Juni" << "Juli" << "August" << "September" << "Oktober" << "November" << "Dezember" << "Gesamt";
+    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX); // Umbennenung der X-Achse
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,InfJa + InfFe + InfMa + InfAp + InfMai + InfJun + InfJuli + InfAug + InfSep + InfOkt + InfNov + InfDez); // Festlegung der Obergrenze der Y-Achse durch die Summe der Infizierten
+    axisY->setRange(0,1500); // Festlegung der Obergrenze der Y-Achse durch die Summe der Infizierten
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
