@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bosnien.cpp \
     databank.cpp \
     datenbank.cpp \
     dbvorschau.cpp \
@@ -70,6 +71,7 @@ SOURCES += \
     weissrussland.cpp
 
 HEADERS += \
+    bosnien.h \
     databank.h \
     datenbank.h \
     dbvorschau.h \
@@ -115,6 +117,7 @@ HEADERS += \
 
 
 FORMS += \
+    bosnien.ui \
     datenbank.ui \
     dbvorschau.ui \
     albanien.ui \

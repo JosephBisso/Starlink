@@ -334,3 +334,10 @@ void MainWindow::dataUpdateConfirmed()
     refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
     ui->statusbar->showMessage(refreshStateText);
 }
+
+void MainWindow::on_Bosnien_clicked()
+{
+    Bosnien mDialog;
+       mDialog.setModal(true);
+       mDialog.exec();
+}

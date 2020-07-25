@@ -45,6 +45,7 @@
 #include "estland.h"
 #include "lettland.h"
 #include "litauen.h"
+#include "bosnien.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -149,6 +150,8 @@ private slots:
     void on_Litauen_clicked();
 
     void on_refreshButton_clicked();
+
+    void on_Bosnien_clicked();
 
 public slots:
     void dataUpdateConfirmed();
