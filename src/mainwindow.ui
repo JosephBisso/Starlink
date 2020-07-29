@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>1100</height>
+    <height>1097</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,8 +26,11 @@
    <string>Covisualizer</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Ressources.qrc">
+   <iconset>
     <normaloff>:/img/iconCovisual.png</normaloff>:/img/iconCovisual.png</iconset>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_pic">
@@ -61,7 +64,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="Ressources.qrc">:/img/Landkarte.jpg</pixmap>
+     <pixmap>:/img/Landkarte.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -786,7 +789,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew_Windows">
    <property name="icon">
-    <iconset resource="Ressources.qrc">
+    <iconset>
      <normaloff>:/img/icon_FrageZeichnen.png</normaloff>:/img/icon_FrageZeichnen.png</iconset>
    </property>
    <property name="text">
@@ -800,7 +803,7 @@
   </action>
   <action name="actionDatenbank">
    <property name="icon">
-    <iconset resource="Ressources.qrc">
+    <iconset>
      <normaloff>:/img/Icon_datenbank.png</normaloff>:/img/Icon_datenbank.png</iconset>
    </property>
    <property name="text">
@@ -808,8 +811,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="Ressources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
