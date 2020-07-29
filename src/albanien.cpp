@@ -18,46 +18,26 @@ Albanien::Albanien(QWidget *parent) :
     // Für Klemmens: Ab hier Copy/Paste
     Laender Land; //ein Element der Klasse Laender erstellen.
 
+    double InfiMonat[12],
+           TodeMonat[12];
 
-
-    /*Es werden nacheinander ein Attribut vom Typ databank der Klasse Laender "DbLandDaten" und eine Methode
-      von der Klasse databank "gibGesamtInfizierte (Monat, geoID)" mit RückgabeTyp int gerufen
-    */
-
-    double InfJa = Land.DbLandDaten.gibGesamtInfizierte("01", geoID); // Gesamt Infiziierte für Januar ("01")
-    double InfFe = Land.DbLandDaten.gibGesamtInfizierte("02", geoID); // Gesamt Infiziierte für ...
-    double InfMa = Land.DbLandDaten.gibGesamtInfizierte("03", geoID); // Gesamt ...
-    double InfAp = Land.DbLandDaten.gibGesamtInfizierte("04", geoID); // ...
-    double InfMai = Land.DbLandDaten.gibGesamtInfizierte("05", geoID); //
-    double InfJun = Land.DbLandDaten.gibGesamtInfizierte("06", geoID);
-    double InfJuli = Land.DbLandDaten.gibGesamtInfizierte("07", geoID);
-    double InfAug = Land.DbLandDaten.gibGesamtInfizierte("08", geoID);
-    double InfSep = Land.DbLandDaten.gibGesamtInfizierte("09", geoID);
-    double InfOkt = Land.DbLandDaten.gibGesamtInfizierte("10", geoID);
-    double InfNov = Land.DbLandDaten.gibGesamtInfizierte("11", geoID);
-    double InfDez = Land.DbLandDaten.gibGesamtInfizierte("12", geoID);
-
-    double TodeJa = Land.DbLandDaten.gibGesamtTode("01", geoID); //...
-    double TodeFe = Land.DbLandDaten.gibGesamtTode("02", geoID);
-    double TodeMa = Land.DbLandDaten.gibGesamtTode("03", geoID);
-    double TodeAp = Land.DbLandDaten.gibGesamtTode("04", geoID);
-    double TodeMai = Land.DbLandDaten.gibGesamtTode("05", geoID);
-    double TodeJun = Land.DbLandDaten.gibGesamtTode("06", geoID);
-    double TodeJuli = Land.DbLandDaten.gibGesamtTode("07", geoID);
-    double TodeAug = Land.DbLandDaten.gibGesamtTode("08", geoID);
-    double TodeSep = Land.DbLandDaten.gibGesamtTode("09", geoID);
-    double TodeOkt = Land.DbLandDaten.gibGesamtTode("10", geoID);
-    double TodeNov = Land.DbLandDaten.gibGesamtTode("11", geoID);
-    double TodeDez = Land.DbLandDaten.gibGesamtTode("12", geoID);
-
-
+    for (int i=0; i<13; i++)
+    {
+        InfiMonat[i] = Land.InfiMonat(geoID)[i];
+        TodeMonat[i] = Land.TodeMonat(geoID)[i];
+    }
 
     QBarSet *set0 = new QBarSet("Infizierte");
     QBarSet *set1 = new QBarSet("Tode");// Einstellung der Legende in Inf(Infizierte) und Tode
 
-                                                               //Variabel werden addiert
-    *set0 << InfJa << InfFe << InfMa << InfAp << InfMai << InfJun << InfJuli << InfAug << InfSep << InfOkt << InfNov << InfDez ;
-    *set1 << TodeJa << TodeFe << TodeMa << TodeAp << TodeMai << TodeJun << TodeJuli << TodeAug << TodeSep << TodeOkt << TodeNov << TodeDez;
+
+    *set0 << InfiMonat[0] << InfiMonat[1] << InfiMonat[2] << InfiMonat[3]
+            << InfiMonat[4] << InfiMonat[5] << InfiMonat[6] << InfiMonat[7]
+            << InfiMonat[8] << InfiMonat[9] << InfiMonat[10] << InfiMonat[11] ;
+
+    *set1 << TodeMonat[0] << TodeMonat[1] << TodeMonat[2] << TodeMonat[3]
+            << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
+            << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ;
 
     QBarSeries *series = new QBarSeries();
     series->append(set0);
@@ -97,8 +77,9 @@ Albanien::~Albanien()
 
 void Albanien::on_DatumApply_clicked(QAbstractButton *button)
 {
-    QAbstractButton* Nutzlos = button;
-    Nutzlos = NULL; //Nutzlos
+    button->isChecked();
+
+    qDebug ("ApplyChange Starts...");
 
     QString geoID = "AL";
     Laender Land;
@@ -111,23 +92,36 @@ void Albanien::on_DatumApply_clicked(QAbstractButton *button)
 
     }
 
+
+    qDebug() << "uiDatum = " << uiDatum;
+
     QString Monat = QString::number(uiDatum.month());
     if (Monat.size()==1)
     {
         Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
     }
 
-    QString Tag = QString::number (uiDatum.day());
+    qDebug() << "Monat = " << Monat;
+
+
+    QString Tag = QString::number(uiDatum.day());
     if (Tag.size()==1)
     {
         Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
     }
 
+    qDebug() << "Tag = " << Tag;
+
     QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat);
+
+    qDebug() << "Datum = " << Datum;
 
     QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID));
     QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));
 
-    ui->lineInfi->insert(Infi);
-    ui->lineTode->insert(Tode);
+    qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
+
+    ui->lineEdit_4->setText(Infi);
+    ui->lineEdit_6->setText(Tode);
+
 }

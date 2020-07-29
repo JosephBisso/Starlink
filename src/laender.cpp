@@ -29,4 +29,54 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 
 }
 
+double* Laender::InfiMonat (QString geoID)
+{
+    double infMonat [12];
 
+    double* InfiMonatSTR = infMonat;
+
+    QString Monat;
+    /*Es werden nacheinander ein Attribut vom Typ databank der Klasse Laender "DbLandDaten" und eine Methode
+      von der Klasse databank "gibGesamtInfizierte (Monat, geoID)" mit RückgabeTyp int gerufen
+    */
+
+    for (int i=0; i<13; i++)
+    {
+        Monat = QString::number(i);
+            if (Monat.size()==1)
+            {
+                Monat.insert(0,"0");
+            }
+
+        infMonat[i]= DbLandDaten.gibGesamtInfizierte(Monat, geoID); // Gesamt Infiziierte für Januar ("01")
+
+    }
+
+    return InfiMonatSTR;
+}
+
+double* Laender::TodeMonat(QString geoID)
+{
+    double todMonat [12];
+
+    double* TodeMonatSTR = todMonat;
+
+    QString Monat;
+    /*Es werden nacheinander ein Attribut vom Typ databank der Klasse Laender "DbLandDaten" und eine Methode
+      von der Klasse databank "gibGesamtInfizierte (Monat, geoID)" mit RückgabeTyp int gerufen
+    */
+
+    for (int i=0; i<13; i++)
+    {
+        Monat = QString::number(i);
+            if (Monat.size()==1)
+            {
+                Monat.insert(0,"0");
+            }
+
+        todMonat[i]= DbLandDaten.gibGesamtTode(Monat, geoID); // Gesamt Infiziierte für Januar ("01")
+
+    }
+
+    return TodeMonatSTR;
+}
