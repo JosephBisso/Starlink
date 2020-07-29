@@ -20,12 +20,14 @@ Lettland::Lettland(QWidget *parent) :
     double InfiMonat[12],
            TodeMonat[12];
 
-    for (int i=0; i<13; i++)
-    {
-        InfiMonat[i] = Land.InfiMonat(geoID)[i];
-        TodeMonat[i] = Land.TodeMonat(geoID)[i];
-    }
+    Land.InfiTodeMonat(geoID);
 
+    for (int i=0; i<12; i++)
+    {
+        InfiMonat[i] = Land.infMonat [i]; //Jeder Element des Feld Attribut vom Land wird in dem
+                                          //entsprechenden Element der variablen Feldes gespeichert
+        TodeMonat[i] = Land.todMonat [i];
+    }
     QBarSet *set0 = new QBarSet("Infizierte");
     QBarSet *set1 = new QBarSet("Tode");// Einstellung der Legende in Inf(Infizierte) und Tode
 

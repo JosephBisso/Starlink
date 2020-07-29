@@ -14,14 +14,14 @@ public:
 
     void gibLandDaten(QString Tag, QString Monat, QString geoID);
 
-    double* InfiMonat (QString geoID); //Rechnet und speichert
-                              //Gesamtinfiziierte für alle Monate in einem Feld und gibt uns einen
-                                   //Zeiger zurück, der auf dieses Feld zeigt.
+    void InfiTodeMonat (QString geoID); //Rechnet und speichert
+                              //Gesamtinfiziierte und -Tode
+                                //für alle Monate in 2 Felder.
 
-    double* TodeMonat (QString geoID); //Rechnet und speichert
-    //GesamtTode für alle Monate in einem Feld und gibt uns einen
-         //Zeiger zurück, der auf dieses Feld zeigt.
 
+    double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
+
+    double todMonat [12];
 
 
 signals:
