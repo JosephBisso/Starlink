@@ -73,7 +73,8 @@ Deutschland::Deutschland(QWidget *parent) :
 
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-    ui->verticalLayout_2->addWidget(chartView); // Initalisierung der BarChart
+    ui->verticalLayout_4->addWidget(chartView); // Initalisierung der BarChart
+
 
 }
 
@@ -155,9 +156,37 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         ui->lineEdit_4->setText(Infi); //Wenn alle Bedingungen gut klappen, dann werden die Daten dargestellt.
         ui->lineEdit_6->setText(Tode);
 
+        QLineSeries* series = new QLineSeries();
+        Land.FillTab(series, Monat);
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("Covisualizer");
+        chart->setAnimationOptions(QChart::SeriesAnimations);// Namensgebung sowie Animationseinstellung
+
+        QStringList categories;
+        categories << "1" << "2.";
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+        axisX->append(categories);
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX); // Umbennenung der X-Achse
+
+        QValueAxis *axisY = new QValueAxis();
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        ui->verticalLayout_7->addWidget(chartView);// Initalisierung der BarChart
+
+
         }
 
     }
+
 
 
 }

@@ -109,6 +109,38 @@
     </layout>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Skalierung (Monatliche Darstellung)</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QRadioButton" name="skalaLiear">
+        <property name="text">
+         <string>Linear</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="skalaLogarithm">
+        <property name="text">
+         <string>Logarithmisch</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QTabWidget" name="tabWidget">
@@ -117,13 +149,23 @@
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>Tab 1</string>
+         <string>Monatliche Darstellung</string>
         </attribute>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_7"/>
+         </item>
+        </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="Tab_2">
         <attribute name="title">
-         <string>Tab 2</string>
+         <string>Jährliche Darstellung</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4"/>
+         </item>
+        </layout>
        </widget>
       </widget>
      </item>

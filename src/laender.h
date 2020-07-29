@@ -3,6 +3,8 @@
 #include "databank.h"
 
 #include <QObject>
+#include <QLineSeries>
+#include <QtCharts>
 
 class Laender : public QObject
 {
@@ -17,6 +19,8 @@ public:
     void InfiTodeMonat (QString geoID); //Rechnet und speichert
                               //Gesamtinfiziierte und -Tode
                                 //für alle Monate in 2 Felder.
+
+    void FillTab (QLineSeries* series, QString Monat);
 
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.

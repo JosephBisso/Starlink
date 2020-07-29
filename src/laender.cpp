@@ -29,8 +29,7 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 
 }
 
-//Rechnet und speichert Gesamtinfiziierte für alle Monate in einem Feld und gibt uns einen
- //Zeiger zurück, der auf dieses Feld zeigt.
+//Rechnet und speichert Gesamtinfiziierte für alle Monate in einem Feld
 void Laender::InfiTodeMonat (QString geoID)
 {
 
@@ -55,5 +54,12 @@ void Laender::InfiTodeMonat (QString geoID)
         todMonat[i]= DbLandDaten.gibGesamtTode(Monat, geoID);
 
     }
+
+}
+
+void Laender::FillTab(QLineSeries* series, QString Monat)
+{
+    series->append(0, 6);
+    series->append(2, 4);
 
 }
