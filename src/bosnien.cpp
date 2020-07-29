@@ -14,7 +14,7 @@ Bosnien::Bosnien(QWidget *parent) :
 
     //SEHR WICHTIG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //Liste von geoID von jedem EU-Land in den Ressource Datei / lib
-    QString geoID = "BG";
+    QString geoID = "BA";
 
 
     // Für Klemmens: Ab hier Copy/Paste
@@ -85,7 +85,7 @@ Bosnien::Bosnien(QWidget *parent) :
 
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-    ui->verticalLayout_2->addWidget(chartView); // Initalisierung der BarChart
+    ui->verticalLayout->addWidget(chartView); // Initalisierung der BarChart
 }
 
 Bosnien::~Bosnien()
