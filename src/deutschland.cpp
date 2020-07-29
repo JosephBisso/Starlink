@@ -9,51 +9,17 @@
 #include "databank.h" // aufpassen: datAbank und nicht datENbank
 #include <QtCharts>
 
+#include <QDebug>
+
 Deutschland::Deutschland(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Deutschland)
+
 {
     ui->setupUi(this);
 
-    /*
-     * Beispiel Datenzugriff für Toni: Ich zeige dir, wie du auf die Daten zugreifst
-     * (1) Erstmal ein Element aus der Klasse "Laender" erstellen
-     * (2) Die Methode "gibLandDaten für den gewünschten "Tag" und "Monat" für ein land mit geoID "geoID"
-            Liste von geoID in den Ressource Datei / lib
-     * (3) Dann dich für eine der beiden unten beschrieben Vorgehensweisen entscheiden
-     */
 
-   //(1)
     Laender Land;
-
-   //(2)
-    Land.gibLandDaten("01", "04", "DE"); //Oder Land.gibLandDaten (ui->Day, ui->Month, "DE")
-
-
-   //(3)
-
-       // (3.1)     entweder direkt so "Land.DbLandDaten.Datum", "Land.DbLandDaten.Infiziierte"
-                                          //fürs Datum              für Anzahl Infiziierte an dem Datum
-    QMessageBox::information(this, Land.DbLandDaten.Datum , QString::number(Land.DbLandDaten.Infiziierte));
-
-       //(3.2)
-    QString Datum = Land.DbLandDaten.Datum;
-    int Tode = Land.DbLandDaten.Tode;
-
-
-                    //oder so; mit Datum = Land.DbLandDaten.Datum, Tode = Land.DbLandDaten.Tode;
-                                            //fürs Datum                  für Anzahl von Tode an dem Datum
-    QMessageBox::information(this, Datum , QString::number(Tode));
-
-    //QMessageBox dient hier lediglich zur Darstellung, damit du verstehst was abgehst
-    //(Du kannst das Programm ausführen)
-
-    //Klemmens. Analog für die Gesammtzahlen:
-   // hier beachten: Gesamst Zahlen für den Monat "Monat" im Land mit geoID "geoID"
-
-    Land.DbLandDaten.gibGesamtInfizierte("04", "DE");
-
-    Land.DbLandDaten.gibGesamtTode("04", "DE");
 
     QString geoID = "DE";
 
@@ -124,4 +90,58 @@ Deutschland::Deutschland(QWidget *parent) :
 Deutschland::~Deutschland()
 {
     delete ui;
+}
+
+
+void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
+{
+    QAbstractButton* Nutzlos = button;
+    Nutzlos = NULL; //Nutzlos
+
+    qDebug ("ApplyChange Starts...");
+
+    QString geoID = "DE";
+    Laender Land;
+
+    QDate uiDatum = ui->dateEdit->date();
+
+    if (uiDatum>QDate::currentDate())
+    {
+        QMessageBox::information(this, "ungültiges Datum", "Die Daten für dieses Datum wurden nicht in der Datenbank gefunden");
+
+    }
+
+
+    qDebug() << "uiDatum = " << uiDatum;
+
+    QString Monat = QString::number(uiDatum.month());
+    if (Monat.size()==1)
+    {
+        Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+    }
+
+    qDebug() << "Monat = " << Monat;
+
+
+    QString Tag = QString::number(uiDatum.day());
+    if (Tag.size()==1)
+    {
+        Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+    }
+
+    qDebug() << "Tag = " << Tag;
+
+    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat);
+
+    qDebug() << "Datum = " << Datum;
+
+    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID));
+    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));
+
+    qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
+
+    ui->lineEdit_4->setText(Infi);
+    ui->lineEdit_6->setText(Tode);
+
+
 }

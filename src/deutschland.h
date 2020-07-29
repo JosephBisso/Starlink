@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QAbstractButton>
+
 namespace Ui {
 class Deutschland;
 }
@@ -14,6 +16,10 @@ class Deutschland : public QDialog
 public:
     explicit Deutschland(QWidget *parent = nullptr);
     ~Deutschland();
+
+private slots:
+
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Deutschland *ui;

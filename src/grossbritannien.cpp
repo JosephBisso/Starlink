@@ -88,3 +88,53 @@ Grossbritannien::~Grossbritannien()
 {
     delete ui;
 }
+
+void Grossbritannien::on_buttonBox_clicked(QAbstractButton *button)
+{
+    QAbstractButton* Nutzlos = button;
+    Nutzlos = NULL; //Nutzlos
+
+    qDebug ("ApplyChange Starts...");
+
+    QString geoID = "UK";
+    Laender Land;
+
+    QDate uiDatum = ui->dateEdit->date();
+
+    if (uiDatum>QDate::currentDate())
+    {
+        QMessageBox::information(this, "ungültiges Datum", "Die Daten für dieses Datum wurden nicht in der Datenbank gefunden");
+
+    }
+
+    qDebug() << "uiDatum = " << uiDatum;
+
+    QString Monat = QString::number(uiDatum.month());
+    if (Monat.size()==1)
+    {
+        Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+    }
+
+    qDebug() << "Monat = " << Monat;
+
+
+    QString Tag = QString::number(uiDatum.day());
+    if (Tag.size()==1)
+    {
+        Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+    }
+
+    qDebug() << "Tag = " << Tag;
+
+    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat);
+
+    qDebug() << "Datum = " << Datum;
+
+    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID));
+    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));
+
+    qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
+
+    ui->lineEdit_4->setText(Infi);
+    ui->lineEdit_6->setText(Tode);
+}

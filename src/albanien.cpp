@@ -93,3 +93,41 @@ Albanien::~Albanien()
 {
     delete ui;
 }
+
+
+void Albanien::on_DatumApply_clicked(QAbstractButton *button)
+{
+    QAbstractButton* Nutzlos = button;
+    Nutzlos = NULL; //Nutzlos
+
+    QString geoID = "AL";
+    Laender Land;
+
+    QDate uiDatum = ui->dateEdit->date();
+
+    if (uiDatum>QDate::currentDate())
+    {
+        QMessageBox::information(this, "ungültiges Datum", "Die Daten für dieses Datum wurden nicht in der Datenbank gefunden");
+
+    }
+
+    QString Monat = QString::number(uiDatum.month());
+    if (Monat.size()==1)
+    {
+        Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+    }
+
+    QString Tag = QString::number (uiDatum.day());
+    if (Tag.size()==1)
+    {
+        Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+    }
+
+    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat);
+
+    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID));
+    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));
+
+    ui->lineInfi->insert(Infi);
+    ui->lineTode->insert(Tode);
+}
