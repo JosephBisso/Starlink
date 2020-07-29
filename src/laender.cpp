@@ -29,11 +29,13 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 
 }
 
+//Rechnet und speichert Gesamtinfiziierte für alle Monate in einem Feld und gibt uns einen
+ //Zeiger zurück, der auf dieses Feld zeigt.
 double* Laender::InfiMonat (QString geoID)
 {
-    double infMonat [12];
+    double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
 
-    double* InfiMonatSTR = infMonat;
+    double* InfiMonatSTR = infMonat; //Ein Zeiger der auf das Feld zeigt wird erstellt.
 
     QString Monat;
     /*Es werden nacheinander ein Attribut vom Typ databank der Klasse Laender "DbLandDaten" und eine Methode
@@ -42,19 +44,24 @@ double* Laender::InfiMonat (QString geoID)
 
     for (int i=0; i<13; i++)
     {
-        Monat = QString::number(i);
+        Monat = QString::number(i+1); // Die zahl des Monat wird ajustiert weil i mit 0 anfängt
             if (Monat.size()==1)
             {
-                Monat.insert(0,"0");
+                Monat.insert(0,"0"); //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
             }
 
-        infMonat[i]= DbLandDaten.gibGesamtInfizierte(Monat, geoID); // Gesamt Infiziierte für Januar ("01")
+        infMonat[i]= DbLandDaten.gibGesamtInfizierte(Monat, geoID); // Gesamt Infiziierte für jedem Monat für ein
+                                                       // Land mit einem geoID "geoID" (Siehe Liste geoID in
+                                                                 // den Resources Dateien) wird in
+                                                       //einem Element des Feldes gespeichert.
 
     }
 
-    return InfiMonatSTR;
+    return InfiMonatSTR; //Der Zeiger der auf das Feld mit all den Daten drin wird zurückgegeben
 }
 
+
+//Analog zu InfiMonat
 double* Laender::TodeMonat(QString geoID)
 {
     double todMonat [12];
@@ -68,7 +75,7 @@ double* Laender::TodeMonat(QString geoID)
 
     for (int i=0; i<13; i++)
     {
-        Monat = QString::number(i);
+        Monat = QString::number(i+1);
             if (Monat.size()==1)
             {
                 Monat.insert(0,"0");

@@ -19,16 +19,19 @@ Deutschland::Deutschland(QWidget *parent) :
     ui->setupUi(this);
 
 
-    Laender Land;
+    Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Laender
+                  // (infiMonat und TodeMonat ) zu benutzen.
 
     QString geoID = "DE";
 
-    double InfiMonat[12],
+    double InfiMonat[12], //Vektoren mit 12 Elementen werden erstellt
            TodeMonat[12];
 
     for (int i=0; i<13; i++)
     {
-        InfiMonat[i] = Land.InfiMonat(geoID)[i];
+        InfiMonat[i] = Land.InfiMonat(geoID)[i]; //Jeder Element des durch die Methode
+                                                   //gezeigten Felders wird in dem
+                                                 //entsprechenden Element der variablen Feldes gespeichert
         TodeMonat[i] = Land.TodeMonat(geoID)[i];
     }
 
@@ -86,47 +89,74 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
     qDebug ("ApplyChange Starts...");
 
     QString geoID = "DE";
-    Laender Land;
+    Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Databank
+                  // (gibDatum, gibInfiziierte, gitTode ) durch das Attribut DbLandDaten
+                  // vom Typ Databank der Klasse Laender zu benutzen.
 
-    QDate uiDatum = ui->dateEdit->date();
+    QDate uiDatum = ui->dateEdit->date(); //Das aktuelles Datum auf dem UI wird gelesen und in einen Variable gespeichert
 
-    if (uiDatum>QDate::currentDate())
+    if (uiDatum>QDate::currentDate()) //Prüft ob das Datum sich nich in der Zukunft befindet
     {
-        QMessageBox::information(this, "ungültiges Datum", "Es können keine Daten ");
+        QMessageBox::information(this, "ungültiges Datum", "Daten werden nur darstellt und nicht vorausgesagt.");
+
+        ui->lineEdit_4->setText(""); //Zeilen werden leer gemacht
+        ui->lineEdit_6->setText("");
 
     }
 
 
+    else
+    {
     qDebug() << "uiDatum = " << uiDatum;
 
-    QString Monat = QString::number(uiDatum.month());
-    if (Monat.size()==1)
-    {
-        Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
-    }
+    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
+        if (Monat.size()==1)
+       {
+            Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+       }
 
     qDebug() << "Monat = " << Monat;
 
 
-    QString Tag = QString::number(uiDatum.day());
-    if (Tag.size()==1)
-    {
-        Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
-    }
+    QString Tag = QString::number(uiDatum.day()); //Der Tag wird aus dem gelesenen Datum auf dem UI gewonnen
+        if (Tag.size()==1)
+        {
+            Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+        }
 
     qDebug() << "Tag = " << Tag;
 
-    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat);
+    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
+                                                        // Datum in dem von der Datenbank benutzten Format
 
     qDebug() << "Datum = " << Datum;
 
-    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID));
-    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));
+    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen
+    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));//Es werden Daten aus der Datenbank gewonnen
 
     qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
 
-    ui->lineEdit_4->setText(Infi);
-    ui->lineEdit_6->setText(Tode);
+        if (Infi == "-999" || Tode == "-999") //-999 wird von der Methode gibInfiziierte und gibTode zurückgegeben,
+                                              //wenn keine Daten zu dem Datum gefunden wurden
+        {
+            QMessageBox::information(this, "ungültiges Datum", "Daten für dieses Datum in der Datenbank"
+                                                               " nicht gefunden. Versuchen "
+                                                               "Sie die Datenbank zu aktualisieren");
+
+            ui->lineEdit_4->setText(""); //Zeilen leer gemacht
+            ui->lineEdit_6->setText("");
+        }
+
+        else
+        {
+
+
+        ui->lineEdit_4->setText(Infi); //Wenn alle Bedingungen gut klappen, dann werden die Daten dargestellt.
+        ui->lineEdit_6->setText(Tode);
+
+        }
+
+    }
 
 
 }
