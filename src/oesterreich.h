@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QAbstractButton> //Wichtig!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 namespace Ui {
 class Oesterreich;
 }
@@ -14,6 +16,9 @@ class Oesterreich : public QDialog
 public:
     explicit Oesterreich(QWidget *parent = nullptr);
     ~Oesterreich();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Oesterreich *ui;
