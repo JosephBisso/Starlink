@@ -6,11 +6,15 @@
 #include <QLineSeries>
 #include <QtCharts>
 
+#include <QtMath>
+
+#include <QDebug>
+
 class Laender : public QObject
 {
     Q_OBJECT
 public:
-    explicit Laender(QObject *parent = nullptr);    
+    explicit Laender(QObject *parent = nullptr);
 
     databank DbLandDaten;
 
@@ -20,16 +24,26 @@ public:
                               //Gesamtinfiziierte und -Tode
                                 //für alle Monate in 2 Felder.
 
-    void FillTab ( QString Tag, QString Monat);
+    int FillTab (QDate uiDatum, bool skalalinear, QString geoID);
+
+    void FillLines (QDate uiDatum, QString geoID);
 
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
 
     double todMonat [12];
 
-    double infTagMonat[31];
+    qreal tblInfi [2][31],
+           tblTode[2][31];
 
-    double todTagMonat[31];
+    bool skalaLinear = true;
+
+    QString geoID;
+
+    QString Infi,
+            Tode;
+
+private:
 
 signals:
 

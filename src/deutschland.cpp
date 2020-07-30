@@ -19,12 +19,6 @@ Deutschland::Deutschland(QWidget *parent) :
     ui->setupUi(this);
 
 
-
-    Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Laender
-                  // (infiMonat und TodeMonat ) zu benutzen.
-
-    QString geoID = "DE";
-
     double InfiMonat[12], //Vektoren mit 12 Elementen werden erstellt
            TodeMonat[12];
 
@@ -95,10 +89,6 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 
     qDebug ("ApplyChange Starts...");
 
-    QString geoID = "DE";
-    Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Databank
-                  // (gibDatum, gibInfiziierte, gitTode ) durch das Attribut DbLandDaten
-                  // vom Typ Databank der Klasse Laender zu benutzen.
 
     QDate uiDatum = ui->dateEdit->date(); //Das aktuelles Datum auf dem UI wird gelesen und in einen Variable gespeichert
 
@@ -111,46 +101,15 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         ui->lineEdit_6->setText("");
 
         ui->progressBar->setValue(0);
-
     }
-
 
     else
     {
         ui->progressBar->setValue(45);
 
-    qDebug() << "uiDatum = " << uiDatum;
+        Land.FillLines(uiDatum, geoID);
 
-    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
-        if (Monat.size()==1)
-       {
-            Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
-       }
-
-    qDebug() << "Monat = " << Monat;
-
-
-    QString Tag = QString::number(uiDatum.day()); //Der Tag wird aus dem gelesenen Datum auf dem UI gewonnen
-        if (Tag.size()==1)
-        {
-            Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
-        }
-
-    qDebug() << "Tag = " << Tag;
-
-    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
-                                                        // Datum in dem von der Datenbank benutzten Format
-
-    qDebug() << "Datum = " << Datum;
-
-    ui->progressBar->setValue(60);
-
-    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen
-    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));//Es werden Daten aus der Datenbank gewonnen
-
-    qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
-
-        if (Infi == "-999" || Tode == "-999") //-999 wird von der Methode gibInfiziierte und gibTode zurückgegeben,
+        if (Land.Infi == "-999" || Land.Tode == "-999") //-999 wird von der Methode gibInfiziierte und gibTode zurückgegeben,
                                               //wenn keine Daten zu dem Datum gefunden wurden
         {
             ui->progressBar->setValue(100);
@@ -171,69 +130,41 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
             ui->progressBar->setValue(75);
 
 
-        ui->lineEdit_4->setText(Infi); //Wenn alle Bedingungen gut klappen, dann werden die Daten dargestellt.
-        ui->lineEdit_6->setText(Tode);
+        ui->lineEdit_4->setText(Land.Infi); //Wenn alle Bedingungen gut klappen, dann werden die Daten dargestellt.
+        ui->lineEdit_6->setText(Land.Tode);
 
-        ///////////////////////////////////////////////////
-        /// \brief tblInfi
-        ///////////////////////////////////////////////////
-        /// ////////////////////////////////
-        ///
-        ///
-        ///
+
 
         QLineSeries *seriesInf = new QLineSeries(),
                    *seriesTode = new QLineSeries();
         seriesInf->setName("Infiziierte");
         seriesTode->setName("Tode");
 
-        QString Titel = "Übersicht für xxx bis yyy";
-        QString tblMonat = Land.DbLandDaten.gibMonat(Monat);
+        QString Titel = "Übersicht für xxx von 01 bis yyy";
+        QString tblMonat = Land.DbLandDaten.gibMonat(Land.DbLandDaten.Monat);
         Titel.replace("xxx", tblMonat);
-        Titel.replace("yyy", Datum);
+        Titel.replace("yyy", Land.DbLandDaten.Datum);
 
 
-        qreal tblInfi[31],
-               tblTode[31];
 
-        int n = 0;
+        int n = Land.FillTab(uiDatum, Land.skalaLinear, geoID);
+
+        for (int i=0; i<n;i++)
+        {
+            seriesInf->append( Land.tblInfi[0][n-1-i], Land.tblInfi[1][n-1-i]);
+
+            qDebug()<< "Punkt Nummer i = "<<i<<" = "
+                    << "("<<Land.tblInfi[0][n-1-i]<<","<<Land.tblInfi[1][n-1-i]<<")" ;
+
+            seriesTode->append(Land.tblTode[0][n-1-i], Land.tblTode[1][n-1-i]);
+        }
 
         ui->progressBar->setValue(87);
-
-        for (int i =0; i<32; i++)
-        {
-            qreal k = uiDatum.day()-i;
-
-            if (k>0)
-            {
-                qDebug()<< "k = " << k;
-
-                QString Tag = QString::number(k);
-                if (Tag.size()==1){Tag.insert(0, "0");};
-
-                QString tblDatum = Land.DbLandDaten.gibDatum(Tag, Monat);
-
-                tblInfi[i] = Land.DbLandDaten.gibInfiierte(tblDatum, geoID);
-                tblTode[i] = Land.DbLandDaten.gibTode(tblDatum, geoID);
-
-                qDebug()<<"Infi = " <<tblInfi[i];
-
-                seriesInf->append(k, tblInfi[i]);
-                seriesTode->append(k, tblTode[i]);
-
-                n+=1;
-
-                qDebug()<< "Anzahl Einträge (n) = " << n;
-
-            }
-
-        }
 
         QChart *chart = new QChart();
         chart->legend()->setVisible(true);
         chart->addSeries(seriesInf);
         chart->addSeries(seriesTode);
-        //chart->createDefaultAxes();
         chart->setTitle(Titel);
 
         QValueAxis *axisX = new QValueAxis();
@@ -245,11 +176,10 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         chart->addAxis(axisYInf, Qt::AlignLeft);
         seriesInf->attachAxis(axisYInf);
         seriesTode->attachAxis(axisYInf);
+        axisYInf->setMin(0);
 
         QChartView *chartView = new QChartView(chart);
         chartView->setRenderHint(QPainter::Antialiasing);
-
-
 
         ui->progressBar->setValue(92);  
 
@@ -263,4 +193,15 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 
     }
 
+    qDebug ("ApplyChange ends");
+}
+
+void Deutschland::on_skalaLogarithm_clicked()
+{
+   Land.skalaLinear = false;
+}
+
+void Deutschland::on_skalaLiear_clicked()
+{
+   Land.skalaLinear = true;
 }

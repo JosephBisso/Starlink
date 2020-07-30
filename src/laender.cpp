@@ -3,10 +3,10 @@
 
 Laender::Laender(QObject *parent) : QObject(parent)
 {
-   //(gibLandDaten(ui->,ui->, ui->));
-   //int ok = DbLandDaten.Infiziierte;
 
 }
+
+
  // Für ein Tag "dd", und Monat "mm" und für ein Land mit geoID "geoID"
 //wird erstmal die geoID gespeichert und dann die Daten aus der Datenbank "covidShort.Json"
 //dank derMethonde aus der Klasse databank  gelesen und  im Attribut "DbLandDaten" vom Typ databank
@@ -30,7 +30,7 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 }
 
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in einem Feld
-void Laender::InfiTodeMonat (QString geoID)
+void Laender::InfiTodeMonat(QString geoID)
 {
 
     QString Monat;
@@ -57,39 +57,97 @@ void Laender::InfiTodeMonat (QString geoID)
 
 }
 
-/*void Laender::FillTab(QString Tag, QString Monat)
+int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 {
-    QString einTag ;
-    QString Tage[31];
+    int n = 0;
+
+    qDebug()<< "geoID = " << geoID << " und uiDatum = " << uiDatum ;
+
+    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
+        if (Monat.size()==1)
+       {
+            Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+       }
+
+        qDebug()<< "Monat = " << Monat ;
+
+    for (int i =0; i<31; i++)
+    {
+        qreal k = uiDatum.day()-i;
 
 
+        if (k>0)
+        {
+            tblInfi[0][i] = k;
+            tblTode[0][i] = k;
 
+            qDebug()<< "tblInfi[0]["<<i<<"]  (k) = " << k ;
 
-   QLineSeries* series = new QLineSeries();
-    series->append(0, 6);
-    series->append(2, 4);
+            QString Tag = QString::number(k);
+            if (Tag.size()==1){Tag.insert(0, "0");};
 
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("Covisualizer");
-    chart->setAnimationOptions(QChart::SeriesAnimations);// Namensgebung sowie Animationseinstellung
+            qDebug()<< "Tag = " << Tag ;
 
-    QStringList categories;
-    categories << "1" << "2.";
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX); // Umbennenung der X-Achse
+            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat);
 
-    QValueAxis *axisY = new QValueAxis();
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
+             qDebug()<< "tblDatum = " << tblDatum ;
 
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+            if (linear)
+            {
+                tblInfi[1][i] = DbLandDaten.gibInfiierte(tblDatum, geoID);
+                tblTode[1][i] = DbLandDaten.gibTode(tblDatum, geoID);
 
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
+                qDebug()<< "lineare tblInfi[1]["<<i<<"]  (für k="<<k<<") = "<< tblInfi[1][i] ;
+            }
 
+            else
+            {
+                qLn(tblInfi[1][i] = qLn(DbLandDaten.gibInfiierte(tblDatum, geoID)));
+                qLn(tblTode[1][i] = qLn(DbLandDaten.gibTode(tblDatum, geoID)));
 
-}*/
+                qDebug()<< " logarithmische tblInfi[1]["<<i<<"]  (für k="<<k<<") = "<< tblInfi[1][i] ;
+            }
+
+            n +=1;
+        }
+
+        else
+        {
+            qDebug()<< "k ist kleiner gleich null für i = " << i;
+
+            tblInfi[0][i] = -999;
+            tblTode[0][i] = -999;
+
+            tblInfi[1][i] = -999;
+            tblTode[1][i] = -999;
+
+        }
+
+    }
+
+    qDebug()<< "Anzahl Einträge (n) = " << n ;
+
+    return n;
+}
+
+void Laender::FillLines (QDate uiDatum, QString geoID)
+{
+    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
+        if (Monat.size()==1)
+       {
+            Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+       }
+
+    QString Tag = QString::number(uiDatum.day()); //Der Tag wird aus dem gelesenen Datum auf dem UI gewonnen
+        if (Tag.size()==1)
+        {
+            Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+        }
+
+    QString Datum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
+                                                        // Datum in dem von der Datenbank benutzten Format
+
+    Infi = QString::number(DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen
+    Tode = QString::number(DbLandDaten.gibTode(Datum, geoID));//Es werden Daten aus der Datenbank gewonnen
+
+}
