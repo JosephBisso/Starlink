@@ -57,9 +57,39 @@ void Laender::InfiTodeMonat (QString geoID)
 
 }
 
-void Laender::FillTab(QLineSeries* series, QString Monat)
+/*void Laender::FillTab(QString Tag, QString Monat)
 {
+    QString einTag ;
+    QString Tage[31];
+
+
+
+
+   QLineSeries* series = new QLineSeries();
     series->append(0, 6);
     series->append(2, 4);
 
-}
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Covisualizer");
+    chart->setAnimationOptions(QChart::SeriesAnimations);// Namensgebung sowie Animationseinstellung
+
+    QStringList categories;
+    categories << "1" << "2.";
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX); // Umbennenung der X-Achse
+
+    QValueAxis *axisY = new QValueAxis();
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+
+}*/

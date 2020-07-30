@@ -20,13 +20,16 @@ public:
                               //Gesamtinfiziierte und -Tode
                                 //für alle Monate in 2 Felder.
 
-    void FillTab (QLineSeries* series, QString Monat);
+    void FillTab ( QString Tag, QString Monat);
 
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
 
     double todMonat [12];
 
+    double infTagMonat[31];
+
+    double todTagMonat[31];
 
 signals:
 

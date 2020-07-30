@@ -17,12 +17,15 @@ public:
     explicit Deutschland(QWidget *parent = nullptr);
     ~Deutschland();
 
+
 private slots:
 
     void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Deutschland *ui;
+
+    QWidget* w = new QWidget;
 };
 
 #endif // DEUTSCHLAND_H
