@@ -57,9 +57,13 @@ void Laender::InfiTodeMonat(QString geoID)
 
 }
 
+//Liest in der Datenbank dank der Methode gibInfiziierte und gibTode die Daten für alle Tage eines Mont vom 1. bis
+//zum vom User ausgewählten Datum für ein Land "geoID". Abhängig davon, ob linear true oder falsch ist, werden
+//die Daten normal oder logarithmisch gespeichert (ln). Die Anzahl von Tagen, für die Daten gespeichert wurden
+//wird zurückgegeben.
 int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 {
-    int n = 0;
+    int n = 0;  //Anzahl von Tagen auf 0 gesetzt
 
     qDebug()<< "geoID = " << geoID << " und uiDatum = " << uiDatum ;
 
@@ -73,22 +77,23 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
     for (int i =0; i<31; i++)
     {
-        qreal k = uiDatum.day()-i;
+        qreal k = uiDatum.day()-i; //qreal ist der für die Graphen unterstützten Typ. Der Tag wird aus dem Datum
+                                  //uiDatum gewonnen und substrahiert.
 
 
         if (k>0)
         {
-            tblInfi[0][i] = k;
+            tblInfi[0][i] = k; //tblInfi ist eine Matrix und ein Attribut der Klasse Laender
             tblTode[0][i] = k;
 
             qDebug()<< "tblInfi[0]["<<i<<"]  (k) = " << k ;
 
             QString Tag = QString::number(k);
-            if (Tag.size()==1){Tag.insert(0, "0");};
+            if (Tag.size()==1){Tag.insert(0, "0");} //Aus Tag im Format "d" wird Monat im Format "dd" ("06" statt "6")
 
             qDebug()<< "Tag = " << Tag ;
 
-            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat);
+            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum gib das Datum zurück
 
              qDebug()<< "tblDatum = " << tblDatum ;
 
@@ -102,7 +107,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
             else
             {
-                qLn(tblInfi[1][i] = qLn(DbLandDaten.gibInfiierte(tblDatum, geoID)));
+                qLn(tblInfi[1][i] = qLn(DbLandDaten.gibInfiierte(tblDatum, geoID))); //Logarithmisch
                 qLn(tblTode[1][i] = qLn(DbLandDaten.gibTode(tblDatum, geoID)));
 
                 qDebug()<< " logarithmische tblInfi[1]["<<i<<"]  (für k="<<k<<") = "<< tblInfi[1][i] ;
@@ -111,7 +116,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
             n +=1;
         }
 
-        else
+        else //(für k<=0, kann kein Datum gewonnen werden.)
         {
             qDebug()<< "k ist kleiner gleich null für i = " << i;
 
@@ -130,6 +135,9 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
     return n;
 }
 
+
+//Liest in der Datenbank dank der Methode gibInfiziierte und gibTode die Daten für das vom User ausgewählte
+//Datum für ein Land "geoID". Speichert sie im Attribut Infi und Tode der Klasse Laender
 void Laender::FillLines (QDate uiDatum, QString geoID)
 {
     QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen

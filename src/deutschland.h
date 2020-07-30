@@ -28,6 +28,7 @@ private slots:
 
      void on_skalaLiear_clicked();
 
+     //Nicht Vergessen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 private:
 
     Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns alle Methoden der Klasse Databank
