@@ -166,11 +166,7 @@
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QWidget" name="tblwidget" native="true"/>
-           </item>
-          </layout>
+          <layout class="QVBoxLayout" name="verticalLayout_3"/>
          </item>
         </layout>
        </widget>

@@ -19,6 +19,7 @@ Deutschland::Deutschland(QWidget *parent) :
     ui->setupUi(this);
 
 
+
     Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Laender
                   // (infiMonat und TodeMonat ) zu benutzen.
 
@@ -87,6 +88,8 @@ Deutschland::~Deutschland()
 void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 {
     button->isChecked();
+
+    ui->tab->layout()->~QLayout();
 
     ui->progressBar->setValue(15);
 
@@ -246,20 +249,18 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         QChartView *chartView = new QChartView(chart);
         chartView->setRenderHint(QPainter::Antialiasing);
 
-        w = chartView;
-
-        ui->progressBar->setValue(92);
 
 
-        ui->verticalLayout_3->replaceWidget(ui->tblwidget, w);
+        ui->progressBar->setValue(92);  
+
+        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab);
+        verticalLayout_3->addWidget(chartView);
+        ui->tab->setLayout(verticalLayout_3);
 
         ui->progressBar->setValue(100);
 
         }
 
-
-
     }
-
 
 }

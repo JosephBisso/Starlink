@@ -25,7 +25,6 @@ private slots:
 private:
     Ui::Deutschland *ui;
 
-    QWidget* w = new QWidget;
 };
 
 #endif // DEUTSCHLAND_H
