@@ -85,8 +85,6 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
     button->isChecked(); //Dies erfüllt keinen Zweck und dient nur dazu die Fehlermeldung wegen des
                          //unbenutzten  button zu schweigen.
 
-    ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
-
     ui->progressBar->setValue(15); //Schaut dem Nutzer den Stand der Operation
 
     qDebug ("ApplyChange Starts..."); // qDebug dient mir nur dazu mich über den Verlauf zu informieren
@@ -132,7 +130,9 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         }
 
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
-        {
+        {            
+            ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
+
             ui->progressBar->setValue(75);
 
 
