@@ -16,14 +16,17 @@ Deutschland::Deutschland(QWidget *parent) :
     ui(new Ui::Deutschland)
 
 {
-    ui->setupUi(this);
+    ui->setupUi(this);    
+
 
     //Land und geoID sind Attribute dieser Klasse.
 
     double InfiMonat[12], //Vektoren mit 12 Elementen werden erstellt
            TodeMonat[12];
 
-    Land.InfiTodeMonat(geoID);
+    Land.InfiTodeMonat(geoID); //Die Methode InfoTodeMonat der Klasser Laendeer rechnet alle infiziierte und
+                              //Tode für alle Monate und speichert sie in 2 Felder (Attributen) der KLasse
+                             //Laender infMonat[12] und toMonat[12]
 
     for (int i=0; i<12; i++)
     {
@@ -227,9 +230,13 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 void Deutschland::on_skalaLogarithm_clicked()
 {
    Land.skalaLinear = false; // Das Attribut skalaLiniar der Klasse Laender wird auf falsch gesetzt.
+
+   ui->progressBar->setValue(0);
 }
 
 void Deutschland::on_skalaLiear_clicked()
 {
    Land.skalaLinear = true;
+
+   ui->progressBar->setValue(0);
 }
