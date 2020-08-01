@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QAbstractButton>
+#include "laender.h"
 
 namespace Ui {
 class Schweiz;
@@ -18,6 +19,11 @@ public:
 
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
+private:
+
+    Laender Land;
+
+    QString geoID = "CH";
 
 private:
     Ui::Schweiz *ui;

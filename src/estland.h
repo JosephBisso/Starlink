@@ -2,7 +2,7 @@
 #define ESTLAND_H
 
 #include <QDialog>
-
+#include "laender.h"
 #include <QAbstractButton>
 
 namespace Ui {
@@ -20,6 +20,11 @@ public:
 private slots:
 
 void on_buttonBox_clicked(QAbstractButton *button);
+private:
+
+    Laender Land;
+
+    QString geoID = "EE";
 
 private:
     Ui::Estland *ui;

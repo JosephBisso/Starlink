@@ -10,12 +10,6 @@ Ungarn::Ungarn(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //SEHR WICHTIG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //Liste von geoID von jedem EU-Land in den Ressource Datei / lib
-    QString geoID = "HU";
-
-    // Für Klemmens: Ab hier Copy/Paste
-    Laender Land; //ein Element der Klasse Laender erstellen.
 
     double InfiMonat[12],
            TodeMonat[12];
