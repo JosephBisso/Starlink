@@ -2,6 +2,7 @@
 #define MONTENEGRO_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Montenegro;
@@ -14,6 +15,9 @@ class Montenegro : public QDialog
 public:
     explicit Montenegro(QWidget *parent = nullptr);
     ~Montenegro();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Montenegro *ui;

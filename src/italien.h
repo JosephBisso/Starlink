@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QAbstractButton>
+
 namespace Ui {
 class Italien;
 }
@@ -14,6 +16,9 @@ class Italien : public QDialog
 public:
     explicit Italien(QWidget *parent = nullptr);
     ~Italien();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Italien *ui;

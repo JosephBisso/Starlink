@@ -2,6 +2,7 @@
 #define UNGARN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Ungarn;
@@ -14,6 +15,9 @@ class Ungarn : public QDialog
 public:
     explicit Ungarn(QWidget *parent = nullptr);
     ~Ungarn();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Ungarn *ui;

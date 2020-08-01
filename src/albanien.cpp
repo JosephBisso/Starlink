@@ -78,7 +78,7 @@ Albanien::~Albanien()
 }
 
 
-void Albanien::on_DatumApply_clicked(QAbstractButton *button)
+void Albanien::on_buttonBox_clicked(QAbstractButton *button)
 {
     button->isChecked(); //Dies dient nur dazu den Fehlermeldung zu schweigen.
 

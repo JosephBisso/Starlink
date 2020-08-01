@@ -2,6 +2,7 @@
 #define RUMANIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Rumanien;
@@ -14,6 +15,9 @@ class Rumanien : public QDialog
 public:
     explicit Rumanien(QWidget *parent = nullptr);
     ~Rumanien();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Rumanien *ui;

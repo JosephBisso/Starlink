@@ -2,6 +2,7 @@
 #define BOSNIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Bosnien;
@@ -14,6 +15,10 @@ class Bosnien : public QDialog
 public:
     explicit Bosnien(QWidget *parent = nullptr);
     ~Bosnien();
+
+private slots:
+
+void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Bosnien *ui;

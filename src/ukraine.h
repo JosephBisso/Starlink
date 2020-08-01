@@ -2,6 +2,7 @@
 #define UKRAINE_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Ukraine;
@@ -14,6 +15,9 @@ class Ukraine : public QDialog
 public:
     explicit Ukraine(QWidget *parent = nullptr);
     ~Ukraine();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Ukraine *ui;

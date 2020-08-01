@@ -2,6 +2,7 @@
 #define NIEDERLANDE_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Niederlande;
@@ -14,6 +15,9 @@ class Niederlande : public QDialog
 public:
     explicit Niederlande(QWidget *parent = nullptr);
     ~Niederlande();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Niederlande *ui;

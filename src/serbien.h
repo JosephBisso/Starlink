@@ -2,6 +2,7 @@
 #define SERBIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Serbien;
@@ -14,6 +15,9 @@ class Serbien : public QDialog
 public:
     explicit Serbien(QWidget *parent = nullptr);
     ~Serbien();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Serbien *ui;

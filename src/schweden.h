@@ -2,6 +2,7 @@
 #define SCHWEDEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Schweden;
@@ -14,6 +15,9 @@ class Schweden : public QDialog
 public:
     explicit Schweden(QWidget *parent = nullptr);
     ~Schweden();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Schweden *ui;

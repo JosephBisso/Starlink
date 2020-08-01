@@ -19,7 +19,7 @@ public:
 
 private slots:
 
-    void on_DatumApply_clicked(QAbstractButton *button);
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Albanien *ui;

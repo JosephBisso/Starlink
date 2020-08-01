@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QAbstractButton>
+
 namespace Ui {
 class Island;
 }
@@ -14,6 +16,9 @@ class Island : public QDialog
 public:
     explicit Island(QWidget *parent = nullptr);
     ~Island();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Island *ui;

@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QAbstractButton>
+
 namespace Ui {
 class Estland;
 }
@@ -14,6 +16,10 @@ class Estland : public QDialog
 public:
     explicit Estland(QWidget *parent = nullptr);
     ~Estland();
+
+private slots:
+
+void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Estland *ui;

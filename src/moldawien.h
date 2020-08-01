@@ -2,6 +2,7 @@
 #define MOLDAWIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Moldawien;
@@ -14,6 +15,9 @@ class Moldawien : public QDialog
 public:
     explicit Moldawien(QWidget *parent = nullptr);
     ~Moldawien();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Moldawien *ui;

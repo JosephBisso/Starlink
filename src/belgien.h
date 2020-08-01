@@ -2,6 +2,7 @@
 #define BELGIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Belgien;
@@ -14,6 +15,11 @@ class Belgien : public QDialog
 public:
     explicit Belgien(QWidget *parent = nullptr);
     ~Belgien();
+
+
+private slots:
+
+ void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Belgien *ui;

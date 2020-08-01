@@ -2,6 +2,7 @@
 #define SPANIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Spanien;
@@ -14,6 +15,9 @@ class Spanien : public QDialog
 public:
     explicit Spanien(QWidget *parent = nullptr);
     ~Spanien();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Spanien *ui;

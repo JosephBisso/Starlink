@@ -2,6 +2,7 @@
 #define WEISSRUSSLAND_H
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Weissrussland;
@@ -14,6 +15,9 @@ class Weissrussland : public QDialog
 public:
     explicit Weissrussland(QWidget *parent = nullptr);
     ~Weissrussland();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::Weissrussland *ui;
