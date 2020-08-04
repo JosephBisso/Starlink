@@ -185,3 +185,18 @@ void Grossbritannien::on_buttonBox_clicked(QAbstractButton *button)
     qDebug ("ApplyChange ends");
 }
 
+
+
+void Grossbritannien::on_skalaLiear_clicked()
+{
+   Land.skalaLinear = true;
+
+   ui->progressBar->setValue(0);
+}
+
+void Grossbritannien::on_skalaLogarithm_clicked()
+{
+   Land.skalaLinear = false;
+
+   ui->progressBar->setValue(0);
+}
