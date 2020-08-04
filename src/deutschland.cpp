@@ -2,7 +2,7 @@
 #include "ui_deutschland.h"
 
 #include <QDialog>
-#include <QMessageBox>  //Dienst nur der Darstellung, damit du verstehst.
+#include <QMessageBox>  //Dient nur der Darstellung, damit du verstehst.
 
 //Muss included sein!!!!!!!!!!!!!!1
 #include "laender.h"

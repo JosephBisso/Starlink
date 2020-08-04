@@ -20,13 +20,12 @@ Belgien::Belgien(QWidget *parent) :
 
     for (int i=0; i<12; i++)
     {
-        InfiMonat[i] = Land.infMonat [i]; //Jeder Element des Feld Attribut vom Land wird in dem
-                                          //entsprechenden Element der variablen Feldes gespeichert
+        InfiMonat[i] = Land.infMonat [i];
         TodeMonat[i] = Land.todMonat [i];
     }
 
     QBarSet *set0 = new QBarSet("Infizierte");
-    QBarSet *set1 = new QBarSet("Tode");// Einstellung der Legende in Inf(Infizierte) und Tode
+    QBarSet *set1 = new QBarSet("Tode");
 
 
     *set0 << InfiMonat[0] << InfiMonat[1] << InfiMonat[2] << InfiMonat[3]
@@ -44,16 +43,17 @@ Belgien::Belgien(QWidget *parent) :
     QChart *chart = new QChart();
     chart->addSeries(series);
     chart->setTitle("Covisualizer");
-    chart->setAnimationOptions(QChart::SeriesAnimations);// Namensgebung sowie Animationseinstellung
+    chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categories;
     categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX); // Umbennenung der X-Achse
+    series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0,1500);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -62,7 +62,7 @@ Belgien::Belgien(QWidget *parent) :
 
     QChartView *chartView = new QChartView(chart);
        chartView->setRenderHint(QPainter::Antialiasing);
-    ui->verticalLayout_2->addWidget(chartView); // Initalisierung der BarChart
+    ui->verticalLayout_4->addWidget(chartView);
 }
 
 Belgien::~Belgien()
@@ -73,79 +73,130 @@ Belgien::~Belgien()
 
 void Belgien::on_buttonBox_clicked(QAbstractButton *button)
 {
-    button->isChecked(); //Dies dient nur dazu den Fehlermeldung zu schweigen.
+    button->isChecked();
+    ui->progressBar->setValue(15);
 
-    qDebug ("ApplyChange Starts..."); //Um einen Einblick zu bekommen was gerade passiert
+    qDebug ("ApplyChange Starts...");
 
-    QString geoID = "BE"; //geoID um das Land zu indentifieren. Liste von geoIDs in den Ressources-Dateien
-    Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns die Methode der Klasse Databank
-                  // (gibDatum, gibInfiziierte, gitTode ) durch das Attribut DbLandDaten
-                  // vom Typ Databank der Klasse Laender.
 
-    QDate uiDatum = ui->dateEdit->date(); //Das aktuelles Datum auf dem UI wird gelesen und in einen Variable gespeichert
+    QDate uiDatum = ui->dateEdit->date();
 
-    if (uiDatum>QDate::currentDate()) //Prüft ob das Datum sich nich in der Zukunft befindet
+    if (uiDatum>QDate::currentDate())
     {
+        ui->progressBar->setValue(100);
         QMessageBox::information(this, "ungültiges Datum", "Daten werden nur darstellt und nicht vorausgesagt.");
 
-        ui->lineEdit_4->setText(""); //Zeilen werden leer gemacht
+        ui->lineEdit_4->setText("");
         ui->lineEdit_6->setText("");
 
+        ui->progressBar->setValue(0);
     }
-
 
     else
     {
-    qDebug() << "uiDatum = " << uiDatum;
-
-    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
-    if (Monat.size()==1)
-    {
-        Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
-    }
-
-    qDebug() << "Monat = " << Monat;
+        ui->progressBar->setValue(45);
 
 
-    QString Tag = QString::number(uiDatum.day()); //Der Tag wird aus dem gelesenen Datum auf dem UI gewonnen
-    if (Tag.size()==1)
-    {
-        Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
-    }
 
-    qDebug() << "Tag = " << Tag;
+        Land.FillLines(uiDatum, geoID);
 
-    QString Datum = Land.DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
-                                                        // Datum in dem von der Datenbank benutzten Format
-
-    qDebug() << "Datum = " << Datum;
-
-    QString Infi = QString::number(Land.DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen
-    QString Tode = QString::number(Land.DbLandDaten.gibTode(Datum, geoID));//Es werden Daten aus der Datenbank gewonnen
-
-    qDebug() << "Infi = " << Infi << ", Tode = " << Tode ;
-
-        if (Infi == "-999" || Tode == "-999") //-999 wird von der Methode gibInfiziierte und gibTode zurückgegeben,
-                                              //wenn keine Daten zu dem Datum gefunden wurden
+        if (Land.Infi == "-999" || Land.Tode == "-999")
         {
+            ui->progressBar->setValue(100);
+
             QMessageBox::information(this, "ungültiges Datum", "Daten für dieses Datum in der Datenbank"
                                                                " nicht gefunden. Versuchen "
                                                                "Sie die Datenbank zu aktualisieren");
 
-            ui->lineEdit_4->setText(""); //Zeilen leer gemacht
+            ui->lineEdit_4->setText("");
             ui->lineEdit_6->setText("");
+
+            ui->progressBar->setValue(0);
         }
 
         else
         {
+            ui->tab->layout()->~QLayout();
+
+            ui->progressBar->setValue(75);
 
 
-        ui->lineEdit_4->setText(Infi); //Wenn alle Bedingungen gut klappen, dann werden die Daten dargestellt.
-        ui->lineEdit_6->setText(Tode);
+        ui->lineEdit_4->setText(Land.Infi);
+        ui->lineEdit_6->setText(Land.Tode);
+
+
+
+        QLineSeries *seriesInf = new QLineSeries(),
+                   *seriesTode = new QLineSeries();
+        seriesInf->setName("Infiziierte");
+        seriesTode->setName("Tode");
+
+        QString Titel = "Übersicht für xxx von 01 bis yyy"; //Der Titel der Graph
+        QString tblMonat = Land.DbLandDaten.gibMonat(Land.DbLandDaten.Monat);
+        Titel.replace("xxx", tblMonat);
+        Titel.replace("yyy", Land.DbLandDaten.Datum);
+
+
+
+        int n = Land.FillTab(uiDatum, Land.skalaLinear, geoID);
+
+        for (int i=0; i<n;i++)
+        {
+            seriesInf->append( Land.tblInfi[0][n-1-i], Land.tblInfi[1][n-1-i]);
+
+            qDebug()<< "Punkt Nummer i = "<<i<<" = "
+                    << "("<<Land.tblInfi[0][n-1-i]<<","<<Land.tblInfi[1][n-1-i]<<")" ;
+
+            seriesTode->append(Land.tblTode[0][n-1-i], Land.tblTode[1][n-1-i]);
+        }
+
+        ui->progressBar->setValue(87);
+
+        QChart *chart = new QChart();
+        chart->legend()->setVisible(true);
+        chart->addSeries(seriesInf);
+        chart->addSeries(seriesTode);
+        chart->setTitle(Titel);
+
+        QValueAxis *axisX = new QValueAxis();
+        axisX->setTickCount(n);
+        chart->addAxis(axisX, Qt::AlignBottom);
+        seriesInf->attachAxis(axisX);
+
+        QValueAxis *axisYInf = new QValueAxis();
+        chart->addAxis(axisYInf, Qt::AlignLeft);
+        seriesInf->attachAxis(axisYInf);
+        seriesTode->attachAxis(axisYInf);
+        axisYInf->setMin(0);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        ui->progressBar->setValue(92);
+
+        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab);
+        verticalLayout_3->addWidget(chartView);
+        ui->tab->setLayout(verticalLayout_3);
+
+        ui->progressBar->setValue(100);
 
         }
 
     }
 
+    qDebug ("ApplyChange ends");
+}
 
+void Belgien::on_skalaLiear_clicked()
+{
+   Land.skalaLinear = true;
+
+   ui->progressBar->setValue(0);
+}
+
+void Belgien::on_skalaLogarithm_clicked()
+{
+   Land.skalaLinear = false;
+
+   ui->progressBar->setValue(0);
 }

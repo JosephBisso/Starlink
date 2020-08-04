@@ -21,6 +21,10 @@ private slots:
 
     void on_buttonBox_clicked(QAbstractButton *button);
 
+    void on_skalaLiear_clicked();
+
+    void on_skalaLogarithm_clicked();
+
 private:
 
     Laender Land;
