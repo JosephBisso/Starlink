@@ -136,6 +136,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {            
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
+            ui->tab_5->layout()->~QLayout();
 
             ui->progressBar->setValue(75);
 
@@ -152,7 +153,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         seriesInf->setName("Infiziierte");//Die Serien bekommen einen Namen. Ist für die Legende wichtig
         seriesTode->setName("Tode");
 
-        QString Titel = "Übersicht für xxx von 01 bis yyy"; //Der Titel der Graph
+        QString Titel = "Übersicht Infiziierte für xxx"; //Der Titel der Graph
         QString tblMonat = Land.DbLandDaten.gibMonat(Land.DbLandDaten.Monat); //Die Mehtode gib aus den Monat im Format
                                                                              //"mm" der im Hintergrund durch die
                                                                             //Methode FillLines im Attribut Monat vom
@@ -160,7 +161,8 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                                           //gespeichert. Lange Kette zwar, aber
                                                                          //effektiv.
         Titel.replace("xxx", tblMonat);
-        Titel.replace("yyy", Land.DbLandDaten.Datum);
+        QString TitelTode = Titel;
+        TitelTode.replace("Infiziierte", "Tode");
 
 
 
@@ -190,34 +192,51 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 
         ui->progressBar->setValue(87);
 
-        QChart *chart = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
+        QChart *chart = new QChart(), //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
                                      //Titel und den Series hinzugefügt
+               *chartTode = new QChart();
         chart->legend()->setVisible(true);
         chart->addSeries(seriesInf);
-        chart->addSeries(seriesTode);
         chart->setTitle(Titel);
+        chartTode->legend()->setVisible(true);
+        chartTode->addSeries(seriesTode);
+        chartTode->setTitle(TitelTode);
+        chartTode->setTheme(QChart::ChartThemeDark);
 
-        QValueAxis *axisX = new QValueAxis(); //Axe x
+        QValueAxis *axisX = new QValueAxis(), //Axe x
+                *axisXTode = new QValueAxis();
         axisX->setTickCount(n);
         chart->addAxis(axisX, Qt::AlignBottom);
         seriesInf->attachAxis(axisX); // Die Serie wird mit der Achse verbunden
+        axisXTode->setTickCount(n);
+        chartTode->addAxis(axisXTode, Qt::AlignBottom);
+        seriesTode->attachAxis(axisXTode);
 
-        QValueAxis *axisYInf = new QValueAxis();
+        QValueAxis *axisYInf = new QValueAxis(),
+                *axisYTode = new QValueAxis();
         chart->addAxis(axisYInf, Qt::AlignLeft);
         seriesInf->attachAxis(axisYInf);
-        seriesTode->attachAxis(axisYInf);
         axisYInf->setMin(0); //Es wird ein Minimun gesetzt.
+        chartTode->addAxis(axisYTode, Qt::AlignLeft);
+        seriesTode->attachAxis(axisYTode);
+        axisYTode->setMin(0);
 
-        QChartView *chartView = new QChartView(chart);// Zur Darstellung der Graphen
+        QChartView *chartView = new QChartView(chart),// Zur Darstellung der Graphen
+                *chartViewTode = new QChartView(chartTode);
         chartView->setRenderHint(QPainter::Antialiasing);
+        chartViewTode->setRenderHint(QPainter::Antialiasing);
 
         ui->progressBar->setValue(92);  
 
-        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab); //Ein neues Layout wird erstellt und an ui->Tab
+        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab), //Ein neues Layout wird erstellt und an ui->Tab
                                                                  //gegeben. Das Layout bekommt dann den Chart
                                                                 //hinzugefügt
+                *verticalLayout_3Tode = new QVBoxLayout(ui->tab_5);
+
         verticalLayout_3->addWidget(chartView);
+        verticalLayout_3Tode->addWidget(chartViewTode);
         ui->tab->setLayout(verticalLayout_3);
+        ui->tab_5->setLayout(verticalLayout_3Tode);
 
         ui->progressBar->setValue(100);
 
