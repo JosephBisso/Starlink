@@ -219,19 +219,25 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         QValueAxis *axisX = new QValueAxis(), //Axe x
                 *axisXTode = new QValueAxis();
         axisX->setTickCount(n);
+        axisX->setLabelFormat("%.0f");
         chart->addAxis(axisX, Qt::AlignBottom);
         seriesInf->attachAxis(axisX); // Die Serie wird mit der Achse verbunden
         axisXTode->setTickCount(n);
+        axisXTode->setLabelFormat("%.0f");
         chartTode->addAxis(axisXTode, Qt::AlignBottom);
         seriesTode->attachAxis(axisXTode);
+
+        qDebug() << "Label Format für Axis X "<<axisXTode->labelFormat();
 
         QValueAxis *axisYInf = new QValueAxis(),
                 *axisYTode = new QValueAxis();
         chart->addAxis(axisYInf, Qt::AlignLeft);
         seriesInf->attachAxis(axisYInf);
         axisYInf->setMin(0); //Es wird ein Minimun gesetzt.
+        axisYInf->setMax(axisYInf->max()+10);
         chartTode->addAxis(axisYTode, Qt::AlignLeft);
         seriesTode->attachAxis(axisYTode);
+        axisYTode->setMax(axisYTode->max()+1);
         axisYTode->setMin(0);
 
         QChartView *chartView = new QChartView(chart),// Zur Darstellung der Graphen
