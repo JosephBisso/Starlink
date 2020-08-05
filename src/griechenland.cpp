@@ -51,7 +51,7 @@ Griechenland::Griechenland(QWidget *parent) :
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,1500);
+    axisY->setMin(0);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 

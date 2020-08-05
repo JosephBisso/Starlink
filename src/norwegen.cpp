@@ -50,7 +50,7 @@ Norwegen::Norwegen(QWidget *parent) :
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,1500);
+    axisY->setMin(0);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -182,4 +182,18 @@ void Norwegen::on_buttonBox_clicked(QAbstractButton *button)
     }
 
     qDebug ("ApplyChange ends");
+}
+
+void Norwegen::on_skalaLiear_clicked()
+{
+   Land.skalaLinear = true;
+
+   ui->progressBar->setValue(0);
+}
+
+void Norwegen::on_skalaLogarithm_clicked()
+{
+   Land.skalaLinear = false;
+
+   ui->progressBar->setValue(0);
 }

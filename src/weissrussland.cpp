@@ -12,6 +12,9 @@ Weissrussland::Weissrussland(QWidget *parent) :
 
 
 
+    ui->setupUi(this);
+
+
     double InfiMonat[12],
            TodeMonat[12];
 
@@ -52,7 +55,7 @@ Weissrussland::Weissrussland(QWidget *parent) :
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,1500);
+    axisY->setMin(0);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -184,4 +187,18 @@ void Weissrussland::on_buttonBox_clicked(QAbstractButton *button)
     }
 
     qDebug ("ApplyChange ends");
+}
+
+void Weissrussland::on_skalaLiear_clicked()
+{
+   Land.skalaLinear = true;
+
+   ui->progressBar->setValue(0);
+}
+
+void Weissrussland::on_skalaLogarithm_clicked()
+{
+   Land.skalaLinear = false;
+
+   ui->progressBar->setValue(0);
 }

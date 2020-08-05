@@ -64,6 +64,7 @@ Deutschland::Deutschland(QWidget *parent) :
     series->attachAxis(axisX); // Umbennenung der X-Achse
 
     QValueAxis *axisY = new QValueAxis();
+    axisY->setMin(0);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
