@@ -175,9 +175,22 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                           //Die Methode gib die Anzahl von Tagen zurück, für die
                                                          //Daten gerufen wurden
 
+        if (n<uiDatum.daysInMonth())
+        {
+            QMessageBox::information(this, "Datenbank", "Es fehlen anscheinend Daten für einen Teil dises Monats");
+
+            QString TagEnde = QString::number(n);
+            if (TagEnde.size()==1){TagEnde.insert(0, "0");}
+
+            QString DatumEnde = Land.DbLandDaten.gibDatum(TagEnde, Land.DbLandDaten.Monat);
+
+            Titel.append(" bis "); Titel.append(DatumEnde);
+            TitelTode.append(" bis "); TitelTode.append(DatumEnde);
+        }
+
         for (int i=0; i<n;i++)
         {
-            seriesInf->append( Land.tblInfi[0][n-1-i], Land.tblInfi[1][n-1-i]); //In der erste Spalte der Matrix tblInfi
+            seriesInf->append( Land.tblInfi[0][i], Land.tblInfi[1][i]); //In der erste Spalte der Matrix tblInfi
                                                                                //werden die Nummer von den Tagen und
                                                                               //in der 2. Spalte die Daten gespeichert.
                                                                              //Sie werden der Serie als Koordinate
@@ -185,9 +198,9 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                                            //Matrixen rückwärts von n-1 bis 1.
 
             qDebug()<< "Punkt Nummer i = "<<i<<" = "
-                    << "("<<Land.tblInfi[0][n-1-i]<<","<<Land.tblInfi[1][n-1-i]<<")" ;
+                    << "("<<Land.tblInfi[0][i]<<","<<Land.tblInfi[1][i]<<")" ;
 
-            seriesTode->append(Land.tblTode[0][n-1-i], Land.tblTode[1][n-1-i]);
+            seriesTode->append(Land.tblTode[0][i], Land.tblTode[1][i]);
         }
 
         ui->progressBar->setValue(87);
