@@ -175,16 +175,17 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                           //Die Methode gib die Anzahl von Tagen zurück, für die
                                                          //Daten gerufen wurden
 
-        if (n<uiDatum.daysInMonth())
+        if (n<uiDatum.daysInMonth()) //Prüft, ob die Anzahl von Einträge (n) kleiner ist als die Anzahl an Tagen in des ausgewählten Monats
         {
             QMessageBox::information(this, "Datenbank", "Es fehlen anscheinend Daten für einen Teil dises Monats");
 
             QString TagEnde = QString::number(n);
             if (TagEnde.size()==1){TagEnde.insert(0, "0");}
 
-            QString DatumEnde = Land.DbLandDaten.gibDatum(TagEnde, Land.DbLandDaten.Monat);
+            QString DatumEnde = Land.DbLandDaten.gibDatum(TagEnde, Land.DbLandDaten.Monat); //Das letzte in der Datenbank existierende Datum für
+                                                                                           // Monat wir gerufen und gespeichert...
 
-            Titel.append(" bis "); Titel.append(DatumEnde);
+            Titel.append(" bis "); Titel.append(DatumEnde); //... Und wird dem Titel hinzugefügt
             TitelTode.append(" bis "); TitelTode.append(DatumEnde);
         }
 
@@ -223,7 +224,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         chart->addAxis(axisX, Qt::AlignBottom);
         seriesInf->attachAxis(axisX); // Die Serie wird mit der Achse verbunden
         axisXTode->setTickCount(n);
-        axisXTode->setLabelFormat("%.0f");
+        axisXTode->setLabelFormat("%.0f"); //Damit es keine Gleitkommazahlen gibt
         chartTode->addAxis(axisXTode, Qt::AlignBottom);
         seriesTode->attachAxis(axisXTode);
 
@@ -234,10 +235,8 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         chart->addAxis(axisYInf, Qt::AlignLeft);
         seriesInf->attachAxis(axisYInf);
         axisYInf->setMin(0); //Es wird ein Minimun gesetzt.
-        axisYInf->setMax(axisYInf->max()+10);
         chartTode->addAxis(axisYTode, Qt::AlignLeft);
         seriesTode->attachAxis(axisYTode);
-        axisYTode->setMax(axisYTode->max()+1);
         axisYTode->setMin(0);
 
         QChartView *chartView = new QChartView(chart),// Zur Darstellung der Graphen
