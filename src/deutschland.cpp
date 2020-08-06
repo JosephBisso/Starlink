@@ -136,6 +136,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {            
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
+            ui->tab_5->layout()->~QLayout();
 
             ui->progressBar->setValue(75);
 
@@ -152,7 +153,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         seriesInf->setName("Infiziierte");//Die Serien bekommen einen Namen. Ist für die Legende wichtig
         seriesTode->setName("Tode");
 
-        QString Titel = "Übersicht für xxx von 01 bis yyy"; //Der Titel der Graph
+        QString Titel = "Übersicht Infiziierte für xxx"; //Der Titel der Graph
         QString tblMonat = Land.DbLandDaten.gibMonat(Land.DbLandDaten.Monat); //Die Mehtode gib aus den Monat im Format
                                                                              //"mm" der im Hintergrund durch die
                                                                             //Methode FillLines im Attribut Monat vom
@@ -160,7 +161,8 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                                           //gespeichert. Lange Kette zwar, aber
                                                                          //effektiv.
         Titel.replace("xxx", tblMonat);
-        Titel.replace("yyy", Land.DbLandDaten.Datum);
+        QString TitelTode = Titel;
+        TitelTode.replace("Infiziierte", "Tode");
 
 
 
@@ -173,9 +175,23 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                           //Die Methode gib die Anzahl von Tagen zurück, für die
                                                          //Daten gerufen wurden
 
+        if (n<uiDatum.daysInMonth()) //Prüft, ob die Anzahl von Einträge (n) kleiner ist als die Anzahl an Tagen in des ausgewählten Monats
+        {
+            QMessageBox::information(this, "Datenbank", "Es fehlen anscheinend Daten für einen Teil dises Monats");
+
+            QString TagEnde = QString::number(n);
+            if (TagEnde.size()==1){TagEnde.insert(0, "0");}
+
+            QString DatumEnde = Land.DbLandDaten.gibDatum(TagEnde, Land.DbLandDaten.Monat); //Das letzte in der Datenbank existierende Datum für
+                                                                                           // Monat wir gerufen und gespeichert...
+
+            Titel.append(" bis "); Titel.append(DatumEnde); //... Und wird dem Titel hinzugefügt
+            TitelTode.append(" bis "); TitelTode.append(DatumEnde);
+        }
+
         for (int i=0; i<n;i++)
         {
-            seriesInf->append( Land.tblInfi[0][n-1-i], Land.tblInfi[1][n-1-i]); //In der erste Spalte der Matrix tblInfi
+            seriesInf->append( Land.tblInfi[0][i], Land.tblInfi[1][i]); //In der erste Spalte der Matrix tblInfi
                                                                                //werden die Nummer von den Tagen und
                                                                               //in der 2. Spalte die Daten gespeichert.
                                                                              //Sie werden der Serie als Koordinate
@@ -183,41 +199,62 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                                                            //Matrixen rückwärts von n-1 bis 1.
 
             qDebug()<< "Punkt Nummer i = "<<i<<" = "
-                    << "("<<Land.tblInfi[0][n-1-i]<<","<<Land.tblInfi[1][n-1-i]<<")" ;
+                    << "("<<Land.tblInfi[0][i]<<","<<Land.tblInfi[1][i]<<")" ;
 
-            seriesTode->append(Land.tblTode[0][n-1-i], Land.tblTode[1][n-1-i]);
+            seriesTode->append(Land.tblTode[0][i], Land.tblTode[1][i]);
         }
 
         ui->progressBar->setValue(87);
 
-        QChart *chart = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
+        QChart *chart = new QChart(), //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
                                      //Titel und den Series hinzugefügt
+               *chartTode = new QChart();
         chart->legend()->setVisible(true);
         chart->addSeries(seriesInf);
-        chart->addSeries(seriesTode);
         chart->setTitle(Titel);
+        chartTode->legend()->setVisible(true);
+        chartTode->addSeries(seriesTode);
+        chartTode->setTitle(TitelTode);
+        chartTode->setTheme(QChart::ChartThemeDark);
 
-        QValueAxis *axisX = new QValueAxis(); //Axe x
+        QValueAxis *axisX = new QValueAxis(), //Axe x
+                *axisXTode = new QValueAxis();
         axisX->setTickCount(n);
+        axisX->setLabelFormat("%.0f");
         chart->addAxis(axisX, Qt::AlignBottom);
         seriesInf->attachAxis(axisX); // Die Serie wird mit der Achse verbunden
+        axisXTode->setTickCount(n);
+        axisXTode->setLabelFormat("%.0f"); //Damit es keine Gleitkommazahlen gibt
+        chartTode->addAxis(axisXTode, Qt::AlignBottom);
+        seriesTode->attachAxis(axisXTode);
 
-        QValueAxis *axisYInf = new QValueAxis();
+        qDebug() << "Label Format für Axis X "<<axisXTode->labelFormat();
+
+        QValueAxis *axisYInf = new QValueAxis(),
+                *axisYTode = new QValueAxis();
         chart->addAxis(axisYInf, Qt::AlignLeft);
         seriesInf->attachAxis(axisYInf);
-        seriesTode->attachAxis(axisYInf);
         axisYInf->setMin(0); //Es wird ein Minimun gesetzt.
+        chartTode->addAxis(axisYTode, Qt::AlignLeft);
+        seriesTode->attachAxis(axisYTode);
+        axisYTode->setMin(0);
 
-        QChartView *chartView = new QChartView(chart);// Zur Darstellung der Graphen
+        QChartView *chartView = new QChartView(chart),// Zur Darstellung der Graphen
+                *chartViewTode = new QChartView(chartTode);
         chartView->setRenderHint(QPainter::Antialiasing);
+        chartViewTode->setRenderHint(QPainter::Antialiasing);
 
         ui->progressBar->setValue(92);  
 
-        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab); //Ein neues Layout wird erstellt und an ui->Tab
+        QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->tab), //Ein neues Layout wird erstellt und an ui->Tab
                                                                  //gegeben. Das Layout bekommt dann den Chart
                                                                 //hinzugefügt
+                *verticalLayout_3Tode = new QVBoxLayout(ui->tab_5);
+
         verticalLayout_3->addWidget(chartView);
+        verticalLayout_3Tode->addWidget(chartViewTode);
         ui->tab->setLayout(verticalLayout_3);
+        ui->tab_5->setLayout(verticalLayout_3Tode);
 
         ui->progressBar->setValue(100);
 
