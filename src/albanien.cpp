@@ -26,80 +26,67 @@ Albanien::Albanien(QWidget *parent) :
     }
 
     QBarSet *set0 = new QBarSet("Infizierte");
+    QBarSet *set1 = new QBarSet("Tode");
+
 
     *set0 << InfiMonat[0] << InfiMonat[1] << InfiMonat[2] << InfiMonat[3]
             << InfiMonat[4] << InfiMonat[5] << InfiMonat[6] << InfiMonat[7]
             << InfiMonat[8] << InfiMonat[9] << InfiMonat[10] << InfiMonat[11] ;
 
-
-
-    QBarSeries *series_1 = new QBarSeries();
-    series_1->append(set0);
-
-
-    QChart *chart_1 = new QChart();
-    chart_1->addSeries(series_1);
-    chart_1->setTitle("Covisualizer");
-    chart_1->setAnimationOptions(QChart::SeriesAnimations);
-
-    QStringList categories_1;
-    categories_1 << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
-    QBarCategoryAxis *axisX_1 = new QBarCategoryAxis();
-    axisX_1->append(categories_1);
-    chart_1->addAxis(axisX_1, Qt::AlignBottom);
-    series_1->attachAxis(axisX_1);
-
-    QValueAxis *axisY_1 = new QValueAxis();
-    axisY_1->setMin(0);
-    axisY_1->setMax(3000);
-    chart_1->addAxis(axisY_1, Qt::AlignLeft);
-    series_1->attachAxis(axisY_1);
-
-    chart_1->legend()->setVisible(true);
-    chart_1->legend()->setAlignment(Qt::AlignBottom);
-
-    QChartView *chartView_1 = new QChartView(chart_1);
-       chartView_1->setRenderHint(QPainter::Antialiasing);
-    ui->verticalLayout_4->addWidget(chartView_1);
-
-    QBarSet *set1 = new QBarSet("Tote");
-
     *set1 << TodeMonat[0] << TodeMonat[1] << TodeMonat[2] << TodeMonat[3]
             << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
             << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ;
 
-    QBarSeries *series_2 = new QBarSeries();
-    series_2->append(set1);
+    QBarSeries *series = new QBarSeries(),
+                *seriesTode = new QBarSeries();
+    series->append(set0);
+    seriesTode->append(set1);
 
-    QChart *chart_2 = new QChart();
-    chart_2->addSeries(series_2);
-    chart_2->setTitle("Covisualizer");
-    chart_2->setAnimationOptions(QChart::SeriesAnimations);
+    QChart *chart = new QChart(),
+            *chartTode = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Covisualizer");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chartTode->addSeries(seriesTode);
+    chartTode->setTitle("Covisualizer");
+    chartTode->setAnimationOptions(QChart::SeriesAnimations);
 
-    QStringList categories_2;
-    categories_2 << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
+    QStringList categories;
+    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
+    QBarCategoryAxis *axisX = new QBarCategoryAxis(),
+                        *axisXTode = new QBarCategoryAxis();
 
-    QBarCategoryAxis *axisX_2 = new QBarCategoryAxis();
-    axisX_2->append(categories_2);
-    chart_2->addAxis(axisX_2, Qt::AlignBottom);
-    series_2->attachAxis(axisX_2);
+    axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+    axisXTode->append(categories);
+    chartTode->addAxis(axisXTode, Qt::AlignBottom);
 
-    chart_2->legend()->setVisible(true);
-    chart_2->legend()->setAlignment(Qt::AlignBottom);
 
-    QValueAxis *axisY_2 = new QValueAxis();
-    axisY_2->setMin(0);
-    axisY_2->setMax(100);
-    chart_2->addAxis(axisY_2, Qt::AlignLeft);
-    series_2->attachAxis(axisY_2);
+    QValueAxis *axisY = new QValueAxis(),
+                *axisYTode = new QValueAxis();
 
-    chart_1->legend()->setVisible(true);
-    chart_1->legend()->setAlignment(Qt::AlignBottom);
+    axisY->setMin(0);
+    axisYTode->setMin(0);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    chartTode->addAxis(axisYTode, Qt::AlignLeft);
+    series->attachAxis(axisY);
+    seriesTode->attachAxis(axisYTode);
 
-    QChartView *chartView_2 = new QChartView(chart_2);
-    chartView_2->setRenderHint(QPainter::Antialiasing);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chartTode->legend()->setVisible(true);
+    chartTode->legend()->setAlignment(Qt::AlignBottom);
 
-    ui->verticalLayout_2->addWidget(chartView_2);
+    QChartView *chartView = new QChartView(chart),
+                *chartViewTode = new QChartView(chartTode);
+       chartView->setRenderHint(QPainter::Antialiasing);
+       chartViewTode->setRenderHint(QPainter::Antialiasing);
+
+    ui->verticalLayout_4->addWidget(chartView);
+    ui->verticalLayout_2->addWidget(chartViewTode);
+
+
 
 }
 
