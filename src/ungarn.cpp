@@ -34,33 +34,54 @@ Ungarn::Ungarn(QWidget *parent) :
             << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
             << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ;
 
-    QBarSeries *series = new QBarSeries();
+    QBarSeries *series = new QBarSeries(),
+                *seriesTode = new QBarSeries();
     series->append(set0);
-    series->append(set1);
+    seriesTode->append(set1);
 
-    QChart *chart = new QChart();
+    QChart *chart = new QChart(),
+            *chartTode = new QChart();
     chart->addSeries(series);
     chart->setTitle("Covisualizer");
     chart->setAnimationOptions(QChart::SeriesAnimations);
+    chartTode->addSeries(seriesTode);
+    chartTode->setTitle("Covisualizer");
+    chartTode->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categories;
     categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    QBarCategoryAxis *axisX = new QBarCategoryAxis(),
+                        *axisXTode = new QBarCategoryAxis();
+
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
+    axisXTode->append(categories);
+    chartTode->addAxis(axisXTode, Qt::AlignBottom);
 
-    QValueAxis *axisY = new QValueAxis();
+
+    QValueAxis *axisY = new QValueAxis(),
+                *axisYTode = new QValueAxis();
+
     axisY->setMin(0);
+    axisYTode->setMin(0);
     chart->addAxis(axisY, Qt::AlignLeft);
+    chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);
+    seriesTode->attachAxis(axisYTode);
 
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
+    chartTode->legend()->setVisible(true);
+    chartTode->legend()->setAlignment(Qt::AlignBottom);
 
-    QChartView *chartView = new QChartView(chart);
+    QChartView *chartView = new QChartView(chart),
+                *chartViewTode = new QChartView(chartTode);
        chartView->setRenderHint(QPainter::Antialiasing);
+       chartViewTode->setRenderHint(QPainter::Antialiasing);
+
     ui->verticalLayout_4->addWidget(chartView);
+    ui->verticalLayout_2->addWidget(chartViewTode);
 }
 
 Ungarn::~Ungarn()
