@@ -2,6 +2,8 @@
 #define WEISSRUSSLAND_H
 
 #include <QDialog>
+#include <QAbstractButton>
+#include "laender.h"
 
 namespace Ui {
 class Weissrussland;
@@ -14,6 +16,18 @@ class Weissrussland : public QDialog
 public:
     explicit Weissrussland(QWidget *parent = nullptr);
     ~Weissrussland();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
+    void on_skalaLiear_clicked();
+
+    void on_skalaLogarithm_clicked();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "BY";
 
 private:
     Ui::Weissrussland *ui;

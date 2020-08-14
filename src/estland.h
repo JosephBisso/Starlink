@@ -2,6 +2,8 @@
 #define ESTLAND_H
 
 #include <QDialog>
+#include "laender.h"
+#include <QAbstractButton>
 
 namespace Ui {
 class Estland;
@@ -14,6 +16,19 @@ class Estland : public QDialog
 public:
     explicit Estland(QWidget *parent = nullptr);
     ~Estland();
+
+private slots:
+
+void on_buttonBox_clicked(QAbstractButton *button);
+void on_skalaLiear_clicked();
+
+void on_skalaLogarithm_clicked();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "EE";
 
 private:
     Ui::Estland *ui;

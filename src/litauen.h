@@ -2,6 +2,8 @@
 #define LITAUEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
+#include "laender.h"
 
 namespace Ui {
 class Litauen;
@@ -14,6 +16,18 @@ class Litauen : public QDialog
 public:
     explicit Litauen(QWidget *parent = nullptr);
     ~Litauen();
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
+    void on_skalaLogarithm_clicked();
+
+    void on_skalaLiear_clicked();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "LT";
 
 private:
     Ui::Litauen *ui;

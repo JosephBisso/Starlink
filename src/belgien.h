@@ -2,6 +2,9 @@
 #define BELGIEN_H
 
 #include <QDialog>
+#include <QAbstractButton>
+
+#include "laender.h"
 
 namespace Ui {
 class Belgien;
@@ -14,6 +17,20 @@ class Belgien : public QDialog
 public:
     explicit Belgien(QWidget *parent = nullptr);
     ~Belgien();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "BE";
+
+private slots:
+
+ void on_buttonBox_clicked(QAbstractButton *button);
+
+ void on_skalaLiear_clicked();
+
+ void on_skalaLogarithm_clicked();
 
 private:
     Ui::Belgien *ui;

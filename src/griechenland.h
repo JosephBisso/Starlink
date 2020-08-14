@@ -2,6 +2,8 @@
 #define GRIECHENLAND_H
 
 #include <QDialog>
+#include <QAbstractButton>
+#include "laender.h"
 
 namespace Ui {
 class Griechenland;
@@ -14,6 +16,19 @@ class Griechenland : public QDialog
 public:
     explicit Griechenland(QWidget *parent = nullptr);
     ~Griechenland();
+
+private slots:
+
+void on_buttonBox_clicked(QAbstractButton *button);
+void on_skalaLiear_clicked();
+
+void on_skalaLogarithm_clicked();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "EL";
 
 private:
     Ui::Griechenland *ui;

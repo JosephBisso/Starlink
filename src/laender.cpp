@@ -64,8 +64,13 @@ void Laender::InfiTodeMonat(QString geoID)
 int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 {
     int n = 0;  //Anzahl von Tagen auf 0 gesetzt
+    qreal k; //qreal ist der für die Graphen unterstützten Typ.
+
+    int gibNicht = 0;
 
     qDebug()<< "geoID = " << geoID << " und uiDatum = " << uiDatum ;
+
+    QString pruefTag;
 
     QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
         if (Monat.size()==1)
@@ -75,10 +80,26 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
         qDebug()<< "Monat = " << Monat ;
 
-    for (int i =0; i<31; i++)
+    for (int i =0; i<uiDatum.daysInMonth(); i++) //Es wird jetzt gezählt, für wie viele Tage, es keine Einträge in der Datenbank gibt
     {
-        qreal k = uiDatum.day()-i; //qreal ist der für die Graphen unterstützten Typ. Der Tag wird aus dem Datum
-                                  //uiDatum gewonnen und substrahiert.
+        pruefTag = QString::number(uiDatum.daysInMonth()-i); //daysInMonth, ist die Anzahl an Tagen des auf der UI von Bezutzen ausgewählten Datums
+        if (pruefTag.size()==1){pruefTag.insert(0, "0");}
+
+        if (DbLandDaten.gibInfiierte(DbLandDaten.gibDatum(pruefTag, Monat), geoID) == -999) //prüft ob es Einträge in der Datenbank für den
+                                                                                           //Prueftag gibt. (die Methode gibInfizierte gibt -999
+                                                                                          // zurück, wenn dies der Fall ist
+        {
+           gibNicht += 1;
+        }
+
+    }
+
+    qDebug() << "Es fehlen " <<gibNicht<< "Tage";
+
+    for (int i =0; i<(uiDatum.daysInMonth()-gibNicht); i++) //Es werden jetzt Daten für die Anzahl an in der Datenbank vorhanden Tagen
+                                                           //gesammelt und gespeichert
+    {
+        k = 1 + i; // Weil Monate nicht mit 0 anfangen
 
 
         if (k>0)

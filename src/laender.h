@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QLineSeries>
 #include <QtCharts>
+#include <QMessageBox>
 
 #include <QtMath>
 

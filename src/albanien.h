@@ -2,7 +2,7 @@
 #define ALBANIEN_H
 
 #include <QDialog>
-
+#include "laender.h"
 #include <QAbstractButton> //Wichtig!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 namespace Ui {
@@ -19,7 +19,17 @@ public:
 
 private slots:
 
-    void on_DatumApply_clicked(QAbstractButton *button);
+    void on_buttonBox_clicked(QAbstractButton *button);
+
+    void on_skalaLiear_clicked();
+
+    void on_skalaLogarithm_clicked();
+
+private:
+
+    Laender Land;
+
+    QString geoID = "AL";
 
 private:
     Ui::Albanien *ui;
