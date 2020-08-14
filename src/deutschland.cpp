@@ -55,10 +55,10 @@ Deutschland::Deutschland(QWidget *parent) :
     QChart *chart = new QChart(),
             *chartTode = new QChart();
     chart->addSeries(series);
-    chart->setTitle("Covisualizer");
+    chart->setTitle("Übersicht Infizierte 2020");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chartTode->addSeries(seriesTode);
-    chartTode->setTitle("Covisualizer");
+    chartTode->setTitle("Übersicht Tode 2020");
     chartTode->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categories;
@@ -93,8 +93,18 @@ Deutschland::Deutschland(QWidget *parent) :
        chartView->setRenderHint(QPainter::Antialiasing);
        chartViewTode->setRenderHint(QPainter::Antialiasing);
 
-    ui->verticalLayout_4->addWidget(chartView);
-    ui->verticalLayout_2->addWidget(chartViewTode);
+       ui->Tab_2->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
+       ui->tab_3->layout()->~QLayout();
+
+       QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->Tab_2), //Ein neues Layout wird erstellt und an ui->Tab
+                                                                //gegeben. Das Layout bekommt dann den Chart
+                                                               //hinzugefügt
+               *verticalLayout_3Tode = new QVBoxLayout(ui->tab_3);
+
+       verticalLayout_3->addWidget(chartView);
+       verticalLayout_3Tode->addWidget(chartViewTode);
+       ui->Tab_2->setLayout(verticalLayout_3);
+       ui->tab_3->setLayout(verticalLayout_3Tode);
 
 
 }

@@ -44,10 +44,10 @@ Daenemark::Daenemark(QWidget *parent) :
     QChart *chart = new QChart(),
             *chartTode = new QChart();
     chart->addSeries(series);
-    chart->setTitle("Covisualizer");
+    chart->setTitle("Übersicht Infizierte 2020");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chartTode->addSeries(seriesTode);
-    chartTode->setTitle("Covisualizer");
+    chartTode->setTitle("Übersicht Tode 2020");
     chartTode->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categories;
