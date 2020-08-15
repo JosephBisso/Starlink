@@ -146,7 +146,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
         {
             qDebug()<< "k ist kleiner gleich null für i = " << i;
 
-            tblInfi[0][i] = -999;
+            tblInfi[0][i] = -999; //  füllt die Matrix mit ungültige Daten, zur Signaliesirung des Problems
             tblTode[0][i] = -999;
 
             tblInfi[1][i] = -999;
