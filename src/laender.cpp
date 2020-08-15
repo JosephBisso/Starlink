@@ -29,15 +29,15 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 
 }
 
-//Rechnet und speichert Gesamtinfiziierte für alle Monate in einem Feld
+//Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
 void Laender::InfiTodeMonat(QString geoID)
 {
 
     QString Monat;
+
     /*Es werden nacheinander ein Attribut vom Typ databank der Klasse Laender "DbLandDaten" und eine Methode
       von der Klasse databank "gibGesamtInfizierte (Monat, geoID)" mit RückgabeTyp int gerufen
     */
-
     for (int i=0; i<12; i++)
     {
         Monat = QString::number(i+1); // Die zahl des Monat wird ajustiert weil i mit 0 anfängt
@@ -166,22 +166,22 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 //Datum für ein Land "geoID". Speichert sie im Attribut Infi und Tode der Klasse Laender
 void Laender::FillLines (QDate uiDatum, QString geoID)
 {
-    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
+    QString Monat = QString::number(uiDatum.month());
         if (Monat.size()==1)
        {
             Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
        }
 
-    QString Tag = QString::number(uiDatum.day()); //Der Tag wird aus dem gelesenen Datum auf dem UI gewonnen
+    QString Tag = QString::number(uiDatum.day());
         if (Tag.size()==1)
         {
-            Tag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+            Tag.insert(0, "0");
         }
 
     QString Datum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
-                                                        // Datum in dem von der Datenbank benutzten Format
+                                                     // Datum in dem von der Datenbank benutzten Format
 
-    Infi = QString::number(DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen
-    Tode = QString::number(DbLandDaten.gibTode(Datum, geoID));//Es werden Daten aus der Datenbank gewonnen
-
+    Infi = QString::number(DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen für das Datum "Datum"
+                                                                    //und Land identifiziert mit "geoID"
+    Tode = QString::number(DbLandDaten.gibTode(Datum, geoID));
 }
