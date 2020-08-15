@@ -57,13 +57,14 @@ void Laender::InfiTodeMonat(QString geoID)
 
 }
 
-//Liest in der Datenbank dank der Methode gibInfiziierte und gibTode die Daten für alle Tage eines Mont vom 1. bis
-//zum vom User ausgewählten Datum für ein Land "geoID". Abhängig davon, ob linear true oder falsch ist, werden
-//die Daten normal oder logarithmisch gespeichert (ln). Die Anzahl von Tagen, für die Daten gespeichert wurden
-//wird zurückgegeben.
+//Liest in der Datenbank dank der Methoden der Klasse Datenbank 'gibInfiziierte' und 'gibTode' die Daten eines Landes
+// mit geografischer Kennung "geoID" für alle Tage eines Monats aus dem Datum "uiDatum" oder vom 1. bis zum vom User
+//ausgewählten Datum "uiDatum", wenn der Monat noch am laufen ist. Abhängig davon, ob  "linear" auf true oder falsch
+//gesetzt wurde, werden die Daten normal (linear) oder logarithmisch gespeichert (ln). Die Anzahl von Tagen, für die
+//Daten gespeichert wurden wird zurückgegeben.
 int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 {
-    int n = 0;  //Anzahl von Tagen auf 0 gesetzt
+    int n = 0;
     qreal k; //qreal ist der für die Graphen unterstützten Typ.
 
     int gibNicht = 0;
@@ -72,7 +73,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
     QString pruefTag;
 
-    QString Monat = QString::number(uiDatum.month()); //Der Monat wird aus dem gelesenen Datum auf dem UI gewonnen
+    QString Monat = QString::number(uiDatum.month());
         if (Monat.size()==1)
        {
             Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
@@ -82,12 +83,13 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
     for (int i =0; i<uiDatum.daysInMonth(); i++) //Es wird jetzt gezählt, für wie viele Tage, es keine Einträge in der Datenbank gibt
     {
-        pruefTag = QString::number(uiDatum.daysInMonth()-i); //daysInMonth, ist die Anzahl an Tagen des auf der UI von Bezutzen ausgewählten Datums
+        pruefTag = QString::number(uiDatum.daysInMonth()-i);
+
         if (pruefTag.size()==1){pruefTag.insert(0, "0");}
 
         if (DbLandDaten.gibInfiierte(DbLandDaten.gibDatum(pruefTag, Monat), geoID) == -999) //prüft ob es Einträge in der Datenbank für den
                                                                                            //Prueftag gibt. (die Methode gibInfizierte gibt -999
-                                                                                          // zurück, wenn dies der Fall ist
+                                                                                          // zurück, wenn dies nicht der Fall ist
         {
            gibNicht += 1;
         }
@@ -97,24 +99,27 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
     qDebug() << "Es fehlen " <<gibNicht<< "Tage";
 
     for (int i =0; i<(uiDatum.daysInMonth()-gibNicht); i++) //Es werden jetzt Daten für die Anzahl an in der Datenbank vorhanden Tagen
-                                                           //gesammelt und gespeichert
+                                                           //des Monats  des ausgewählten Datum aus der Datenbank gesammelt und
+                                                          // in Attributen der Klasser Laender gespeichert
     {
-        k = 1 + i; // Weil Monate nicht mit 0 anfangen
+        k = 1 + i; // Weil Monate nicht mit dem 0.  anfangen
 
 
-        if (k>0)
+        if (k>0) // weil für k<=0, kann kein Datum gewonnen werden.
         {
-            tblInfi[0][i] = k; //tblInfi ist eine Matrix und ein Attribut der Klasse Laender
+            tblInfi[0][i] = k;
             tblTode[0][i] = k;
 
             qDebug()<< "tblInfi[0]["<<i<<"]  (k) = " << k ;
 
             QString Tag = QString::number(k);
-            if (Tag.size()==1){Tag.insert(0, "0");} //Aus Tag im Format "d" wird Monat im Format "dd" ("06" statt "6")
+            if (Tag.size()==1){Tag.insert(0, "0");}
 
             qDebug()<< "Tag = " << Tag ;
 
-            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum gib das Datum zurück
+            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum gehört der Klasse databank und gibt
+                                                                // aus einem Tag und Monat das Datum zurück, falls dieses Datum
+                                                               // in der Datenbank vorhanden ist.
 
              qDebug()<< "tblDatum = " << tblDatum ;
 
@@ -137,7 +142,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
             n +=1;
         }
 
-        else //(für k<=0, kann kein Datum gewonnen werden.)
+        else
         {
             qDebug()<< "k ist kleiner gleich null für i = " << i;
 
