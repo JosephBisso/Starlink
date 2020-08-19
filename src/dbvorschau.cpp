@@ -108,4 +108,8 @@ void dbVorschau::VorschauFillTable()
         ui->tblVorschau->setItem(i, 5, new QTableWidgetItem(GesamtInfi[i]));
         ui->tblVorschau->setItem(i, 6, new QTableWidgetItem(GesamtTode[i]));
     }
+
+    QString dbStand = "Letzter Stand: ";
+    dbStand.append(DbVorschau[0].gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
+    ui->dbVorschauStand->setText(dbStand);
  }
