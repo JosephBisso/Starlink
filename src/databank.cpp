@@ -23,7 +23,7 @@ databank::databank(QObject *parent) : QObject(parent)
  */
 void databank::jsDbShort()
 {
-    this->done = false;
+    this->done = true;
 
     QJsonArray reArrayShort;
 
@@ -31,7 +31,7 @@ void databank::jsDbShort()
 
     QFile file ("covidRaw.json");
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){ file.setFileName(":/lib/covidRaw.json");} /*Wenn die Datei nicht geöffnet werden kann
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){ file.setFileName(":/lib/covidRaw.json"); this->done = false;} /*Wenn die Datei nicht geöffnet werden kann
                                                                                                   wird stattdessen ein Backup File geöffnet
                                                                                             */
      file.close();
@@ -72,7 +72,6 @@ void databank::jsDbShort()
            file2.write(jsDbShort.toJson());
            file2.close();
 
-           this->done = true;
         }
 
 
