@@ -35,10 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
                           Methode der Klasse databank
                         */
 
-    QString dbStand = "Letzter Stand: ";
-    dbStand.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
-    ui->statusbar->showMessage(dbStand);
-
 }
 
 
