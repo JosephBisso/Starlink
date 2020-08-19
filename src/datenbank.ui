@@ -269,7 +269,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Es werden Zahlen aus verschiedenen Länder vom Juni vorgestellt. Sind Daten zu sehen, dann ist die Datenbank verbunden.</string>
+         <string>Es werden Zahlen aus verschiedenen Länder für die letzten 6 Monate vorgestellt.</string>
         </property>
        </widget>
       </item>
