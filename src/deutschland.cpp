@@ -107,6 +107,18 @@ Deutschland::Deutschland(QWidget *parent) :
        ui->tab_3->setLayout(verticalLayout_3Tode);
 
 
+       double x = 0;
+       int Einwohnerzahl = 83133000; //Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
+
+
+       x = (InfiMonat[0]+InfiMonat[1]+InfiMonat[2]+InfiMonat[3]+InfiMonat[4]+ InfiMonat[5]+InfiMonat[6]+InfiMonat[7]+InfiMonat[8]+InfiMonat[9]+InfiMonat[10]+InfiMonat[11])/ Einwohnerzahl;
+       x *=100000;
+
+       QString xstr=QString::number(x);
+
+       ui->lineEdit_9->setText(xstr);
+
+
 }
 
 Deutschland::~Deutschland()
@@ -292,6 +304,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         ui->tab_5->setLayout(verticalLayout_3Tode);
 
         ui->progressBar->setValue(100);
+
 
         }
 

@@ -81,6 +81,18 @@ Island::Island(QWidget *parent) :
 
     ui->verticalLayout_4->addWidget(chartView);
     ui->verticalLayout_2->addWidget(chartViewTode);
+
+    double x = 0;
+    int Einwohnerzahl = 361313; //Quelle: https://www.laenderdaten.info/Europa/Island/index.php , Stand: 21.08.2020
+
+
+    x = (InfiMonat[0]+InfiMonat[1]+InfiMonat[2]+InfiMonat[3]+InfiMonat[4]+ InfiMonat[5]+InfiMonat[6]+InfiMonat[7]+InfiMonat[8]+InfiMonat[9]+InfiMonat[10]+InfiMonat[11])/ Einwohnerzahl;
+    x *=100000;
+
+    QString xstr=QString::number(x);
+
+    ui->lineEdit_9->setText(xstr);
+
 }
 
 Island::~Island()
