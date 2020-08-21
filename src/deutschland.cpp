@@ -149,7 +149,9 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                       //vom User ausgewählten Datum dargestellt. Die Daten werden anschließend
                                      //in dem Attribut Infi und Tode vom Objekt Land
 
-        if (Land.Infi == "-999" || Land.Tode == "-999") //(-999 wird von der Methode FillLines zurückgegeben,
+        QString SiebenTage = Land.Fill7TagDurchschnitt(uiDatum, geoID);
+
+        if (Land.Infi == "-999" || Land.Tode == "-999" || SiebenTage == "") //(-999 wird von der Methode FillLines zurückgegeben,
                                               //wenn keine Daten zu dem Datum gefunden wurden)
         {
             ui->progressBar->setValue(100);
@@ -160,6 +162,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
 
             ui->lineEdit_4->setText(""); //Zeilen leer gemacht
             ui->lineEdit_6->setText("");
+            ui->lineEdit_7->setText("");
 
             ui->progressBar->setValue(0);
         }
@@ -176,6 +179,7 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
                                            // Objekt Land gespeichert wurde wird gerufen
         ui->lineEdit_6->setText(Land.Tode);
 
+        ui->lineEdit_7->setText(SiebenTage);
 
 
         QLineSeries *seriesInf = new QLineSeries(), //Es werden neue Serien geschaffen, dank dessen eine Graph

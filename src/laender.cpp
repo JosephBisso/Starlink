@@ -185,3 +185,55 @@ void Laender::FillLines (QDate uiDatum, QString geoID)
                                                                     //und Land identifiziert mit "geoID"
     Tode = QString::number(DbLandDaten.gibTode(Datum, geoID));
 }
+
+QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
+{
+    QDate QDDatum[7];
+
+    QString Monat[7],
+              Tag[7],
+            Datum[7];
+
+    double InfiSeven = 0.0,
+           InfiDatum = 0.0;
+
+    for (int i=0; i<7; i++)
+    {
+        QDDatum[i] = uiDatum.addDays(-i);
+
+        qDebug()<< QDDatum[i];
+
+        Monat[i] = QString::number(QDDatum[i].month());
+            if (Monat[i].size()==1)
+           {
+                Monat[i].insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
+           }
+
+
+        Tag[i] = QString::number(QDDatum[i].day());
+            if (Tag[i].size()==1)
+            {
+                Tag[i].insert(0, "0");
+            }
+
+        Datum[i] = DbLandDaten.gibDatum(Tag[i], Monat[i]); //Die Methode gibDatum, gib das
+                                                          // Datum in dem von der Datenbank benutzten Format
+        qDebug()<< " für Datum = " << Datum[i] ;
+
+        InfiDatum = DbLandDaten.gibInfiierte(Datum[i], geoID);
+        qDebug()<< "InfiDatum (i="<<i<<") ="<< InfiDatum;
+
+        if (InfiDatum == -999)
+        {
+            return "";
+        }
+
+        InfiSeven += InfiDatum; //Es werden Daten aus der Datenbank gewonnen für das Datum "Datum"
+                                                                        //und Land identifiziert mit "geoID"
+        qDebug()<< "InfiSeven für i = "<<i<<" ="<< InfiSeven;
+    }
+
+   qDebug()<< "Durchschitt InfiSeven = "<<InfiSeven/7;
+
+   return QString::number(InfiSeven/7);
+}

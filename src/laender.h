@@ -29,6 +29,8 @@ public:
 
     void FillLines (QDate uiDatum, QString geoID);
 
+    QString Fill7TagDurchschnitt (QDate uiDatum, QString geoID);
+
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
 
