@@ -16,47 +16,6 @@
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="2">
-      <widget class="QLineEdit" name="lineEdit_5">
-       <property name="text">
-        <string>Tote</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_4">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="4">
-      <widget class="QLineEdit" name="lineEdit_7">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLineEdit" name="lineEdit_6">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="text">
-        <string>Infizierte</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="4">
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="minimumSize">
@@ -122,11 +81,69 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="4">
+      <widget class="QLineEdit" name="lineEdit_7">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="lineEdit_6">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="text">
+        <string>Infizierte</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEdit_4">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="0">
       <widget class="QLineEdit" name="lineEdit_3">
        <property name="text">
         <string>Datum</string>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="lineEdit_5">
+       <property name="text">
+        <string>Tote</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5">
+      <widget class="QLineEdit" name="lineEdit_8">
+       <property name="text">
+        <string>Infizierte pro 100.000 Einwohner</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QLineEdit" name="lineEdit_9">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -265,7 +282,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
