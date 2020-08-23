@@ -136,8 +136,10 @@ void Mazedonien::on_buttonBox_clicked(QAbstractButton *button)
                                       //vom User ausgewählten Datum dargestellt. Die Daten werden anschließend
                                      //in dem Attribut Infi und Tode vom Objekt Land
 
-        if (Land.Infi == "-999" || Land.Tode == "-999") //(-999 wird von der Methode FillLines zurückgegeben,
-                                              //wenn keine Daten zu dem Datum gefunden wurden)
+        QString SiebenTage = Land.Fill7TagDurchschnitt(uiDatum, geoID);
+
+        if (Land.Infi == "-999" || Land.Tode == "-999" || SiebenTage == "")
+
         {
             ui->progressBar->setValue(100);
 
@@ -145,24 +147,26 @@ void Mazedonien::on_buttonBox_clicked(QAbstractButton *button)
                                                                " nicht gefunden. Versuchen "
                                                                "Sie die Datenbank zu aktualisieren");
 
-            ui->lineEdit_4->setText(""); //Zeilen leer gemacht
+            ui->lineEdit_4->setText("");
             ui->lineEdit_6->setText("");
+            ui->lineEdit_7->setText("");
 
             ui->progressBar->setValue(0);
         }
 
-        else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
+        else
         {
-            ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
+            ui->tab->layout()->~QLayout();
             ui->tab_5->layout()->~QLayout();
 
             ui->progressBar->setValue(75);
 
 
-        ui->lineEdit_4->setText(Land.Infi); //Das Ergebnis die durch der Methode im Attribut Infi vom
-                                           // Objekt Land gespeichert wurde wird gerufen
+        ui->lineEdit_4->setText(Land.Infi);
+
         ui->lineEdit_6->setText(Land.Tode);
 
+        ui->lineEdit_7->setText(SiebenTage);
 
 
         QLineSeries *seriesInf = new QLineSeries(), //Es werden neue Serien geschaffen, dank dessen eine Graph
