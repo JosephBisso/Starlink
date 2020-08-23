@@ -186,6 +186,7 @@ void Laender::FillLines (QDate uiDatum, QString geoID)
     Tode = QString::number(DbLandDaten.gibTode(Datum, geoID));
 }
 
+//Diese Methode ist dafür da, den 7 Tage Durchschnitt der Infzierten zu berechenen. Dabei wird der aktuelle ausgewählte Tag berücksichtigt und die 6 Tage zuvor.
 QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
 {
     QDate QDDatum[7];
@@ -194,12 +195,12 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
               Tag[7],
             Datum[7];
 
-    double InfiSeven = 0.0,
+    double InfiSeven = 0.0, //Definieren einer Gleitkommazahl
            InfiDatum = 0.0;
 
-    for (int i=0; i<7; i++)
+    for (int i=0; i<7; i++) //7 Tage werden benötigt für den 7 Tage Durchschnitt
     {
-        QDDatum[i] = uiDatum.addDays(-i);
+        QDDatum[i] = uiDatum.addDays(-i);  //benutzt den aktuellen Tag und geht 6 weitere Tage zurück (-i)
 
         qDebug()<< QDDatum[i];
 
@@ -230,10 +231,10 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
 
         InfiSeven += InfiDatum; //Es werden Daten aus der Datenbank gewonnen für das Datum "Datum"
                                                                         //und Land identifiziert mit "geoID"
-        qDebug()<< "InfiSeven für i = "<<i<<" ="<< InfiSeven;
+        qDebug()<< "InfiSeven für i = "<<i<<" ="<< InfiSeven; //Berechnet die Gesamtanzahl der Infizierten der 7 Tage
     }
 
-   qDebug()<< "Durchschitt InfiSeven = "<<InfiSeven/7;
+   qDebug()<< "Durchschitt InfiSeven = "<<InfiSeven/7; //Berechnet den Durschnitt der Infizierten indem die Gesamtzahl durch 7 geteilt wird
 
-   return QString::number(InfiSeven/7);
+   return QString::number(InfiSeven/7); //gibt dei Durchschnittlichen Infizierten pro Tag zurück
 }
