@@ -65,7 +65,9 @@ Slowenien::Slowenien(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(1000);
     axisYTode->setMin(0);
+    axisYTode->setMax(100);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

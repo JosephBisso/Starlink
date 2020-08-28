@@ -65,7 +65,9 @@ Polen::Polen(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(20000);
     axisYTode->setMin(0);
+    axisYTode->setMax(1000);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

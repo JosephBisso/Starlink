@@ -62,7 +62,9 @@ Finnland::Finnland(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(3600);
     axisYTode->setMin(0);
+    axisYTode->setMax(200);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

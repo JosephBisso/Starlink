@@ -65,7 +65,9 @@ Grossbritannien::Grossbritannien(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(140000);
     axisYTode->setMin(0);
+    axisYTode->setMax(25000);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

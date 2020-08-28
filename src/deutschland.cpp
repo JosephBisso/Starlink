@@ -77,7 +77,9 @@ Deutschland::Deutschland(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(100000);
     axisYTode->setMin(0);
+    axisYTode->setMax(6000);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);
@@ -93,18 +95,9 @@ Deutschland::Deutschland(QWidget *parent) :
        chartView->setRenderHint(QPainter::Antialiasing);
        chartViewTode->setRenderHint(QPainter::Antialiasing);
 
-       ui->Tab_2->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
-       ui->tab_3->layout()->~QLayout();
 
-       QVBoxLayout* verticalLayout_3 = new QVBoxLayout(ui->Tab_2), //Ein neues Layout wird erstellt und an ui->Tab
-                                                                //gegeben. Das Layout bekommt dann den Chart
-                                                               //hinzugefügt
-               *verticalLayout_3Tode = new QVBoxLayout(ui->tab_3);
-
-       verticalLayout_3->addWidget(chartView);
-       verticalLayout_3Tode->addWidget(chartViewTode);
-       ui->Tab_2->setLayout(verticalLayout_3);
-       ui->tab_3->setLayout(verticalLayout_3Tode);
+    ui->verticalLayout_4->addWidget(chartView);
+    ui->verticalLayout_2->addWidget(chartViewTode);
 
 
        double x = 0;

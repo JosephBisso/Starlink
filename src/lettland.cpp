@@ -64,7 +64,9 @@ Lettland::Lettland(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(500);
     axisYTode->setMin(0);
+    axisYTode->setMax(20);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

@@ -66,7 +66,9 @@ Belgien::Belgien(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
+    axisY->setMax(35000);
     axisYTode->setMin(0);
+    axisYTode->setMax(7000);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);
