@@ -7,7 +7,7 @@
 #include <qicon.h>
 #include <QMessageBox>
 #include "downloader.h"
-
+#include "urlchange.h"
 #include "databank.h"
 #include "datenbank.h"
 
@@ -54,6 +54,12 @@ void MainWindow::on_actionDatenbank_triggered()
 void MainWindow::on_actionNew_Windows_triggered()
 {
     QMessageBox::information(this, "Information", "Um genauere Informationen zu den einzelnen Ländern zu bekommen, müssen diese ungefähr mittig angeklickt werden.");
+}
+
+void MainWindow::on_actionDatenquelle_aendern_triggered()
+{
+    urlDialog->setModal(true);
+    urlDialog->exec();
 }
 
 //
@@ -310,7 +316,7 @@ void MainWindow::on_Lettland_clicked()
 
 void MainWindow::on_Litauen_clicked()
 {
-    Lettland mDialog;
+    Litauen mDialog;
        mDialog.setModal(true);
        mDialog.exec();
 }
@@ -329,7 +335,6 @@ void MainWindow::on_refreshButton_clicked()
 //Textbox, die die letzte Aktualisierung anzeigt.
 void MainWindow::dataUpdateConfirmed()
 {
-    QDateTime upDateTime = QDateTime::currentDateTime();
     QString refreshStateText = "Letzter Stand: ";
     refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
     ui->statusbar->showMessage(refreshStateText);

@@ -6,7 +6,6 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QUrl>
-#include <QDateTime>
 
 #include "datenbank.h"
 #include "frankreich.h"
@@ -46,6 +45,7 @@
 #include "lettland.h"
 #include "litauen.h"
 #include "bosnien.h"
+#include "changeurl.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -65,6 +65,7 @@ private:
 
     Ui::MainWindow *ui;
     MyDialog *mDialog; 
+    changeurl *urlDialog = new changeurl;
 
     QNetworkAccessManager myDownloader;
     QDateTime upDate;
@@ -76,6 +77,8 @@ private slots:
     void on_actionDatenbank_triggered();
 
     void on_actionNew_Windows_triggered();
+
+    void on_actionDatenquelle_aendern_triggered();
 
     void on_Frankreich_clicked();
 

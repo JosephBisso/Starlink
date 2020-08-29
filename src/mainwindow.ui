@@ -987,7 +987,7 @@
      <x>0</x>
      <y>0</y>
      <width>700</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1001,6 +1001,8 @@
      <string>Datei</string>
     </property>
     <addaction name="actionDatenbank"/>
+    <addaction name="separator"/>
+    <addaction name="actionDatenquelle_aendern"/>
    </widget>
    <addaction name="menuDatei"/>
    <addaction name="menuFile"/>
@@ -1027,6 +1029,11 @@
    </property>
    <property name="text">
     <string>Datenbank</string>
+   </property>
+  </action>
+  <action name="actionDatenquelle_aendern">
+   <property name="text">
+    <string>Datenquelle ändern</string>
    </property>
   </action>
  </widget>

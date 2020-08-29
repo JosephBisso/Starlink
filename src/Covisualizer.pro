@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     bosnien.cpp \
+    changeurl.cpp \
     databank.cpp \
     datenbank.cpp \
     dbvorschau.cpp \
@@ -72,6 +73,7 @@ SOURCES += \
 
 HEADERS += \
     bosnien.h \
+    changeurl.h \
     databank.h \
     datenbank.h \
     dbvorschau.h \
@@ -118,6 +120,7 @@ HEADERS += \
 
 FORMS += \
     bosnien.ui \
+    changeurl.ui \
     datenbank.ui \
     dbvorschau.ui \
     albanien.ui \
