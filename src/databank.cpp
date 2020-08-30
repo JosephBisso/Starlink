@@ -19,7 +19,7 @@ databank::databank(QObject *parent) : QObject(parent)
  * haben (in der JsonDatei: "continentExp" : "Europe") werden in einem neuen
  * QJsonArray hinzugefügt. Die Zeilen zum Schreiben einer Json Datei kommen wieder
  * aus der Vorlesung. Da die eben geschriebene Datei nur ein Auszug aus der Hauptdatei ist,
- * wird sie nur als ZwischenSpeicher gespeichert (im Build Ordner). Wenn alles wie geplant funktionniert wird done = true gesetzt.
+ * wird sie nur als ZwischenSpeicher gespeichert (im Build Ordner). Wenn alles wie geplant funktionniert wird done = true zurückgegeben.
  */
 void databank::jsDbShort()
 {

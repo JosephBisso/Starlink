@@ -45,12 +45,6 @@ void dbVorschau::VorschauFillTable()
 
             Land[6];
 
-
-   // Die Anzahl von Infiierte am "Datum" für Deutschland aus der Datenbank
-    //geslesen und für das Objekt DbVorschau(.Infiziierte) gesetzt und an uns zurück gegeben.
-    //Außerdem wird diise Anzahl aus int to QString konvertiert und an den Variabel "InfiziierteDE gegeben"
-
-
     //hier wird das aktuelles Datum benutzt und auf das für die Datenbank benutzte Format ("01" anstatt "1") gesetzt.
     QDate qdHeute = QDate::currentDate();
     QString qsHeuteMonat[6];
@@ -70,7 +64,7 @@ void dbVorschau::VorschauFillTable()
     QString qsHeuteTag = QString::number(qdHeute.day());
         if (qsHeuteTag.size()==1)
         {
-            qsHeuteTag.insert(0, "0"); //Aus Tag im Format "d" wird Tag im Format "dd" ("1" statt "01")
+            qsHeuteTag.insert(0, "0");
         }
 
     for (int i=0; i<6; i++)
