@@ -57,7 +57,7 @@ void dbVorschau::VorschauFillTable()
 
     for (int i=0; i<6; i++)
     {
-        qsHeuteMonat[i] = QString::number(qdHeute.month()-i); //Aus dem aktuellen Datum wird den Monat gewonnen.
+        qsHeuteMonat[i] = QString::number(qdHeute.addMonths(-i).month()); //Aus dem aktuellen Datum wird den Monat gewonnen.
                                                               //Der wird dann um i reduziert um verschiedene Monate
                                                               //vorzuschauen
 
