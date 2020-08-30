@@ -35,7 +35,7 @@ Deutschland::Deutschland(QWidget *parent) :
         TodeMonat[i] = Land.todMonat [i];
     }
 
-    QBarSet *set0 = new QBarSet("Infizierte");
+    QBarSet *set0 = new QBarSet("Infizierte"); // Eine neue Intanz von Typ QChart wird aufgerufen und ein Set wird für die Werte erstellt
     QBarSet *set1 = new QBarSet("Tode");
 
 
@@ -45,15 +45,16 @@ Deutschland::Deutschland(QWidget *parent) :
 
     *set1 << TodeMonat[0] << TodeMonat[1] << TodeMonat[2] << TodeMonat[3]
             << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
-            << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ;
+            << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ; // Den Sets werden die Werte von Infizierten und Toden über den Zeitraum von 12 Monaten zugewiesen
 
     QBarSeries *series = new QBarSeries(),
-                *seriesTode = new QBarSeries();
+                *seriesTode = new QBarSeries(); // Neue Intanz von Typ QChart, es werden zwei Serien erstellt mit unterschiedlichen Namen als Zuweisung
     series->append(set0);
-    seriesTode->append(set1);
+    seriesTode->append(set1); //Die Serien werden an die Sets angehängt
 
     QChart *chart = new QChart(),
-            *chartTode = new QChart();
+            *chartTode = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
+                                      //Titel, den Series hinzugefügt und die Animation wird festgelegt
     chart->addSeries(series);
     chart->setTitle("Übersicht Infizierte 2020");
     chart->setAnimationOptions(QChart::SeriesAnimations);
@@ -62,9 +63,10 @@ Deutschland::Deutschland(QWidget *parent) :
     chartTode->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categories;
-    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez.";
+    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez."; // Es werden neue Kategorien für die X-Achse erstellt, welche jetzt aus den Namen der Einzelnen Monaten bestehen.
+                                                                                                                                        // Neue Intanz von Typ QString hinzugefügt und erhält den Namen categories
     QBarCategoryAxis *axisX = new QBarCategoryAxis(),
-                        *axisXTode = new QBarCategoryAxis();
+                        *axisXTode = new QBarCategoryAxis(); //Die vorher erstellten neuen Kategorien werden jetzt durch eine neue Instanz von Typ QChart an die untere Seite der X-Achse gebunden.
 
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
@@ -74,7 +76,7 @@ Deutschland::Deutschland(QWidget *parent) :
 
 
     QValueAxis *axisY = new QValueAxis(),
-                *axisYTode = new QValueAxis();
+                *axisYTode = new QValueAxis(); // Eine neue Instanz von QChart hinzugefügt, welche ein Minimum und Maximum sowie die Orientierung der Beschrieftung der Y-Achse feestlegt
 
     axisY->setMin(0);
     axisY->setMax(100000);
@@ -88,16 +90,16 @@ Deutschland::Deutschland(QWidget *parent) :
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
     chartTode->legend()->setVisible(true);
-    chartTode->legend()->setAlignment(Qt::AlignBottom);
+    chartTode->legend()->setAlignment(Qt::AlignBottom); // Legende wird angezeigt und orientiert sich an der unteren Seite
 
     QChartView *chartView = new QChartView(chart),
                 *chartViewTode = new QChartView(chartTode);
        chartView->setRenderHint(QPainter::Antialiasing);
-       chartViewTode->setRenderHint(QPainter::Antialiasing);
+       chartViewTode->setRenderHint(QPainter::Antialiasing); // Dient zur Darstellung der Balkendiagramme
 
 
     ui->verticalLayout_4->addWidget(chartView);
-    ui->verticalLayout_2->addWidget(chartViewTode);
+    ui->verticalLayout_2->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
 
 }
 
@@ -162,8 +164,9 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {
             int Einwohnerzahl = 83133000; //Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
+                                         // Initialisierung eines neuen Parameters. Die Einwohnerzahl des Landes wird festgelegt. Für jedes Land unterschiedliche Einwohnerzahl.
 
-            ui->lineEdit_9->setText(Land.InfiproEinwohner(geoID,Einwohnerzahl));
+            ui->lineEdit_9->setText(Land.InfiproEinwohner(geoID,Einwohnerzahl)); //Endergebnis wird in einem lineEdit angezeigt
 
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
             ui->tab_5->layout()->~QLayout();

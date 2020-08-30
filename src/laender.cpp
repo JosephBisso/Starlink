@@ -236,31 +236,31 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
 
    qDebug()<< "Durchschitt InfiSeven = "<<InfiSeven/7; //Berechnet den Durschnitt der Infizierten indem die Gesamtzahl durch 7 geteilt wird
 
-   return QString::number(InfiSeven/7); //gibt dei Durchschnittlichen Infizierten pro Tag zurück
+   return QString::number(InfiSeven/7); //gibt die Durchschnittlichen Infizierten pro Tag zurück
 }
 
 QString Laender::InfiproEinwohner (QString geoID, int Einwohnerzahl)
 {
-    double InfiproEinwohner = 0.0;
-    Laender Land;
+    double InfiproEinwohner = 0.0; //Definieren einer Gleitkommazahl
+    Laender Land; //Klasse Laender für das Land ausgeben
 
     qDebug()<<"geoID"<<geoID;
 
-    Land.InfiTodeMonat(geoID);
+    Land.InfiTodeMonat(geoID);//Ausgabe der Infizierten der Länder durch geoID (Bsp. für Deutschland ist die geoID "DE")
 
-    for (int i=0; i<12; i++)
+    for (int i=0; i<12; i++)//Die Gleitkommazahl InfiproEinwohner wird mit den bekannten Infizierten aus allen Monaten gleichgesetzt aus dem entsprechendem Land
     {
         InfiproEinwohner += Land.infMonat[i];
 
         qDebug()<< "InfiproEinwohner für i ="<<i<<" gleich "<<InfiproEinwohner;
     }
 
-    InfiproEinwohner/= Einwohnerzahl;
+    InfiproEinwohner/= Einwohnerzahl; //Die Gleitkommazahl InfiproEinwohner wird erst geteilt durch die Einwohnerzahl des jeweiligen Landes gerechnet und mit 100.000 multipliziert
 
     InfiproEinwohner*=100000;
 
     qDebug()<<"InfiproEinwohner Last"<< InfiproEinwohner;
 
-    return QString::number(InfiproEinwohner);
+    return QString::number(InfiproEinwohner);//Gibt das Ergebnis der Infizierten pro 100.000 Einwohner als QString aus, damit es in einem lineEdit angezeigt werden kann
 
 }
