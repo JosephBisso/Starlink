@@ -238,3 +238,29 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
 
    return QString::number(InfiSeven/7); //gibt dei Durchschnittlichen Infizierten pro Tag zurück
 }
+
+QString Laender::InfiproEinwohner (QString geoID, int Einwohnerzahl)
+{
+    double InfiproEinwohner = 0.0;
+    Laender Land;
+
+    qDebug()<<"geoID"<<geoID;
+
+    Land.InfiTodeMonat(geoID);
+
+    for (int i=0; i<12; i++)
+    {
+        InfiproEinwohner += Land.infMonat[i];
+
+        qDebug()<< "InfiproEinwohner für i ="<<i<<" gleich "<<InfiproEinwohner;
+    }
+
+    InfiproEinwohner/= Einwohnerzahl;
+
+    InfiproEinwohner*=100000;
+
+    qDebug()<<"InfiproEinwohner Last"<< InfiproEinwohner;
+
+    return QString::number(InfiproEinwohner);
+
+}

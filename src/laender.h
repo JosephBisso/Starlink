@@ -31,6 +31,8 @@ public:
 
     QString Fill7TagDurchschnitt (QDate uiDatum, QString geoID);
 
+    QString InfiproEinwohner (QString geoID, int Einwohnerzahl);
+
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
 

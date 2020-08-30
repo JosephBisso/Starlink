@@ -99,19 +99,6 @@ Deutschland::Deutschland(QWidget *parent) :
     ui->verticalLayout_4->addWidget(chartView);
     ui->verticalLayout_2->addWidget(chartViewTode);
 
-
-       double x = 0;
-       int Einwohnerzahl = 83133000; //Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
-
-
-       x = (InfiMonat[0]+InfiMonat[1]+InfiMonat[2]+InfiMonat[3]+InfiMonat[4]+ InfiMonat[5]+InfiMonat[6]+InfiMonat[7]+InfiMonat[8]+InfiMonat[9]+InfiMonat[10]+InfiMonat[11])/ Einwohnerzahl;
-       x *=100000;
-
-       QString xstr=QString::number(x);
-
-       ui->lineEdit_9->setText(xstr);
-
-
 }
 
 Deutschland::~Deutschland()
@@ -173,7 +160,11 @@ void Deutschland::on_buttonBox_clicked(QAbstractButton *button)
         }
 
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
-        {            
+        {
+            int Einwohnerzahl = 83133000; //Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
+
+            ui->lineEdit_9->setText(Land.InfiproEinwohner(geoID,Einwohnerzahl));
+
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
             ui->tab_5->layout()->~QLayout();
 

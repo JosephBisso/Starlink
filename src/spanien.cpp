@@ -85,16 +85,7 @@ Spanien::Spanien(QWidget *parent) :
     ui->verticalLayout_4->addWidget(chartView);
     ui->verticalLayout_2->addWidget(chartViewTode);
 
-    double x = 0;
-    int Einwohnerzahl = 47077000; //Quelle: https://www.laenderdaten.info/Europa/Spanien/index.php , Stand: 21.08.2020
 
-
-    x = (InfiMonat[0]+InfiMonat[1]+InfiMonat[2]+InfiMonat[3]+InfiMonat[4]+ InfiMonat[5]+InfiMonat[6]+InfiMonat[7]+InfiMonat[8]+InfiMonat[9]+InfiMonat[10]+InfiMonat[11])/ Einwohnerzahl;
-    x *=100000;
-
-    QString xstr=QString::number(x);
-
-    ui->lineEdit_9->setText(xstr);
 
 }
 
@@ -158,6 +149,10 @@ void Spanien::on_buttonBox_clicked(QAbstractButton *button)
 
         else
         {
+           int Einwohnerzahl = 47077000; //Quelle: https://www.laenderdaten.info/Europa/Spanien/index.php , Stand: 21.08.2020
+
+           ui->lineEdit_9->setText(Land.InfiproEinwohner(geoID,Einwohnerzahl));
+
             ui->tab->layout()->~QLayout();
             ui->tab_5->layout()->~QLayout();
 
