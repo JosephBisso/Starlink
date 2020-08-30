@@ -47,7 +47,8 @@ void dbVorschau::VorschauFillTable()
 
     //hier wird das aktuelles Datum benutzt und auf das für die Datenbank benutzte Format ("01" anstatt "1") gesetzt.
     QDate qdHeute = QDate::currentDate();
-    QString qsHeuteMonat[6];
+    QString qsHeuteMonat[6],
+              qsHeuteTag[6];
 
     for (int i=0; i<6; i++)
     {
@@ -60,16 +61,16 @@ void dbVorschau::VorschauFillTable()
             qsHeuteMonat[i].insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
         }
 
-    }
-    QString qsHeuteTag = QString::number(qdHeute.day());
-        if (qsHeuteTag.size()==1)
+        qsHeuteTag[i] = QString::number(qdHeute.addMonths(-i).day());
+        if (qsHeuteTag[i].size()==1)
         {
-            qsHeuteTag.insert(0, "0");
+            qsHeuteTag[i].insert(0, "0");
         }
 
+    }
     for (int i=0; i<6; i++)
     {
-        Datum[i] = DbVorschau[i].gibDatum(qsHeuteTag, qsHeuteMonat[i]); /*gib von Tag "dd" und Monat "mm"
+        Datum[i] = DbVorschau[i].gibDatum(qsHeuteTag[i], qsHeuteMonat[i]); /*gib von Tag "dd" und Monat "mm"
                                                                           ein Datum in einem Format
                                                                           , das von der Datenbank gelesen und
                                                                            verstehen werden kann
