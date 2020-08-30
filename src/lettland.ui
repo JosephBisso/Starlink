@@ -43,8 +43,8 @@
          <minute>0</minute>
          <second>0</second>
          <year>2020</year>
-         <month>7</month>
-         <day>24</day>
+         <month>9</month>
+         <day>1</day>
         </datetime>
        </property>
        <property name="minimumDateTime">
@@ -69,8 +69,8 @@
        <property name="date">
         <date>
          <year>2020</year>
-         <month>7</month>
-         <day>24</day>
+         <month>9</month>
+         <day>1</day>
         </date>
        </property>
       </widget>
@@ -135,7 +135,7 @@
      <item row="2" column="5">
       <widget class="QLineEdit" name="lineEdit_8">
        <property name="text">
-        <string>Infizierte pro 100.000 Einwohner</string>
+        <string>Infizierte pro 100000 Einwohner</string>
        </property>
        <property name="readOnly">
         <bool>true</bool>

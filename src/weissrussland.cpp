@@ -162,6 +162,10 @@ void Weissrussland::on_buttonBox_clicked(QAbstractButton *button)
 
         else
         {
+           int Einwohnerzahl = 9467000; //Quelle: https://www.laenderdaten.info/Europa/Belarus/index.php , Stand: 21.08.2020
+
+           ui->lineEdit_9->setText(Land.InfiproEinwohner(geoID,Einwohnerzahl));
+
             ui->tab->layout()->~QLayout();
             ui->tab_5->layout()->~QLayout();
 
