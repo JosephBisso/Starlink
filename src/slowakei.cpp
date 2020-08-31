@@ -65,7 +65,7 @@ Slowakei::Slowakei(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(1500);
+    axisY->setMax(2000);
     axisYTode->setMin(0);
     axisYTode->setMax(50);
     chart->addAxis(axisY, Qt::AlignLeft);

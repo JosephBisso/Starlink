@@ -64,7 +64,7 @@ Ukraine::Ukraine(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(50000);
+    axisY->setMax(60000);
     axisYTode->setMin(0);
     axisYTode->setMax(1000);
     chart->addAxis(axisY, Qt::AlignLeft);

@@ -65,7 +65,7 @@ Bosnien::Bosnien(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(7500);
+    axisY->setMax(10000);
     axisYTode->setMin(0);
     axisYTode->setMax(300);
     chart->addAxis(axisY, Qt::AlignLeft);

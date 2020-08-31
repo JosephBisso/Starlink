@@ -310,7 +310,7 @@ void MainWindow::on_Lettland_clicked()
 
 void MainWindow::on_Litauen_clicked()
 {
-    Lettland mDialog;
+    Litauen mDialog;
        mDialog.setModal(true);
        mDialog.exec();
 }

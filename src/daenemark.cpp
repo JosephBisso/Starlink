@@ -66,7 +66,7 @@ Daenemark::Daenemark(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(6500);
+    axisY->setMax(7000);
     axisYTode->setMin(0);
     axisYTode->setMax(400);
     chart->addAxis(axisY, Qt::AlignLeft);

@@ -64,9 +64,9 @@ Frankreich::Frankreich(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(85000);
+    axisY->setMax(100000);
     axisYTode->setMin(0);
-    axisYTode->setMax(22000);
+    axisYTode->setMax(25000);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);

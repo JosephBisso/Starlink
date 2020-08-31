@@ -64,7 +64,7 @@ Moldawien::Moldawien(QWidget *parent) :
                 *axisYTode = new QValueAxis();
 
     axisY->setMin(0);
-    axisY->setMax(12000);
+    axisY->setMax(15000);
     axisYTode->setMin(0);
     axisYTode->setMax(300);
     chart->addAxis(axisY, Qt::AlignLeft);
