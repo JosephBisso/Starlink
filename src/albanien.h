@@ -27,7 +27,7 @@ private slots:
 
 private:
 
-    Laender Land;
+    Laender Land; //Die Klasse Land beinhaltet alle Methoden zur Gewinnung von Daten eines beliebigen Landes.
 
     QString geoID = "AL";
 

@@ -11,13 +11,13 @@
 
 #include <QDebug>
 
-class Laender : public QObject
+class Laender : public QObject //Diese Klasse beinhaltet alle Methoden zur Gewinnung von Daten eines beliebigen Landes.
 {
     Q_OBJECT
 public:
     explicit Laender(QObject *parent = nullptr);
 
-    databank DbLandDaten;
+    databank DbLandDaten; //Die Klasse databank erlaubt dank ihrer Methoden den Zugriff auf die Datenbank
 
     void gibLandDaten(QString Tag, QString Monat, QString geoID);
 

@@ -33,7 +33,7 @@ private:
 
     Laender Land; // Ein Element der Klasse Land wird erstellt. Dies erlaubt uns alle Methoden der Klasse Databank
                   // (gibDatum, gibInfiziierte, gitTode, gibMonat, etc ) durch das Attribut DbLandDaten
-                  // vom Typ Databank der Klasse Laender zu benutzen.
+                  // vom Typ Databank der Klasse Laender zu benutzen. Dadurch können Daten eines beliebigen Landes gewonnen werden.
 
     QString geoID = "DE";
 
