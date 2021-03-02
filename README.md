@@ -17,8 +17,8 @@ Tool for collecting and visualizing Covid-19 infection numbers in europa
 
 ### Software 
 
-Qt Creator 4.12.4, based on Qt 5.14.2 (MSVC 2017, 32 bit)
-***Kit:*** Desktop Qt 5.12.8 MinGW 32-Bit
+This project is built using Qt Creator 4.12.4, based on Qt 5.14.2 (MSVC 2017, 32 bit)
+- ***Kit:*** Desktop Qt 5.12.8 MinGW 32-Bit
 
 ### Required libraries
 
@@ -29,4 +29,4 @@ Qt Creator 4.12.4, based on Qt 5.14.2 (MSVC 2017, 32 bit)
 
 ## Manual insruction
 
-DDownload the manual instruction [here](https://github.com/JosephBisso/Starlink/wiki/Anleitung) (in ***german***)
+Download the manual instruction [here](https://github.com/JosephBisso/Starlink/wiki/Anleitung) (in ***german***)
