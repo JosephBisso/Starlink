@@ -30,4 +30,4 @@ This project is built using Qt Creator 4.12.4, based on Qt 5.14.2 (MSVC 2017, 32
 
 ## Manual insruction
 
-Download the manual instruction [here](https://github.com/JosephBisso/Starlink/wiki/Anleitung) (in ***german***)
+Read the manual instruction [here](https://github.com/JosephBisso/Starlink/wiki/Anleitung) (in ***german***)
