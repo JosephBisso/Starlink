@@ -61,11 +61,13 @@ void Land::doDiagramm() {
             *chartTode = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
                                       //Titel, den Series hinzugefügt und die Animation wird festgelegt
     chart->addSeries(series);
-    chart->setTitle("Übersicht Infizierte" + Jahr);
+    chart->setTitle("Übersicht Infizierte im Jahr " + Jahr);
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chartTode->addSeries(seriesTode);
-    chartTode->setTitle("Übersicht Tode " + Jahr);
+    chartTode->setTitle("Übersicht Tode im Jahr " + Jahr + "(Vorsicht: Maßstab)");
+    chartTode->setTheme(QChart::ChartThemeDark);
     chartTode->setAnimationOptions(QChart::SeriesAnimations);
+
 
     QStringList categories;
     categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez."; // Es werden neue Kategorien für die X-Achse erstellt, welche jetzt aus den Namen der Einzelnen Monaten bestehen.
@@ -83,10 +85,22 @@ void Land::doDiagramm() {
     QValueAxis *axisY = new QValueAxis(),
                 *axisYTode = new QValueAxis(); // Eine neue Instanz von QChart hinzugefügt, welche ein Minimum und Maximum sowie die Orientierung der Beschrieftung der Y-Achse feestlegt
 
+    int max_Infi = 0,
+        max_Tode = 0;
+
+    for (int i = 0; i < 12; i++) {
+        if (InfiMonat[i] > max_Infi) {
+            max_Infi = InfiMonat[i];
+        }
+        if (TodeMonat[i] > max_Tode) {
+            max_Tode = TodeMonat[i];
+        }
+    }
+
     axisY->setMin(0);
-    axisY->setMax(100000);
+    axisY->setMax(max_Infi);
     axisYTode->setMin(0);
-    axisYTode->setMax(6000);
+    axisYTode->setMax(max_Tode);
     chart->addAxis(axisY, Qt::AlignLeft);
     chartTode->addAxis(axisYTode, Qt::AlignLeft);
     series->attachAxis(axisY);
@@ -292,6 +306,9 @@ void Land::setGeoID(QString geoID) {
 void Land::on_buttonBox_clicked(QAbstractButton *button)
 {
     button->setDisabled(true);
+    ui->groupBox->setEnabled(false);
+    ui->tabWidget->setEnabled(false);
+    ui->dateEdit->setEnabled(false);
 
     ui->progressBar->setValue(15); //Schaut dem Nutzer den Stand der Operation
 
@@ -347,6 +364,7 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
             int Einwohnerzahl = laender->getEinwohnerzahl();
                                          // Initialisierung eines neuen Parameters. Die Einwohnerzahl des Landes wird festgelegt. Für jedes Land unterschiedliche Einwohnerzahl.
 
+            qDebug () << "EINWOHNERANZAHL = " << laender->getEinwohnerzahl();
             ui->lineEdit_9->setText(laender->InfiproEinwohner(Einwohnerzahl, uiDatum)); //Endergebnis wird in einem lineEdit angezeigt
 
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
@@ -477,6 +495,9 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
         }
 
     }
+    ui->dateEdit->setEnabled(true);
+    ui->tabWidget->setEnabled(true);
+    ui->groupBox->setEnabled(true);
     button->setDisabled(false);
 
     qDebug ("ApplyChange ends");

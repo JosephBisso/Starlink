@@ -249,7 +249,6 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum)
 QString Laender::InfiproEinwohner (int Einwohnerzahl, QDate uiDatum)
 {
     double InfiproEinwohner = 0.0; //Definieren einer Gleitkommazahl
-    Laender Land; //Klasse Laender für das Land ausgeben
 
     QString Jahr = QString::number(uiDatum.year());
 
@@ -259,7 +258,7 @@ QString Laender::InfiproEinwohner (int Einwohnerzahl, QDate uiDatum)
 
     for (int i=0; i<12; i++)//Die Gleitkommazahl InfiproEinwohner wird mit den bekannten Infizierten aus allen Monaten gleichgesetzt aus dem entsprechendem Land
     {
-        InfiproEinwohner += Land.infMonat[i];
+        InfiproEinwohner += infMonat[i];
 
         qDebug()<< "InfiproEinwohner für i ="<<i<<" gleich "<<InfiproEinwohner;
     }
