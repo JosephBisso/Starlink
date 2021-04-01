@@ -82,7 +82,10 @@ void Downloader::onFinished(QNetworkReply *reply)
 void Downloader::onReadyRead()
 {
     qDebug() << "Ready";
-    file->open(QIODevice::WriteOnly);
+
+    if (!file->isOpen()) {
+        file->open(QIODevice::WriteOnly);
+    }
     file->write(reply->readAll());
 
 

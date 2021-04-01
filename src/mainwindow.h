@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QUrl>
+#include "land.h"
 
 #include "datenbank.h"
 

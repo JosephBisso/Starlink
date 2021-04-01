@@ -18,6 +18,11 @@ public:
     explicit Land(QWidget *parent = nullptr);
     ~Land();
 
+
+    void setGeoID(QString geoID);
+
+    QString setTitle();
+
 private slots:
 
     void on_buttonBox_clicked(QAbstractButton *button);
@@ -26,12 +31,14 @@ private slots:
 
     void on_skalaLiear_clicked();
 
-   void setGeoID(QString geoID);
+private:
+
+   void doDiagramm();
 
 private:
     Ui::Land *ui;
 
-    Laender* laender;
+    Laender* laender = new Laender(this);
 };
 
 #endif // LAND_H

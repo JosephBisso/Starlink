@@ -10,6 +10,10 @@ void Laender::setGeoID(QString geoID) {
     this->geoID = geoID;
 }
 
+QString Laender::getGeoID() {
+  return geoID;
+}
+
  // Für ein Tag "dd", und Monat "mm" und für ein Land mit geoID "geoID"
 //wird erstmal die geoID gespeichert und dann die Daten aus der Datenbank "covidShort.Json"
 //dank derMethonde aus der Klasse databank  gelesen und  im Attribut "DbLandDaten" vom Typ databank

@@ -12,90 +12,7 @@ Land::Land(QWidget *parent) :
     ui(new Ui::Land)
 {
     ui->setupUi(this);
-
-
-    //Land und geoID sind Attribute dieser Klasse.
-
-    double InfiMonat[12], //Vektoren mit 12 Elementen werden erstellt
-           TodeMonat[12];
-
-    laender->InfiTodeMonat(); //Die Methode InfoTodeMonat der Klasser Laendeer rechnet alle infiziierte und
-                              //Tode für alle Monate und speichert sie in 2 Felder (Attributen) der KLasse
-                             //Laender infMonat[12] und toMonat[12]
-
-    for (int i=0; i<12; i++)
-    {
-        InfiMonat[i] = laender->infMonat [i]; //Jeder Element des Feld Attribut vom Land wird in dem
-                                          //entsprechenden Element der variablen Feldes gespeichert
-        TodeMonat[i] = laender->todMonat [i];
-    }
-
-    QBarSet *set0 = new QBarSet("Infizierte"); // Eine neue Intanz von Typ QChart wird aufgerufen und ein Set wird für die Werte erstellt
-    QBarSet *set1 = new QBarSet("Tode");
-
-
-    *set0 << InfiMonat[0] << InfiMonat[1] << InfiMonat[2] << InfiMonat[3]
-            << InfiMonat[4] << InfiMonat[5] << InfiMonat[6] << InfiMonat[7]
-            << InfiMonat[8] << InfiMonat[9] << InfiMonat[10] << InfiMonat[11] ;
-
-    *set1 << TodeMonat[0] << TodeMonat[1] << TodeMonat[2] << TodeMonat[3]
-            << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
-            << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ; // Den Sets werden die Werte von Infizierten und Toden über den Zeitraum von 12 Monaten zugewiesen
-
-    QBarSeries *series = new QBarSeries(),
-                *seriesTode = new QBarSeries(); // Neue Intanz von Typ QChart, es werden zwei Serien erstellt mit unterschiedlichen Namen als Zuweisung
-    series->append(set0);
-    seriesTode->append(set1); //Die Serien werden an die Sets angehängt
-
-    QChart *chart = new QChart(),
-            *chartTode = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
-                                      //Titel, den Series hinzugefügt und die Animation wird festgelegt
-    chart->addSeries(series);
-    chart->setTitle("Übersicht Infizierte 2020");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chartTode->addSeries(seriesTode);
-    chartTode->setTitle("Übersicht Tode 2020");
-    chartTode->setAnimationOptions(QChart::SeriesAnimations);
-
-    QStringList categories;
-    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez."; // Es werden neue Kategorien für die X-Achse erstellt, welche jetzt aus den Namen der Einzelnen Monaten bestehen.
-                                                                                                                                        // Neue Intanz von Typ QString hinzugefügt und erhält den Namen categories
-    QBarCategoryAxis *axisX = new QBarCategoryAxis(),
-                        *axisXTode = new QBarCategoryAxis(); //Die vorher erstellten neuen Kategorien werden jetzt durch eine neue Instanz von Typ QChart an die untere Seite der X-Achse gebunden.
-
-    axisX->append(categories);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
-    axisXTode->append(categories);
-    chartTode->addAxis(axisXTode, Qt::AlignBottom);
-
-
-    QValueAxis *axisY = new QValueAxis(),
-                *axisYTode = new QValueAxis(); // Eine neue Instanz von QChart hinzugefügt, welche ein Minimum und Maximum sowie die Orientierung der Beschrieftung der Y-Achse feestlegt
-
-    axisY->setMin(0);
-    axisY->setMax(100000);
-    axisYTode->setMin(0);
-    axisYTode->setMax(6000);
-    chart->addAxis(axisY, Qt::AlignLeft);
-    chartTode->addAxis(axisYTode, Qt::AlignLeft);
-    series->attachAxis(axisY);
-    seriesTode->attachAxis(axisYTode);
-
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
-    chartTode->legend()->setVisible(true);
-    chartTode->legend()->setAlignment(Qt::AlignBottom); // Legende wird angezeigt und orientiert sich an der unteren Seite
-
-    QChartView *chartView = new QChartView(chart),
-                *chartViewTode = new QChartView(chartTode);
-       chartView->setRenderHint(QPainter::Antialiasing);
-       chartViewTode->setRenderHint(QPainter::Antialiasing); // Dient zur Darstellung der Balkendiagramme
-
-
-    ui->verticalLayout_4->addWidget(chartView);
-    ui->verticalLayout_2->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
-
+    setWindowTitle(setTitle());
 }
 
 Land::~Land()
@@ -103,8 +20,130 @@ Land::~Land()
     delete ui;
 }
 
+void Land::doDiagramm() {
+
+}
+
+QString Land::setTitle() {
+
+    QString land_geoID = laender->getGeoID(),
+            name_Land;
+    if (land_geoID == "AL") {
+        name_Land = "Albania";
+    } else if (land_geoID == "AD") {
+        name_Land = "Andorra";
+    } else if (land_geoID == "AM") {
+        name_Land = "Armenia";
+    } else if (land_geoID == "AT") {
+        name_Land = "Austria";
+    } else if (land_geoID == "AZ") {
+        name_Land = "Azerbaijan";
+    } else if (land_geoID == "BY") {
+        name_Land = "Belarus";
+    } else if (land_geoID == "BE") {
+        name_Land = "Belgium";
+    } else if (land_geoID == "BA") {
+        name_Land = "Bosnia_and_Herzegovina";
+    } else if (land_geoID == "BG") {
+        name_Land = "Bulgaria";
+    } else if (land_geoID == "HR") {
+        name_Land = "Crotia";
+    } else if (land_geoID == "CY") {
+        name_Land = "Cyprus";
+    } else if (land_geoID == "CZ") {
+        name_Land = "Czechia";
+    } else if (land_geoID == "DK") {
+        name_Land = "Denmark";
+    } else if (land_geoID == "EE") {
+        name_Land = "Estonia";
+    } else if (land_geoID == "FO") {
+        name_Land = "Faroe_Islands";
+    } else if (land_geoID == "FI") {
+        name_Land = "Finnland";
+    } else if (land_geoID == "FR") {
+        name_Land = "France";
+    } else if (land_geoID == "GE") {
+        name_Land = "Georgia";
+    } else if (land_geoID == "DE") {
+        name_Land = "Germany";
+    } else if (land_geoID == "GI") {
+        name_Land = "Gibraltar";
+    } else if (land_geoID == "EL") {
+        name_Land = "Greece";
+    } else if (land_geoID == "GG") {
+        name_Land = "Guernsey";
+    } else if (land_geoID == "VA") {
+        name_Land = "Holy_See";
+    } else if (land_geoID == "HU") {
+        name_Land = "Hungary";
+    } else if (land_geoID == "IS") {
+        name_Land = "Iceland";
+    } else if (land_geoID == "IE") {
+        name_Land = "Ireland";
+    } else if (land_geoID == "IM") {
+        name_Land = "Isle_of_Man";
+    } else if (land_geoID == "IT") {
+        name_Land = "Italy";
+    } else if (land_geoID == "JE") {
+        name_Land = "Jersey";
+    } else if (land_geoID == "XK") {
+        name_Land = "Kosovo";
+    } else if (land_geoID == "LV") {
+        name_Land = "Latvia";
+    } else if (land_geoID == "LI") {
+        name_Land = "Liechtenstein";
+    } else if (land_geoID == "LT") {
+        name_Land = "Lithuania";
+    } else if (land_geoID == "LU") {
+        name_Land = "Luxembourg";
+    } else if (land_geoID == "MT") {
+        name_Land = "Malta";
+    } else if (land_geoID == "MD") {
+        name_Land = "Moldova";
+    } else if (land_geoID == "MC") {
+        name_Land = "Monaco";
+    } else if (land_geoID == "ME") {
+        name_Land = "Montenegro";
+    } else if (land_geoID == "NL") {
+        name_Land = "Netherlands";
+    } else if (land_geoID == "MK") {
+        name_Land = "North_Macedonia";
+    } else if (land_geoID == "NO") {
+        name_Land = "Norway";
+    } else if (land_geoID == "PL") {
+        name_Land = "Poland";
+    } else if (land_geoID == "PT") {
+        name_Land = "Portugal";
+    } else if (land_geoID == "RO") {
+        name_Land = "Romania";
+    } else if (land_geoID == "RU") {
+        name_Land = "Russia";
+    } else if (land_geoID == "SM") {
+        name_Land = "San_Marino";
+    } else if (land_geoID == "RS") {
+        name_Land = "Serbia";
+    } else if (land_geoID == "SK") {
+        name_Land = "Slovakia";
+    } else if (land_geoID == "SI") {
+        name_Land = "Slovania";
+    } else if (land_geoID == "ES") {
+        name_Land = "Spain";
+    } else if (land_geoID == "SE") {
+        name_Land = "Sweden";
+    } else if (land_geoID == "CH") {
+        name_Land = "Switzerland";
+    } else if (land_geoID == "UA") {
+        name_Land = "Ukraine";
+    } else if (land_geoID == "UK") {
+        name_Land = "United_Kingdom";
+    } else {
+        name_Land = "-999";
+    }
+
+    return name_Land;
+}
+
 void Land::setGeoID(QString geoID) {
-    laender = new Laender();
     laender->setGeoID(geoID);
 }
 

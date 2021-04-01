@@ -19,6 +19,8 @@ public:
 
     void setGeoID(QString geoID);
 
+    QString getGeoID();
+
     databank DbLandDaten; //Die Klasse databank erlaubt dank ihrer Methoden den Zugriff auf die Datenbank
 
     void gibLandDaten(QString Tag, QString Monat);
@@ -49,9 +51,10 @@ public:
     QString Infi,
             Tode;
 
+
 private:
 
-    QString geoID;
+    QString geoID = "-999";
 
 signals:
 
