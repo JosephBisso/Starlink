@@ -1,13 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mydialog.h"
 #include <QPixmap>
 #include <QtGui>
 #include <QtCore>
 #include <qicon.h>
 #include <QMessageBox>
 #include "downloader.h"
-#include "urlchange.h"
 #include "databank.h"
 #include "datenbank.h"
 
