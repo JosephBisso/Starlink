@@ -14,30 +14,24 @@ QString Laender::getGeoID() {
   return geoID;
 }
 
- // Für ein Tag "dd", und Monat "mm" und für ein Land mit geoID "geoID"
-//wird erstmal die geoID gespeichert und dann die Daten aus der Datenbank "covidShort.Json"
-//dank derMethonde aus der Klasse databank  gelesen und  im Attribut "DbLandDaten" vom Typ databank
-// der Klasse Laender gespeichert.
-void Laender::gibLandDaten(QString Tag, QString Monat)
-{
-    DbLandDaten.geoID = geoID;
+void Laender::setLandName(QString landName) {
+    this->landName = landName;
+}
 
-    QString Datum = DbLandDaten.gibDatum(Tag, Monat);
+QString Laender::getLandName() {
+    return landName;
+}
 
-    DbLandDaten.gibInfiierte(Datum, geoID);
+void Laender::setEinwohnerzahl(int einwohnerzahl) {
+    this->einwohnerzahl = einwohnerzahl;
+}
 
-    DbLandDaten.gibTode(Datum, geoID );
-
-    DbLandDaten.gibLand(geoID);
-
-    DbLandDaten.gibGesamtInfizierte(Datum, geoID);
-
-    DbLandDaten.gibGesamtTode(Datum, geoID);
-
+int Laender::getEinwohnerzahl() {
+    return einwohnerzahl;
 }
 
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
-void Laender::InfiTodeMonat()
+void Laender::InfiTodeMonat(QString Jahr)
 {
 
     QString Monat;
@@ -53,12 +47,12 @@ void Laender::InfiTodeMonat()
                 Monat.insert(0,"0"); //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
             }
 
-        infMonat[i]= DbLandDaten.gibGesamtInfizierte(Monat, geoID); // Gesamt Infiziierte für jedem Monat für ein
+        infMonat[i]= DbLandDaten.gibGesamtInfizierte(Monat, Jahr, geoID); // Gesamt Infiziierte für jedem Monat für ein
                                                        // Land mit einem geoID "geoID" (Siehe Liste geoID in
                                                                  // den Resources Dateien) wird in
                                                        //einem Element des Feldes gespeichert.
 
-        todMonat[i]= DbLandDaten.gibGesamtTode(Monat, geoID);
+        todMonat[i]= DbLandDaten.gibGesamtTode(Monat, Jahr, geoID);
 
     }
 
@@ -78,9 +72,10 @@ int Laender::FillTab(QDate uiDatum, bool linear)
 
     qDebug()<< "geoID = " << geoID << " und uiDatum = " << uiDatum ;
 
-    QString pruefTag;
+    QString pruefTag,
+            Jahr = QString::number(uiDatum.year()),
+            Monat = QString::number(uiDatum.month());
 
-    QString Monat = QString::number(uiDatum.month());
         if (Monat.size()==1)
        {
             Monat.insert(0, "0");      //Aus Monat im Format "m" wird Monat im Format "mm" ("06" statt "6")
@@ -94,7 +89,7 @@ int Laender::FillTab(QDate uiDatum, bool linear)
 
         if (pruefTag.size()==1){pruefTag.insert(0, "0");}
 
-        if (DbLandDaten.gibInfiierte(DbLandDaten.gibDatum(pruefTag, Monat), geoID) == -999) //prüft ob es Einträge in der Datenbank für den
+        if (DbLandDaten.gibInfiierte(DbLandDaten.gibDatum(pruefTag, Monat, Jahr), geoID) == -999) //prüft ob es Einträge in der Datenbank für den
                                                                                            //Prueftag gibt. (die Methode gibInfizierte gibt -999
                                                                                           // zurück, wenn dies nicht der Fall ist
         {
@@ -124,7 +119,7 @@ int Laender::FillTab(QDate uiDatum, bool linear)
 
             qDebug()<< "Tag = " << Tag ;
 
-            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum gehört der Klasse databank und gibt
+            QString tblDatum = DbLandDaten.gibDatum(Tag, Monat, Jahr); //Die Methode gibDatum gehört der Klasse databank und gibt
                                                                 // aus einem Tag und Monat das Datum zurück, falls dieses Datum
                                                                // in der Datenbank vorhanden ist.
 
@@ -185,7 +180,9 @@ void Laender::FillLines (QDate uiDatum)
             Tag.insert(0, "0");
         }
 
-    QString Datum = DbLandDaten.gibDatum(Tag, Monat); //Die Methode gibDatum, gib das
+    QString Jahr = QString::number(uiDatum.year());
+
+    QString Datum = DbLandDaten.gibDatum(Tag, Monat, Jahr); //Die Methode gibDatum, gib das
                                                      // Datum in dem von der Datenbank benutzten Format
 
     Infi = QString::number(DbLandDaten.gibInfiierte(Datum, geoID)); //Es werden Daten aus der Datenbank gewonnen für das Datum "Datum"
@@ -200,6 +197,7 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum)
 
     QString Monat[7],
               Tag[7],
+             Jahr[7],
             Datum[7];
 
     double InfiSeven = 0.0, //Definieren einer Gleitkommazahl
@@ -224,7 +222,9 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum)
                 Tag[i].insert(0, "0");
             }
 
-        Datum[i] = DbLandDaten.gibDatum(Tag[i], Monat[i]); //Die Methode gibDatum, gib das
+        Jahr[i] = QString::number(QDDatum[i].year());
+
+        Datum[i] = DbLandDaten.gibDatum(Tag[i], Monat[i], Jahr[i]); //Die Methode gibDatum, gib das
                                                           // Datum in dem von der Datenbank benutzten Format
         qDebug()<< " für Datum = " << Datum[i] ;
 
@@ -246,14 +246,16 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum)
    return QString::number(InfiSeven/7); //gibt die Durchschnittlichen Infizierten pro Tag zurück
 }
 
-QString Laender::InfiproEinwohner (int Einwohnerzahl)
+QString Laender::InfiproEinwohner (int Einwohnerzahl, QDate uiDatum)
 {
     double InfiproEinwohner = 0.0; //Definieren einer Gleitkommazahl
     Laender Land; //Klasse Laender für das Land ausgeben
 
+    QString Jahr = QString::number(uiDatum.year());
+
     qDebug()<<"geoID"<<geoID;
 
-    Laender::InfiTodeMonat();//Ausgabe der Infizierten der Länder durch geoID (Bsp. für Deutschland ist die geoID "DE")
+    Laender::InfiTodeMonat(Jahr);//Ausgabe der Infizierten der Länder durch geoID (Bsp. für Deutschland ist die geoID "DE")
 
     for (int i=0; i<12; i++)//Die Gleitkommazahl InfiproEinwohner wird mit den bekannten Infizierten aus allen Monaten gleichgesetzt aus dem entsprechendem Land
     {

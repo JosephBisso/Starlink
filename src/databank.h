@@ -24,7 +24,7 @@ public:
     int  gibTode(QString Datum, QString geoID);   //Setzt und Gibt Anzahl von Todem am "Datum" für ein Land mit
                                                   //Kennzeichnung "geoID"
 
-    QString gibDatum(QString Tag, QString Monat); //Setzt und Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020.
+    QString gibDatum(QString Tag, QString Monat, QString Jahr); //Setzt und Gibt Datum aus "Tag" und "Monat". Jahr meisteins 2020.
 
     QString gibUpdateDatum(); //Gib das Datum der letzten Aktualierung
 
@@ -32,10 +32,10 @@ public:
 
     QString gibLand(QString geoID); //Setzt und Gibt den englische Name aus Landkennzeichung "geoID"
 
-    int  gibGesamtInfizierte (QString Monat, QString geoID); //Setzt und Gibt Gesamtanzahl von Infizierten im "Monat"
+    int  gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID); //Setzt und Gibt Gesamtanzahl von Infizierten im "Monat"
                                                              //für ein Land mit Kennzeichnung "geoID"
 
-    int  gibGesamtTode (QString Monat, QString geoID); //Setzt und Gibt Gesamtanzahl von Toden im "Monat"
+    int  gibGesamtTode (QString Monat, QString Jahr, QString geoID); //Setzt und Gibt Gesamtanzahl von Toden im "Monat"
                                                        //für ein Land mit Kennzeichnung "geoID"
 
     QJsonDocument jsDbConnect(); //Verbindet die JSON Datenbank

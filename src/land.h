@@ -35,7 +35,6 @@ private:
 
    void doDiagramm();
 
-private:
     Ui::Land *ui;
 
     Laender* laender = new Laender(this);

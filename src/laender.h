@@ -23,9 +23,9 @@ public:
 
     databank DbLandDaten; //Die Klasse databank erlaubt dank ihrer Methoden den Zugriff auf die Datenbank
 
-    void gibLandDaten(QString Tag, QString Monat);
+    void gibLandDaten(QString Tag, QString Monat, QString Jahr);
 
-    void InfiTodeMonat (); //Rechnet und speichert
+    void InfiTodeMonat (QString Jahr); //Rechnet und speichert
                               //Gesamtinfiziierte und -Tode
                                 //für alle Monate in 2 Felder.
 
@@ -35,7 +35,7 @@ public:
 
     QString Fill7TagDurchschnitt (QDate uiDatum);
 
-    QString InfiproEinwohner (int Einwohnerzahl);
+    QString InfiproEinwohner (int Einwohnerzahl, QDate uiDatum);
 
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
@@ -51,10 +51,20 @@ public:
     QString Infi,
             Tode;
 
+    void setLandName(QString landName);
+
+    QString getLandName();
+
+    void setEinwohnerzahl(int einwohnerzahl);
+
+    int getEinwohnerzahl();
+
 
 private:
 
     QString geoID = "-999";
+    QString landName;
+    int einwohnerzahl;
 
 signals:
 

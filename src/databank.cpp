@@ -152,7 +152,7 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
 // aus der Json Datein "covidShort.json" und additionniert sie (in der Json Datei:"month", "geoId", "Cases")
 //Das Ergebnis wird uns zurückgeben und im Attribut "Gesamt_Infi" der Klasse databank gespeichert. Gib "-999",
 //wenn die Datei nicht gelesen werden konnte
-int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
+int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
 {
     databank::Gesamt_Infi = 0;
 
@@ -176,9 +176,10 @@ int  databank::gibGesamtInfizierte (QString Monat, QString geoID)
 
        QJsonValue jsCases = recordsObject["cases"];
        QJsonValue jsMonth = recordsObject["month"];
+       QJsonValue jsYear = recordsObject["year"];
        QJsonValue jsGeoId = recordsObject["geoId"];
 
-       if (jsGeoId == geoID  && jsMonth == Monat)
+       if (jsGeoId == geoID  && jsMonth == Monat && jsYear == Jahr)
        {
 
        databank::Gesamt_Infi += jsCases.toInt();
@@ -238,7 +239,7 @@ int  databank::gibTode(QString Datum, QString geoID)
 //Analog zur obigen Methode gibGesamtInfiziierte
 //Setzt und Gibt Gesamztanzahl von Toden im "Monat" für ein Land mit Kennzeichnung "geoID". Gib "-999", wenn etwas
 //schief gelaufen ist.
-int  databank::gibGesamtTode (QString Monat, QString geoID)
+int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
 {
     databank::Gesamt_Tode = 0;
 
@@ -262,9 +263,10 @@ int  databank::gibGesamtTode (QString Monat, QString geoID)
 
        QJsonValue jsDeath = recordsObject["deaths"];
        QJsonValue jsMonth = recordsObject["month"];
+       QJsonValue jsYear = recordsObject["year"];
        QJsonValue jsGeoId = recordsObject["geoId"];
 
-       if (jsGeoId == geoID  && jsMonth == Monat)
+       if (jsGeoId == geoID  && jsMonth == Monat && jsYear == Jahr)
        {
 
        databank::Gesamt_Tode += jsDeath.toInt();
@@ -287,7 +289,7 @@ int  databank::gibGesamtTode (QString Monat, QString geoID)
  *es uns zurück und speichert sie im Attribut "Datum" der Klasse databank. Gib "-999",
  *wenn die Datei nicht gelesen werden konnte
  */
-QString databank::gibDatum(QString Tag, QString Monat)
+QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
 {
     QFile file ("covidShort.json");
 
@@ -308,13 +310,15 @@ QString databank::gibDatum(QString Tag, QString Monat)
 
         QJsonValue jsDate = recordsObject["dateRep"];
         QJsonValue jsMonth = recordsObject["month"];
+        QJsonValue jsYear = recordsObject["year"];
         QJsonValue jsDay = recordsObject["day"];
 
-        if (jsDay == Tag  && jsMonth == Monat)
+        if (jsDay == Tag  && jsMonth == Monat && jsYear == Jahr)
         {
         databank::Datum = jsDate.toString();
         databank::Tag = jsDay.toString();
         databank::Monat = jsMonth.toString();
+        databank::Jahr = jsYear.toString();
 
         return databank::Datum;
 

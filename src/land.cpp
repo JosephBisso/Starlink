@@ -12,7 +12,7 @@ Land::Land(QWidget *parent) :
     ui(new Ui::Land)
 {
     ui->setupUi(this);
-    setWindowTitle(setTitle());
+
 }
 
 Land::~Land()
@@ -22,124 +22,264 @@ Land::~Land()
 
 void Land::doDiagramm() {
 
+    //Land und geoID sind Attribute dieser Klasse.
+
+    double InfiMonat[12], //Vektoren mit 12 Elementen werden erstellt
+           TodeMonat[12];
+
+    QString Jahr = QString::number(ui->dateEdit->date().year());
+
+    laender->InfiTodeMonat(Jahr); //Die Methode InfoTodeMonat der Klasser Laendeer rechnet alle infiziierte und
+                              //Tode für alle Monate und speichert sie in 2 Felder (Attributen) der KLasse
+                             //Laender infMonat[12] und toMonat[12]
+
+    for (int i=0; i<12; i++)
+    {
+        InfiMonat[i] = laender->infMonat [i]; //Jeder Element des Feld Attribut vom Land wird in dem
+                                          //entsprechenden Element der variablen Feldes gespeichert
+        TodeMonat[i] = laender->todMonat [i];
+    }
+
+    QBarSet *set0 = new QBarSet("Infizierte"); // Eine neue Intanz von Typ QChart wird aufgerufen und ein Set wird für die Werte erstellt
+    QBarSet *set1 = new QBarSet("Tode");
+
+
+    *set0 << InfiMonat[0] << InfiMonat[1] << InfiMonat[2] << InfiMonat[3]
+            << InfiMonat[4] << InfiMonat[5] << InfiMonat[6] << InfiMonat[7]
+            << InfiMonat[8] << InfiMonat[9] << InfiMonat[10] << InfiMonat[11] ;
+
+    *set1 << TodeMonat[0] << TodeMonat[1] << TodeMonat[2] << TodeMonat[3]
+            << TodeMonat[4] << TodeMonat[5] << TodeMonat[6] << TodeMonat[7]
+            << TodeMonat[8] << TodeMonat[9] << TodeMonat[10] << TodeMonat[11] ; // Den Sets werden die Werte von Infizierten und Toden über den Zeitraum von 12 Monaten zugewiesen
+
+    QBarSeries *series = new QBarSeries(),
+                *seriesTode = new QBarSeries(); // Neue Intanz von Typ QChart, es werden zwei Serien erstellt mit unterschiedlichen Namen als Zuweisung
+    series->append(set0);
+    seriesTode->append(set1); //Die Serien werden an die Sets angehängt
+
+    QChart *chart = new QChart(),
+            *chartTode = new QChart(); //Eine neue Instanz vom Typ QChart wird gerufen. Sie bekommen eine Legende, einen
+                                      //Titel, den Series hinzugefügt und die Animation wird festgelegt
+    chart->addSeries(series);
+    chart->setTitle("Übersicht Infizierte" + Jahr);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chartTode->addSeries(seriesTode);
+    chartTode->setTitle("Übersicht Tode " + Jahr);
+    chartTode->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categories;
+    categories << "Jan." << "Feb." << "März" << "April" << "Mai" << "Juni" << "Juli" << "Aug." << "Sept." << "Okt." << "Nov." << "Dez."; // Es werden neue Kategorien für die X-Achse erstellt, welche jetzt aus den Namen der Einzelnen Monaten bestehen.
+                                                                                                                                        // Neue Intanz von Typ QString hinzugefügt und erhält den Namen categories
+    QBarCategoryAxis *axisX = new QBarCategoryAxis(),
+                        *axisXTode = new QBarCategoryAxis(); //Die vorher erstellten neuen Kategorien werden jetzt durch eine neue Instanz von Typ QChart an die untere Seite der X-Achse gebunden.
+
+    axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+    axisXTode->append(categories);
+    chartTode->addAxis(axisXTode, Qt::AlignBottom);
+
+
+    QValueAxis *axisY = new QValueAxis(),
+                *axisYTode = new QValueAxis(); // Eine neue Instanz von QChart hinzugefügt, welche ein Minimum und Maximum sowie die Orientierung der Beschrieftung der Y-Achse feestlegt
+
+    axisY->setMin(0);
+    axisY->setMax(100000);
+    axisYTode->setMin(0);
+    axisYTode->setMax(6000);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    chartTode->addAxis(axisYTode, Qt::AlignLeft);
+    series->attachAxis(axisY);
+    seriesTode->attachAxis(axisYTode);
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chartTode->legend()->setVisible(true);
+    chartTode->legend()->setAlignment(Qt::AlignBottom); // Legende wird angezeigt und orientiert sich an der unteren Seite
+
+    QChartView *chartView = new QChartView(chart),
+                *chartViewTode = new QChartView(chartTode);
+       chartView->setRenderHint(QPainter::Antialiasing);
+       chartViewTode->setRenderHint(QPainter::Antialiasing); // Dient zur Darstellung der Balkendiagramme
+
+
+    ui->verticalLayout_4->addWidget(chartView);
+    ui->verticalLayout_2->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
 }
 
 QString Land::setTitle() {
+
+//Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
 
     QString land_geoID = laender->getGeoID(),
             name_Land;
     if (land_geoID == "AL") {
         name_Land = "Albania";
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "AD") {
-        name_Land = "Andorra";
+        name_Land = "Andorra"; ////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "AM") {
-        name_Land = "Armenia";
+        name_Land = "Armenia"; //////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "AT") {
         name_Land = "Austria";
+        laender->setEinwohnerzahl(8877000);
     } else if (land_geoID == "AZ") {
-        name_Land = "Azerbaijan";
+        name_Land = "Azerbaijan"; ///////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "BY") {
         name_Land = "Belarus";
+        laender->setEinwohnerzahl(9467000);
     } else if (land_geoID == "BE") {
         name_Land = "Belgium";
+        laender->setEinwohnerzahl(11484000);
     } else if (land_geoID == "BA") {
         name_Land = "Bosnia_and_Herzegovina";
+        laender->setEinwohnerzahl(3301000);
     } else if (land_geoID == "BG") {
         name_Land = "Bulgaria";
+        laender->setEinwohnerzahl(6976000);
     } else if (land_geoID == "HR") {
         name_Land = "Crotia";
+        laender->setEinwohnerzahl(4068000);
     } else if (land_geoID == "CY") {
-        name_Land = "Cyprus";
+        name_Land = "Cyprus"; //////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "CZ") {
         name_Land = "Czechia";
+        laender->setEinwohnerzahl(10670000);
     } else if (land_geoID == "DK") {
         name_Land = "Denmark";
+        laender->setEinwohnerzahl(5819000);
     } else if (land_geoID == "EE") {
         name_Land = "Estonia";
+        laender->setEinwohnerzahl(1327000);
     } else if (land_geoID == "FO") {
-        name_Land = "Faroe_Islands";
+        name_Land = "Faroe_Islands"; //////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "FI") {
         name_Land = "Finnland";
+        laender->setEinwohnerzahl(5520000);
     } else if (land_geoID == "FR") {
         name_Land = "France";
+        laender->setEinwohnerzahl(67060000);
     } else if (land_geoID == "GE") {
         name_Land = "Georgia";
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "DE") {
         name_Land = "Germany";
+        laender->setEinwohnerzahl(83133000);
     } else if (land_geoID == "GI") {
-        name_Land = "Gibraltar";
+        name_Land = "Gibraltar"; ////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "EL") {
         name_Land = "Greece";
+        laender->setEinwohnerzahl(10716000);
     } else if (land_geoID == "GG") {
-        name_Land = "Guernsey";
+        name_Land = "Guernsey"; ////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "VA") {
-        name_Land = "Holy_See";
+        name_Land = "Holy_See"; ////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "HU") {
         name_Land = "Hungary";
+        laender->setEinwohnerzahl(9770000);
     } else if (land_geoID == "IS") {
         name_Land = "Iceland";
+        laender->setEinwohnerzahl(361313);
     } else if (land_geoID == "IE") {
         name_Land = "Ireland";
+        laender->setEinwohnerzahl(4941000);
     } else if (land_geoID == "IM") {
-        name_Land = "Isle_of_Man";
+        name_Land = "Isle_of_Man"; /////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "IT") {
         name_Land = "Italy";
+        laender->setEinwohnerzahl(60297000);
     } else if (land_geoID == "JE") {
-        name_Land = "Jersey";
+        name_Land = "Jersey"; //////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "XK") {
         name_Land = "Kosovo";
+        laender->setEinwohnerzahl(1794000);
     } else if (land_geoID == "LV") {
         name_Land = "Latvia";
+        laender->setEinwohnerzahl(1913000);
     } else if (land_geoID == "LI") {
-        name_Land = "Liechtenstein";
+        name_Land = "Liechtenstein";//////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "LT") {
         name_Land = "Lithuania";
+        laender->setEinwohnerzahl(2787000);
     } else if (land_geoID == "LU") {
-        name_Land = "Luxembourg";
+        name_Land = "Luxembourg"; /////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "MT") {
-        name_Land = "Malta";
+        name_Land = "Malta"; ////////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "MD") {
         name_Land = "Moldova";
+        laender->setEinwohnerzahl(2658000);
     } else if (land_geoID == "MC") {
-        name_Land = "Monaco";
+        name_Land = "Monaco"; ///////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "ME") {
         name_Land = "Montenegro";
+        laender->setEinwohnerzahl(622137);
     } else if (land_geoID == "NL") {
         name_Land = "Netherlands";
+        laender->setEinwohnerzahl(17333000);
     } else if (land_geoID == "MK") {
         name_Land = "North_Macedonia";
+        laender->setEinwohnerzahl(2787000);
     } else if (land_geoID == "NO") {
         name_Land = "Norway";
+        laender->setEinwohnerzahl(5348000);
     } else if (land_geoID == "PL") {
         name_Land = "Poland";
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "PT") {
         name_Land = "Portugal";
+        laender->setEinwohnerzahl(10269000);
     } else if (land_geoID == "RO") {
         name_Land = "Romania";
+        laender->setEinwohnerzahl(19357000);
     } else if (land_geoID == "RU") {
-        name_Land = "Russia";
+        name_Land = "Russia";////////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "SM") {
-        name_Land = "San_Marino";
+        name_Land = "San_Marino";/////////////////////////////
+        laender->setEinwohnerzahl(2854000);
     } else if (land_geoID == "RS") {
         name_Land = "Serbia";
+        laender->setEinwohnerzahl(6945000);
     } else if (land_geoID == "SK") {
         name_Land = "Slovakia";
+        laender->setEinwohnerzahl(5454000);
     } else if (land_geoID == "SI") {
         name_Land = "Slovania";
+        laender->setEinwohnerzahl(2088000);
     } else if (land_geoID == "ES") {
         name_Land = "Spain";
+        laender->setEinwohnerzahl(47077000);
     } else if (land_geoID == "SE") {
         name_Land = "Sweden";
+        laender->setEinwohnerzahl(10285000);
     } else if (land_geoID == "CH") {
         name_Land = "Switzerland";
+        laender->setEinwohnerzahl(8575000);
     } else if (land_geoID == "UA") {
         name_Land = "Ukraine";
+        laender->setEinwohnerzahl(44385000);
     } else if (land_geoID == "UK") {
         name_Land = "United_Kingdom";
+        laender->setEinwohnerzahl(66834000);
     } else {
         name_Land = "-999";
     }
 
+    laender->setLandName(name_Land);
     return name_Land;
 }
 
@@ -151,8 +291,7 @@ void Land::setGeoID(QString geoID) {
 
 void Land::on_buttonBox_clicked(QAbstractButton *button)
 {
-    button->isChecked(); //Dies erfüllt keinen Zweck und dient nur dazu die Fehlermeldung wegen des
-                         //unbenutzten  button zu schweigen.
+    button->setDisabled(true);
 
     ui->progressBar->setValue(15); //Schaut dem Nutzer den Stand der Operation
 
@@ -203,10 +342,12 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
 
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {
-            int Einwohnerzahl = 83133000; //Quelle: https://www.laenderdaten.info/Europa/Deutschland/index.php , Stand: 21.08.2020
+            doDiagramm();
+
+            int Einwohnerzahl = laender->getEinwohnerzahl();
                                          // Initialisierung eines neuen Parameters. Die Einwohnerzahl des Landes wird festgelegt. Für jedes Land unterschiedliche Einwohnerzahl.
 
-            ui->lineEdit_9->setText(laender->InfiproEinwohner(Einwohnerzahl)); //Endergebnis wird in einem lineEdit angezeigt
+            ui->lineEdit_9->setText(laender->InfiproEinwohner(Einwohnerzahl, uiDatum)); //Endergebnis wird in einem lineEdit angezeigt
 
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht
             ui->tab_5->layout()->~QLayout();
@@ -256,7 +397,7 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
             QString TagEnde = QString::number(n);
             if (TagEnde.size()==1){TagEnde.insert(0, "0");}
 
-            QString DatumEnde = laender->DbLandDaten.gibDatum(TagEnde, laender->DbLandDaten.Monat); //Das letzte in der Datenbank existierende Datum für
+            QString DatumEnde = laender->DbLandDaten.gibDatum(TagEnde, laender->DbLandDaten.Monat,laender->DbLandDaten.Jahr); //Das letzte in der Datenbank existierende Datum für
                                                                                            // Monat wir gerufen und gespeichert...
 
             Titel.append(" bis "); Titel.append(DatumEnde); //... Und wird dem Titel hinzugefügt
@@ -336,6 +477,7 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
         }
 
     }
+    button->setDisabled(false);
 
     qDebug ("ApplyChange ends");
 }
