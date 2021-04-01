@@ -6,12 +6,15 @@ Laender::Laender(QObject *parent) : QObject(parent)
 
 }
 
+void Laender::setGeoID(QString geoID) {
+    this->geoID = geoID;
+}
 
  // Für ein Tag "dd", und Monat "mm" und für ein Land mit geoID "geoID"
 //wird erstmal die geoID gespeichert und dann die Daten aus der Datenbank "covidShort.Json"
 //dank derMethonde aus der Klasse databank  gelesen und  im Attribut "DbLandDaten" vom Typ databank
 // der Klasse Laender gespeichert.
-void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
+void Laender::gibLandDaten(QString Tag, QString Monat)
 {
     DbLandDaten.geoID = geoID;
 
@@ -30,7 +33,7 @@ void Laender::gibLandDaten(QString Tag, QString Monat, QString geoID)
 }
 
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
-void Laender::InfiTodeMonat(QString geoID)
+void Laender::InfiTodeMonat()
 {
 
     QString Monat;
@@ -62,7 +65,7 @@ void Laender::InfiTodeMonat(QString geoID)
 //ausgewählten Datum "uiDatum", wenn der Monat noch am laufen ist. Abhängig davon, ob  "linear" auf true oder falsch
 //gesetzt wurde, werden die Daten normal (linear) oder logarithmisch gespeichert (ln). Die Anzahl von Tagen, für die
 //Daten gespeichert wurden wird zurückgegeben.
-int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
+int Laender::FillTab(QDate uiDatum, bool linear)
 {
     int n = 0;
     qreal k; //qreal ist der für die Graphen unterstützten Typ.
@@ -164,7 +167,7 @@ int Laender::FillTab(QDate uiDatum, bool linear, QString geoID)
 
 //Liest in der Datenbank dank der Methode gibInfiziierte und gibTode die Daten für das vom User ausgewählte
 //Datum für ein Land "geoID". Speichert sie im Attribut Infi und Tode der Klasse Laender
-void Laender::FillLines (QDate uiDatum, QString geoID)
+void Laender::FillLines (QDate uiDatum)
 {
     QString Monat = QString::number(uiDatum.month());
         if (Monat.size()==1)
@@ -187,7 +190,7 @@ void Laender::FillLines (QDate uiDatum, QString geoID)
 }
 
 //Diese Methode ist dafür da, den 7 Tage Durchschnitt der Infzierten zu berechenen. Dabei wird der aktuelle ausgewählte Tag berücksichtigt und die 6 Tage zuvor.
-QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
+QString Laender::Fill7TagDurchschnitt (QDate uiDatum)
 {
     QDate QDDatum[7];
 
@@ -239,14 +242,14 @@ QString Laender::Fill7TagDurchschnitt (QDate uiDatum, QString geoID)
    return QString::number(InfiSeven/7); //gibt die Durchschnittlichen Infizierten pro Tag zurück
 }
 
-QString Laender::InfiproEinwohner (QString geoID, int Einwohnerzahl)
+QString Laender::InfiproEinwohner (int Einwohnerzahl)
 {
     double InfiproEinwohner = 0.0; //Definieren einer Gleitkommazahl
     Laender Land; //Klasse Laender für das Land ausgeben
 
     qDebug()<<"geoID"<<geoID;
 
-    Land.InfiTodeMonat(geoID);//Ausgabe der Infizierten der Länder durch geoID (Bsp. für Deutschland ist die geoID "DE")
+    Laender::InfiTodeMonat();//Ausgabe der Infizierten der Länder durch geoID (Bsp. für Deutschland ist die geoID "DE")
 
     for (int i=0; i<12; i++)//Die Gleitkommazahl InfiproEinwohner wird mit den bekannten Infizierten aus allen Monaten gleichgesetzt aus dem entsprechendem Land
     {

@@ -1,7 +1,10 @@
 #ifndef LAND_H
 #define LAND_H
 
+#include <QWidget>
+#include "laender.h"
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class Land;
@@ -15,8 +18,20 @@ public:
     explicit Land(QWidget *parent = nullptr);
     ~Land();
 
+private slots:
+
+    void on_buttonBox_clicked(QAbstractButton *button);
+
+    void on_skalaLogarithm_clicked();
+
+    void on_skalaLiear_clicked();
+
+   void setGeoID(QString geoID);
+
 private:
     Ui::Land *ui;
+
+    Laender* laender;
 };
 
 #endif // LAND_H

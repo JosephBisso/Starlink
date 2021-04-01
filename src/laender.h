@@ -17,21 +17,23 @@ class Laender : public QObject //Diese Klasse beinhaltet alle Methoden zur Gewin
 public:
     explicit Laender(QObject *parent = nullptr);
 
+    void setGeoID(QString geoID);
+
     databank DbLandDaten; //Die Klasse databank erlaubt dank ihrer Methoden den Zugriff auf die Datenbank
 
-    void gibLandDaten(QString Tag, QString Monat, QString geoID);
+    void gibLandDaten(QString Tag, QString Monat);
 
-    void InfiTodeMonat (QString geoID); //Rechnet und speichert
+    void InfiTodeMonat (); //Rechnet und speichert
                               //Gesamtinfiziierte und -Tode
                                 //für alle Monate in 2 Felder.
 
-    int FillTab (QDate uiDatum, bool skalalinear, QString geoID);
+    int FillTab (QDate uiDatum, bool skalalinear);
 
-    void FillLines (QDate uiDatum, QString geoID);
+    void FillLines (QDate uiDatum);
 
-    QString Fill7TagDurchschnitt (QDate uiDatum, QString geoID);
+    QString Fill7TagDurchschnitt (QDate uiDatum);
 
-    QString InfiproEinwohner (QString geoID, int Einwohnerzahl);
+    QString InfiproEinwohner (int Einwohnerzahl);
 
 
     double infMonat [12]; //Ein Feld mit Größe 12 wir erstellt.
@@ -43,12 +45,13 @@ public:
 
     bool skalaLinear = true;
 
-    QString geoID;
 
     QString Infi,
             Tode;
 
 private:
+
+    QString geoID;
 
 signals:
 

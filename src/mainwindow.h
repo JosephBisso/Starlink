@@ -2,51 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mydialog.h"
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QUrl>
 
 #include "datenbank.h"
-#include "frankreich.h"
-#include "deutschland.h"
-#include "spanien.h"
-#include "portugal.h"
-#include "belgien.h"
-#include "niederlande.h"
-#include "schweiz.h"
-#include "oesterreich.h"
-#include "grossbritannien.h"
-#include "irland.h"
-#include "island.h"
-#include "polen.h"
-#include "tschechien.h"
-#include "slowakei.h"
-#include "ungarn.h"
-#include "italien.h"
-#include "slowenien.h"
-#include "kroatien.h"
-#include "montenegro.h"
-#include "kosovo.h"
-#include "serbien.h"
-#include "rumanien.h"
-#include "albanien.h"
-#include "mazedonien.h"
-#include "bulgarien.h"
-#include "griechenland.h"
-#include "moldawien.h"
-#include "ukraine.h"
-#include "weissrussland.h"
-#include "daenemark.h"
-#include "norwegen.h"
-#include "schweden.h"
-#include "finnland.h"
-#include "estland.h"
-#include "lettland.h"
-#include "litauen.h"
-#include "bosnien.h"
-#include "changeurl.h"
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -64,8 +24,6 @@ private:
     databank dbMain;
 
     Ui::MainWindow *ui;
-    MyDialog *mDialog; 
-    changeurl *urlDialog = new changeurl;
 
     QNetworkAccessManager myDownloader;
     QDateTime upDate;

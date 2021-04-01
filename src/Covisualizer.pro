@@ -32,14 +32,12 @@ SOURCES += \
     downloader.cpp \
     land.cpp \
     main.cpp \
-    deutschland.cpp \
     mainwindow.cpp
 
 HEADERS += \
     databank.h \
     datenbank.h \
     dbvorschau.h \
-    deutschland.h \
     laender.h \
     land.h \
     mainwindow.h \
@@ -49,7 +47,6 @@ HEADERS += \
 FORMS += \
     datenbank.ui \
     dbvorschau.ui \
-    deutschland.ui \
     land.ui \
     mainwindow.ui
 
