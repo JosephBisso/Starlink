@@ -127,169 +127,20 @@ QString Land::setTitle() {
 
     QString land_geoID = laender->getGeoID(),
             name_Land;
-    if (land_geoID == "AL") {
-        name_Land = "Albania";
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "AD") {
-        name_Land = "Andorra"; ////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "AM") {
-        name_Land = "Armenia"; //////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "AT") {
-        name_Land = "Austria";
-        laender->setEinwohnerzahl(8877000);
-    } else if (land_geoID == "AZ") {
-        name_Land = "Azerbaijan"; ///////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "BY") {
-        name_Land = "Belarus";
-        laender->setEinwohnerzahl(9467000);
-    } else if (land_geoID == "BE") {
-        name_Land = "Belgium";
-        laender->setEinwohnerzahl(11484000);
-    } else if (land_geoID == "BA") {
-        name_Land = "Bosnia_and_Herzegovina";
-        laender->setEinwohnerzahl(3301000);
-    } else if (land_geoID == "BG") {
-        name_Land = "Bulgaria";
-        laender->setEinwohnerzahl(6976000);
-    } else if (land_geoID == "HR") {
-        name_Land = "Crotia";
-        laender->setEinwohnerzahl(4068000);
-    } else if (land_geoID == "CY") {
-        name_Land = "Cyprus"; //////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "CZ") {
-        name_Land = "Czechia";
-        laender->setEinwohnerzahl(10670000);
-    } else if (land_geoID == "DK") {
-        name_Land = "Denmark";
-        laender->setEinwohnerzahl(5819000);
-    } else if (land_geoID == "EE") {
-        name_Land = "Estonia";
-        laender->setEinwohnerzahl(1327000);
-    } else if (land_geoID == "FO") {
-        name_Land = "Faroe_Islands"; //////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "FI") {
-        name_Land = "Finnland";
-        laender->setEinwohnerzahl(5520000);
-    } else if (land_geoID == "FR") {
-        name_Land = "France";
-        laender->setEinwohnerzahl(67060000);
-    } else if (land_geoID == "GE") {
-        name_Land = "Georgia";
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "DE") {
-        name_Land = "Germany";
-        laender->setEinwohnerzahl(83133000);
-    } else if (land_geoID == "GI") {
-        name_Land = "Gibraltar"; ////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "EL") {
-        name_Land = "Greece";
-        laender->setEinwohnerzahl(10716000);
-    } else if (land_geoID == "GG") {
-        name_Land = "Guernsey"; ////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "VA") {
-        name_Land = "Holy_See"; ////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "HU") {
-        name_Land = "Hungary";
-        laender->setEinwohnerzahl(9770000);
-    } else if (land_geoID == "IS") {
-        name_Land = "Iceland";
-        laender->setEinwohnerzahl(361313);
-    } else if (land_geoID == "IE") {
-        name_Land = "Ireland";
-        laender->setEinwohnerzahl(4941000);
-    } else if (land_geoID == "IM") {
-        name_Land = "Isle_of_Man"; /////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "IT") {
-        name_Land = "Italy";
-        laender->setEinwohnerzahl(60297000);
-    } else if (land_geoID == "JE") {
-        name_Land = "Jersey"; //////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "XK") {
-        name_Land = "Kosovo";
-        laender->setEinwohnerzahl(1794000);
-    } else if (land_geoID == "LV") {
-        name_Land = "Latvia";
-        laender->setEinwohnerzahl(1913000);
-    } else if (land_geoID == "LI") {
-        name_Land = "Liechtenstein";//////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "LT") {
-        name_Land = "Lithuania";
-        laender->setEinwohnerzahl(2787000);
-    } else if (land_geoID == "LU") {
-        name_Land = "Luxembourg"; /////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "MT") {
-        name_Land = "Malta"; ////////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "MD") {
-        name_Land = "Moldova";
-        laender->setEinwohnerzahl(2658000);
-    } else if (land_geoID == "MC") {
-        name_Land = "Monaco"; ///////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "ME") {
-        name_Land = "Montenegro";
-        laender->setEinwohnerzahl(622137);
-    } else if (land_geoID == "NL") {
-        name_Land = "Netherlands";
-        laender->setEinwohnerzahl(17333000);
-    } else if (land_geoID == "MK") {
-        name_Land = "North_Macedonia";
-        laender->setEinwohnerzahl(2787000);
-    } else if (land_geoID == "NO") {
-        name_Land = "Norway";
-        laender->setEinwohnerzahl(5348000);
-    } else if (land_geoID == "PL") {
-        name_Land = "Poland";
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "PT") {
-        name_Land = "Portugal";
-        laender->setEinwohnerzahl(10269000);
-    } else if (land_geoID == "RO") {
-        name_Land = "Romania";
-        laender->setEinwohnerzahl(19357000);
-    } else if (land_geoID == "RU") {
-        name_Land = "Russia";////////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "SM") {
-        name_Land = "San_Marino";/////////////////////////////
-        laender->setEinwohnerzahl(2854000);
-    } else if (land_geoID == "RS") {
-        name_Land = "Serbia";
-        laender->setEinwohnerzahl(6945000);
-    } else if (land_geoID == "SK") {
-        name_Land = "Slovakia";
-        laender->setEinwohnerzahl(5454000);
-    } else if (land_geoID == "SI") {
-        name_Land = "Slovania";
-        laender->setEinwohnerzahl(2088000);
-    } else if (land_geoID == "ES") {
-        name_Land = "Spain";
-        laender->setEinwohnerzahl(47077000);
-    } else if (land_geoID == "SE") {
-        name_Land = "Sweden";
-        laender->setEinwohnerzahl(10285000);
-    } else if (land_geoID == "CH") {
-        name_Land = "Switzerland";
-        laender->setEinwohnerzahl(8575000);
-    } else if (land_geoID == "UA") {
-        name_Land = "Ukraine";
-        laender->setEinwohnerzahl(44385000);
-    } else if (land_geoID == "UK") {
-        name_Land = "United_Kingdom";
-        laender->setEinwohnerzahl(66834000);
-    } else {
+    QString* value = laender->get_laenderGeoID();
+    bool found = false;
+
+    for (int i = 0; i < 215; i++) {
+
+        if (value[i] == land_geoID) {
+            laender->setLand_arrayCounter(i);
+            name_Land = laender->get_laenderName()[i];
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
         name_Land = "-999";
     }
 
@@ -361,10 +212,10 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
         {
             doDiagramm();
 
-            int Einwohnerzahl = laender->getEinwohnerzahl();
+            int Einwohnerzahl = laender->get_laenderEinwohner()[laender->getLand_arrayCounter()];
                                          // Initialisierung eines neuen Parameters. Die Einwohnerzahl des Landes wird festgelegt. Für jedes Land unterschiedliche Einwohnerzahl.
 
-            qDebug () << "EINWOHNERANZAHL = " << laender->getEinwohnerzahl();
+            qDebug () << "EINWOHNERANZAHL = " << laender->get_laenderEinwohner()[laender->getLand_arrayCounter()];
             ui->lineEdit_9->setText(laender->InfiproEinwohner(Einwohnerzahl, uiDatum)); //Endergebnis wird in einem lineEdit angezeigt
 
             ui->tab->layout()->~QLayout(); //das aktuelles Layout im Tab wird gelöscht

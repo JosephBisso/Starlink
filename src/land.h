@@ -40,4 +40,5 @@ private:
     Laender* laender = new Laender(this);
 };
 
+
 #endif // LAND_H
