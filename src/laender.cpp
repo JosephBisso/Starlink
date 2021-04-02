@@ -22,12 +22,27 @@ QString Laender::getLandName() {
     return landName;
 }
 
-void Laender::setEinwohnerzahl(int einwohnerzahl) {
-    this->einwohnerzahl = einwohnerzahl;
+QString* Laender::get_laenderName() {
+    return allNamen;
 }
 
-int Laender::getEinwohnerzahl() {
-    return einwohnerzahl;
+QString* Laender::get_laenderGeoID() {
+    return allGeoID;
+}
+QString* Laender::get_laenderCode() {
+    return allLandCode;
+}
+
+int* Laender::get_laenderEinwohner() {
+    return allEinwohner;
+}
+
+void Laender::setLand_arrayCounter(int i) {
+    land_arrayCounter = i;
+}
+
+int Laender::getLand_arrayCounter() {
+    return land_arrayCounter;
 }
 
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
