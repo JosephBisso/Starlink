@@ -9,7 +9,7 @@ Tool for collecting and visualizing Covid-19 infection numbers in europa
 <details><summary>Preview</summary> 
 <p>
 
-- <img src="https://github.com/JosephBisso/Starlink/blob/master/manual%20instruction/Covisualizer%2019.08.2020%2015_31_03.png" width="450"> 
+<img src="https://github.com/JosephBisso/Starlink/blob/master/manual%20instruction/Covisualizer%2019.08.2020%2015_31_03.png" width="450"> 
 <img src="https://github.com/JosephBisso/Starlink/blob/master/manual%20instruction/Germany_Graph_Infi.png" width="450">     
 <img src="https://github.com/JosephBisso/Starlink/blob/master/manual%20instruction/Germany_Diagram_GesamtTode.png" width="450">
 
