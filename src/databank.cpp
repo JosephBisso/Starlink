@@ -283,12 +283,19 @@ int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
                 if (jsCountry_code.toString() == laender->convertToCountryCode(geoID) && jsIndicator.toString() ==  "cases")
                 {
                     int anzahlWochen = Monat.toInt() * (52 / 12);
+                    QString StringAnzahlWochen;
 
                     for (int i = 0; i < 4; i++) {
-                        if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
+                        StringAnzahlWochen = QString::number(anzahlWochen - i);
+                        if (StringAnzahlWochen.length() == 1){
+                            StringAnzahlWochen.insert(0, "0");
+                        }
+
+                        if (jsYear_week == (Jahr + "-" + StringAnzahlWochen)) {
                             databank::Gesamt_Infi += jsWeekly_count.toInt();
                         }
                     }
+
 
                 }
            }
@@ -453,16 +460,16 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
                 if (jsCountry_code.toString() == laender->convertToCountryCode(geoID) && jsIndicator.toString() ==  "deaths")
                 {
                     int anzahlWochen = Monat.toInt() * (52 / 12);
-                    QString AnzahlWochen;
+                    QString StringAnzahlWochen;
 
                     for (int i = 0; i < 4; i++) {
-                        if (anzahlWochen < 10) {
-
+                        StringAnzahlWochen = QString::number(anzahlWochen - i);
+                        if (StringAnzahlWochen.length() == 1){
+                            StringAnzahlWochen.insert(0, "0");
                         }
-                        if (anzahlWochen >= 4 && jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
-                            databank::Gesamt_Tode += jsWeekly_count.toInt();
-                        } else if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
 
+                        if (jsYear_week == (Jahr + "-" + StringAnzahlWochen)) {
+                            databank::Gesamt_Tode += jsWeekly_count.toInt();
                         }
                     }
 
