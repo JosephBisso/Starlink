@@ -116,9 +116,16 @@ void Land::doDiagramm() {
        chartView->setRenderHint(QPainter::Antialiasing);
        chartViewTode->setRenderHint(QPainter::Antialiasing); // Dient zur Darstellung der Balkendiagramme
 
+       QVBoxLayout *verticalLayout_4_infi = new QVBoxLayout(ui->Tab_2),
 
-    ui->verticalLayout_4->addWidget(chartView);
-    ui->verticalLayout_2->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
+                   *verticalLayout_2_tode = new QVBoxLayout(ui->tab_3);
+
+
+        verticalLayout_4_infi->addWidget(chartView);
+        verticalLayout_2_tode->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
+
+        ui->Tab_2->setLayout(verticalLayout_4_infi);
+        ui->tab_3->setLayout(verticalLayout_4_infi);
 }
 
 QString Land::setTitle() {
@@ -210,6 +217,9 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
 
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {
+            ui->tab_3->layout()->~QLayout();
+            ui->Tab_2->layout()->~QLayout();
+
             doDiagramm();
 
             int Einwohnerzahl = laender->get_laenderEinwohner()[laender->getLand_arrayCounter()];
@@ -334,6 +344,7 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
                                                                  //gegeben. Das Layout bekommt dann den Chart
                                                                 //hinzugefügt
                 *verticalLayout_3Tode = new QVBoxLayout(ui->tab_5);
+
 
         verticalLayout_3->addWidget(chartView);
         verticalLayout_3Tode->addWidget(chartViewTode);
