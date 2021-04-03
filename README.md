@@ -1,6 +1,7 @@
 # Starlink
 
-*My first Project*
+*My first Project*   
+[![GitHub release](https://img.shields.io/github/v/release/Josephbisso/Starlink.svg)](https://github.com/JosephBisso/Starlink/releases)
 
 ## Brief description of the project
 
