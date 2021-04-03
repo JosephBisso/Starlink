@@ -116,6 +116,9 @@ void Land::doDiagramm() {
        chartView->setRenderHint(QPainter::Antialiasing);
        chartViewTode->setRenderHint(QPainter::Antialiasing); // Dient zur Darstellung der Balkendiagramme
 
+       ui->tab_3->layout()->~QLayout();
+       ui->Tab_2->layout()->~QLayout();
+
        QVBoxLayout *verticalLayout_4_infi = new QVBoxLayout(ui->Tab_2),
 
                    *verticalLayout_2_tode = new QVBoxLayout(ui->tab_3);
@@ -125,7 +128,7 @@ void Land::doDiagramm() {
         verticalLayout_2_tode->addWidget(chartViewTode); //Balkendiagramme werden in einem bestimmten Layout angezeigt
 
         ui->Tab_2->setLayout(verticalLayout_4_infi);
-        ui->tab_3->setLayout(verticalLayout_4_infi);
+        ui->tab_3->setLayout(verticalLayout_2_tode);
 }
 
 QString Land::setTitle() {
@@ -217,8 +220,6 @@ void Land::on_buttonBox_clicked(QAbstractButton *button)
 
         else //Wenn alle vorherigen Bedingungen gut klappen, dann werden die Daten dargestellt.
         {
-            ui->tab_3->layout()->~QLayout();
-            ui->Tab_2->layout()->~QLayout();
 
             doDiagramm();
 
