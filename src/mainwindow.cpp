@@ -59,9 +59,24 @@ void MainWindow::on_actionDatenquelle_aendern_triggered()
 
 }
 
-//
-//Hinweis: Es sind weitere Methoden nach den Länder-Signal Definitionen definiert
-//
+//Slot deaktiviert den Button und erzeugt eine Instanz der Klasse Downloader zum Herunterladen neuer Daten.
+void MainWindow::on_refreshButton_clicked()
+{
+    Downloader* myDownloader = new Downloader;
+    myDownloader->updateRawData();
+    connect(myDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
+
+}
+
+
+//Dieser Slot reagiert auf das Signal "updateSuccessful" der Downloader-Klasse. Er verändert den Timestamp in der
+//Textbox, die die letzte Aktualisierung anzeigt.
+void MainWindow::dataUpdateConfirmed()
+{
+    QString refreshStateText = "Letzter Stand: ";
+    refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
+    ui->statusbar->showMessage(refreshStateText);
+}
 
 void MainWindow::on_Frankreich_clicked()
 {
@@ -349,25 +364,6 @@ void MainWindow::on_Litauen_clicked()
     land->setGeoID("LT");
     land->setWindowTitle(land->setTitle());
     land->exec();
-}
-
-//Slot deaktiviert den Button und erzeugt eine Instanz der Klasse Downloader zum Herunterladen neuer Daten.
-void MainWindow::on_refreshButton_clicked()
-{
-    Downloader* myDownloader = new Downloader;
-    myDownloader->updateRawData();
-    connect(myDownloader, SIGNAL(updateSuccessful()), this, SLOT(dataUpdateConfirmed()));
-
-}
-
-
-//Dieser Slot reagiert auf das Signal "updateSuccessful" der Downloader-Klasse. Er verändert den Timestamp in der
-//Textbox, die die letzte Aktualisierung anzeigt.
-void MainWindow::dataUpdateConfirmed()
-{
-    QString refreshStateText = "Letzter Stand: ";
-    refreshStateText.append(dbMain.gibUpdateDatum()); //Das Datum des letzten hinzugefügten Eintrags wird gegeben
-    ui->statusbar->showMessage(refreshStateText);
 }
 
 void MainWindow::on_Bosnien_clicked()
