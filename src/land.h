@@ -23,6 +23,8 @@ public:
 
     QString setTitle();
 
+    QPixmap* setIcon();
+
 private slots:
 
     void on_buttonBox_clicked(QAbstractButton *button);

@@ -162,7 +162,9 @@ void Land::setGeoID(QString geoID) {
     laender->setGeoID(geoID);
 }
 
-
+QPixmap* Land::setIcon() {
+    return laender->getFlag(laender->getGeoID());
+}
 
 void Land::on_buttonBox_clicked(QAbstractButton *button)
 {
