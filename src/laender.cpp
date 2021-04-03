@@ -55,6 +55,21 @@ QString Laender::convertToCountryCode(QString geoID) {
     return "NoCountryCode";
 }
 
+QPixmap* Laender::getFlag(QString geoID) {
+
+    QString Pfad = ":/Flags/" + geoID.toLower() + ".png";
+
+    QPixmap* pixmap = new QPixmap(Pfad);
+    if (pixmap->isNull()) {
+
+        qDebug() << "FLAGGE fehlt für geoID = " + geoID;
+;        return new QPixmap(":/img/Landkarte.jpg");
+    }
+
+    return pixmap;
+
+}
+
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
 void Laender::InfiTodeMonat(QString Jahr)
 {

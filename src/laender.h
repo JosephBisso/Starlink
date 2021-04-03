@@ -35,6 +35,8 @@ public:
 
     QString convertToCountryCode(QString geoID);
 
+    QPixmap* getFlag(QString geoID);
+
     databank DbLandDaten; //Die Klasse databank erlaubt dank ihrer Methoden den Zugriff auf die Datenbank
 
     void gibLandDaten(QString Tag, QString Monat, QString Jahr);
