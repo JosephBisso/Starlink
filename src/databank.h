@@ -38,7 +38,7 @@ public:
     int  gibGesamtTode (QString Monat, QString Jahr, QString geoID); //Setzt und Gibt Gesamtanzahl von Toden im "Monat"
                                                        //für ein Land mit Kennzeichnung "geoID"
 
-    QJsonDocument jsDbConnect(); //Verbindet die JSON Datenbank
+    QJsonDocument* jsDbConnect(); //Verbindet die JSON Datenbank
 
 
     void jsDbShort(); //Reduziert Daten in Datenbank auf die nötigen (EU-Länder)

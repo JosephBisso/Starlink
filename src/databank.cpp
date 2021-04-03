@@ -1,8 +1,10 @@
 #include "databank.h"
 
 #include <QMessageBox>
+#include <Qt>
 
 #include "downloader.h"
+#include "laender.h"
 
 databank::databank(QObject *parent) : QObject(parent)
 {
@@ -23,7 +25,7 @@ databank::databank(QObject *parent) : QObject(parent)
  */
 void databank::jsDbShort()
 {
-    this->done = true;
+    done = true;
 
     QJsonArray reArrayShort;
 
@@ -31,14 +33,16 @@ void databank::jsDbShort()
 
     QFile file ("covidRaw.json");
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){ file.setFileName(":/lib/covidRaw.json"); this->done = false;} /*Wenn die Datei nicht geöffnet werden kann
-                                                                                                  wird stattdessen ein Backup File geöffnet
-                                                                                            */
-     file.close();
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+       file.setFileName(":/lib/covidRaw.json"); done = false;
+    } else {
+        file.close();
+    }
+
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
         file.close();
 
 
@@ -78,6 +82,53 @@ void databank::jsDbShort()
 
     }
 
+    file.setFileName("covidRaw_2021.json");
+    QJsonArray reArrayShort2;
+
+    //if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){ file.setFileName(":/lib/covidRaw.json"); done = false;}
+    // file.close();
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+
+        QJsonArray jsonArray = jsonDoc.array();
+
+        for (int i=0; i < jsonArray.size(); i++)
+        {
+            QJsonObject recordsObject = jsonArray[i].toObject();
+            QJsonValue jsKontinent = recordsObject["continent"];
+            QString Kontinent = jsKontinent.toString();
+
+            if (Kontinent == "Europe" )
+            {
+                reArrayShort2.append(jsonArray[i]); //Nur Länder aus der EU werden gespeichert.
+            }
+
+
+        }
+
+
+        QJsonObject reObjectShort2;
+        reObjectShort2["records"] = reArrayShort2;
+
+        QJsonDocument jsDbShort2(reObjectShort2);
+
+        QFile file2("covidShort_2021.json");
+
+        if(file2.open(QIODevice::WriteOnly))
+        {
+           file2.write(jsDbShort2.toJson());
+           file2.close();
+
+        }
+
+
+
+    }
+
 
 
 }
@@ -86,22 +137,31 @@ void databank::jsDbShort()
 /*Die zuvor geschriebene Json Datei "covidShort.json" mit nur Europaländer drin wird geöffnet
  * und in einem QJsonDocument gespeichert
  */
-QJsonDocument databank::jsDbConnect()
+QJsonDocument* databank::jsDbConnect()
 {
     QFile file ("covidRaw.json");
 
-    QJsonDocument jsonDoc;
+    QJsonDocument jsonDoc[2];
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
 
-        jsonDoc = QJsonDocument::fromJson(file.readAll());
+        jsonDoc[0] = QJsonDocument::fromJson(file.readAll());
         file.close();
-
-        return jsonDoc;
     }
 
-    return jsonDoc;
+    file.setFileName("covidRaw_2021.json");
+
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+
+        jsonDoc[1] = QJsonDocument::fromJson(file.readAll());
+        file.close();
+    }
+
+    QJsonDocument* jsonRETURN = jsonDoc;
+
+    return jsonRETURN;
 }
 
 
@@ -111,6 +171,44 @@ QJsonDocument databank::jsDbConnect()
 //wenn die Datei nicht gelesen werden konnte
 int  databank::gibInfiierte(QString Datum, QString geoID)
 {
+    if (Datum.contains('-')) {
+        QFile file ("covidShort_2021.json");
+
+        Laender* laender = new Laender;
+        QJsonDocument jsonDoc;
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+
+            jsonDoc = QJsonDocument::fromJson(file.readAll());
+            file.close();
+
+            QJsonObject jsonObject =jsonDoc.object();
+            QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+            for (int i=0; i < recordsArray.size(); i++)
+            {
+                QJsonObject recordsObject = recordsArray[i].toObject();
+                QJsonValue jsIndicator = recordsObject["indicator"];
+                QJsonValue jsYearWeek = recordsObject["year_week"];
+                QJsonValue jsCountry_code = recordsObject["country_code"];
+                QJsonValue jsWeekly_count = recordsObject["weekly_count"];
+
+                if (jsCountry_code == laender->convertToCountryCode(geoID)  && jsIndicator == "cases" && jsYearWeek == Datum)
+                {
+
+                    databank::Infiziierte = jsWeekly_count.toInt();
+
+                    return databank::Infiziierte;
+
+                }
+            }
+
+        }
+
+    }
+
     QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
@@ -154,6 +252,53 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
 //wenn die Datei nicht gelesen werden konnte
 int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
 {
+    if ((Jahr.toInt() == 2021) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
+
+        databank::Gesamt_Infi = 0;
+
+        QFile file ("covidShort_2021.json");
+        Laender* laender = new Laender;
+
+        QJsonDocument jsonDoc;
+        QDate date;
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+
+            jsonDoc = QJsonDocument::fromJson(file.readAll());
+            file.close();
+
+            QJsonObject jsonObject =jsonDoc.object();
+            QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+            for (int i=0; i < recordsArray.size(); i++)
+            {
+                QJsonObject recordsObject = recordsArray[i].toObject();
+
+                QJsonValue jsWeekly_count = recordsObject["weekly_count"];
+                QJsonValue jsYear_week = recordsObject["year_week"];
+                QJsonValue jsCountry_code = recordsObject["country_code"];
+                QJsonValue jsIndicator = recordsObject["indicator"];
+
+                if (jsCountry_code == laender->convertToCountryCode(geoID) && jsIndicator == "cases")
+                {
+                    int anzahlWochen = Monat.toInt() * (date.weekNumber(new int (Jahr.toInt())) / 12);
+
+                    for (int i = 0; i < 4; i++) {
+                        if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
+                            databank::Gesamt_Infi += jsWeekly_count.toInt();
+                        }
+                    }
+
+                }
+           }
+
+            return databank::Gesamt_Infi;
+
+        }
+    }
+
     databank::Gesamt_Infi = 0;
 
     QFile file ("covidShort.json");
@@ -199,6 +344,43 @@ int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
 //schief gelaufen ist.
 int  databank::gibTode(QString Datum, QString geoID)
 {
+    if (Datum.contains('-')) {
+        QFile file ("covidShort_2021.json");
+
+        Laender* laender = new Laender;
+        QJsonDocument jsonDoc;
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+
+            jsonDoc = QJsonDocument::fromJson(file.readAll());
+            file.close();
+
+            QJsonObject jsonObject =jsonDoc.object();
+            QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+            for (int i=0; i < recordsArray.size(); i++)
+            {
+                QJsonObject recordsObject = recordsArray[i].toObject();
+                QJsonValue jsIndicator = recordsObject["indicator"];
+                QJsonValue jsYearWeek = recordsObject["year_week"];
+                QJsonValue jsCountry_code = recordsObject["country_code"];
+                QJsonValue jsWeekly_count = recordsObject["weekly_count"];
+
+                if (jsCountry_code == laender->convertToCountryCode(geoID)  && jsIndicator == "deaths" && jsYearWeek == Datum)
+                {
+
+                    databank::Tode = jsWeekly_count.toInt();
+
+                    return databank::Infiziierte;
+
+                }
+            }
+
+        }
+
+    }
 
     QFile file ("covidShort.json");
 
@@ -241,6 +423,53 @@ int  databank::gibTode(QString Datum, QString geoID)
 //schief gelaufen ist.
 int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
 {
+    if ((Jahr.toInt() == 2021) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
+
+        databank::Gesamt_Tode = 0;
+
+        QFile file ("covidShort_2021.json");
+        Laender* laender = new Laender;
+
+        QJsonDocument jsonDoc;
+        QDate date;
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+
+            jsonDoc = QJsonDocument::fromJson(file.readAll());
+            file.close();
+
+            QJsonObject jsonObject =jsonDoc.object();
+            QJsonArray recordsArray = jsonDoc["records"].toArray();
+
+
+            for (int i=0; i < recordsArray.size(); i++)
+            {
+                QJsonObject recordsObject = recordsArray[i].toObject();
+
+                QJsonValue jsWeekly_count = recordsObject["weekly_count"];
+                QJsonValue jsYear_week = recordsObject["year_week"];
+                QJsonValue jsCountry_code = recordsObject["country_code"];
+                QJsonValue jsIndicator = recordsObject["indicator"];
+
+                if (jsCountry_code == laender->convertToCountryCode(geoID) && jsIndicator == "deaths")
+                {
+                    int anzahlWochen = Monat.toInt() * (date.weekNumber(new int (Jahr.toInt())) / 12);
+
+                    for (int i = 0; i < 4; i++) {
+                        if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
+                            databank::Gesamt_Tode += jsWeekly_count.toInt();
+                        }
+                    }
+
+                }
+           }
+
+            return databank::Gesamt_Tode;
+
+        }
+    }
+
     databank::Gesamt_Tode = 0;
 
     QFile file ("covidShort.json");
@@ -290,7 +519,43 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
  *wenn die Datei nicht gelesen werden konnte
  */
 QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
-{
+{   
+    QDate datum = QDate(Tag.toInt(), Monat.toInt(), Jahr.toInt());
+
+    if (Jahr == "2021") {
+        QDate erster_Januar_2021 = QDate(1, 1, 2021);
+
+        int diffTage = 0;
+        while(!(datum == erster_Januar_2021)) {
+            datum = datum.addDays(-1);
+            diffTage++;
+        }
+
+        int Wochenzahl = diffTage/7;
+
+
+
+        return "2021-" + QString::number(Wochenzahl);
+
+    }
+
+    if (datum > QDate(14, 12, 2020)) {
+        QDate erster_Januar_2020 = QDate(1, 1, 2020);
+
+        int diffTage = 0;
+        while(!(datum == erster_Januar_2020)) {
+            datum = datum.addDays(-1);
+            diffTage++;
+        }
+
+        int Wochenzahl = diffTage/7;
+
+
+
+        return "2020-" + QString::number(Wochenzahl);
+
+    }
+
     QFile file ("covidShort.json");
 
     QJsonDocument jsonDoc;
@@ -304,27 +569,27 @@ QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
         QJsonObject jsonObject =jsonDoc.object();
         QJsonArray recordsArray = jsonDoc["records"].toArray();
 
-    for (int i=0; i <recordsArray.size(); i++)
-    {
-        QJsonObject recordsObject = recordsArray[i].toObject();
-
-        QJsonValue jsDate = recordsObject["dateRep"];
-        QJsonValue jsMonth = recordsObject["month"];
-        QJsonValue jsYear = recordsObject["year"];
-        QJsonValue jsDay = recordsObject["day"];
-
-        if (jsDay == Tag  && jsMonth == Monat && jsYear == Jahr)
+        for (int i=0; i <recordsArray.size(); i++)
         {
-        databank::Datum = jsDate.toString();
-        databank::Tag = jsDay.toString();
-        databank::Monat = jsMonth.toString();
-        databank::Jahr = jsYear.toString();
+            QJsonObject recordsObject = recordsArray[i].toObject();
 
-        return databank::Datum;
+            QJsonValue jsDate = recordsObject["dateRep"];
+            QJsonValue jsMonth = recordsObject["month"];
+            QJsonValue jsYear = recordsObject["year"];
+            QJsonValue jsDay = recordsObject["day"];
 
+            if (jsDay == Tag  && jsMonth == Monat && jsYear == Jahr)
+            {
+                databank::Datum = jsDate.toString();
+                databank::Tag = jsDay.toString();
+                databank::Monat = jsMonth.toString();
+                databank::Jahr = jsYear.toString();
+
+                return databank::Datum;
+
+            }
         }
     }
-}
 
     return "-999";
 }
@@ -336,7 +601,7 @@ QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
 */
 QString databank::gibUpdateDatum()
 {
-    QFile file ("covidRaw.json");
+    QFile file ("covidRaw_2021.json");
 
     QJsonDocument jsonDoc;
 
@@ -353,15 +618,15 @@ QString databank::gibUpdateDatum()
         jsonDoc = QJsonDocument::fromJson(file.readAll());
         file.close();
 
-        QJsonObject jsonObject =jsonDoc.object();
-        QJsonArray recordsArray = jsonDoc["records"].toArray();
+        QJsonArray recordsArray = jsonDoc.array();
 
         QJsonObject recordsObject = recordsArray[0].toObject();
 
-        QJsonValue jsDate = recordsObject["dateRep"];
+        QJsonValue jsYear_week = recordsObject["year_week"];
 
-        QString AktuelleDatum = jsDate.toString();
+        QStringList jahr_monat= (jsYear_week.toString()).split("-");
 
+        QString AktuelleDatum = jahr_monat[1] + "/" + jahr_monat[0];
         return AktuelleDatum;
 
 
@@ -399,7 +664,8 @@ QString databank::gibMonat(QString Monat)
 //die Namen in der JSON Datei auf Englisch geschrieben sind.
 QString databank::gibLand(QString geoID)
 {
-    QFile file ("covidShort.json");
+    QFile file ("covidShort_2021.json");
+    Laender* laender = new Laender;
 
     QJsonDocument jsonDoc;
 
@@ -416,14 +682,14 @@ QString databank::gibLand(QString geoID)
     {
         QJsonObject recordsObject = recordsArray[i].toObject();
 
-        QJsonValue jsCountrie = recordsObject["countriesAndTerritories"];
-        QJsonValue jsGeoId = recordsObject["geoId"];
+        QJsonValue jsCountrie = recordsObject["country"];
+        QJsonValue jsCountry_code = recordsObject["country_code"];
 
-        if (jsGeoId == geoID)
+        if (jsCountry_code == laender->convertToCountryCode(geoID))
         {
 
         databank::Land = jsCountrie.toString();
-        databank::geoID = jsGeoId.toString();
+        this->geoID = geoID;
 
         return databank::Land;
 
