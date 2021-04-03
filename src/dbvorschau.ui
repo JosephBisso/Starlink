@@ -41,7 +41,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Datum</string>
+       <string>Jahr-Woche</string>
       </property>
      </column>
      <column>
@@ -77,13 +77,6 @@
       <string>Hinweis</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>sie &quot;Dateien aktualisieren&quot; auf dem MainWindow anklicken.</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
@@ -95,6 +88,13 @@
        <widget class="QLabel" name="dbVorschauStand">
         <property name="text">
          <string>Letzter Stand: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>sie &quot;Dateien aktualisieren&quot; auf dem MainWindow anklicken.</string>
         </property>
        </widget>
       </item>
