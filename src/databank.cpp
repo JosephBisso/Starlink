@@ -195,7 +195,7 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
                 QJsonValue jsCountry_code = recordsObject["country_code"];
                 QJsonValue jsWeekly_count = recordsObject["weekly_count"];
 
-                if (jsCountry_code == laender->convertToCountryCode(geoID)  && jsIndicator == "cases" && jsYearWeek == Datum)
+                if (jsCountry_code.toString() == laender->convertToCountryCode(geoID)  && jsIndicator.toString() == "cases" && jsYearWeek.toString() ==  Datum)
                 {
 
                     databank::Infiziierte = jsWeekly_count.toInt();
@@ -231,7 +231,7 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
        QJsonValue jsDate = recordsObject["dateRep"];
        QJsonValue jsGeoId = recordsObject["geoId"];
 
-       if (jsGeoId == geoID  && jsDate == Datum)
+       if (jsGeoId.toString() == geoID  && jsDate.toString() ==  Datum)
        {
 
        databank::Infiziierte = jsCases.toInt();
@@ -252,7 +252,7 @@ int  databank::gibInfiierte(QString Datum, QString geoID)
 //wenn die Datei nicht gelesen werden konnte
 int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
 {
-    if ((Jahr.toInt() == 2021) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
+    if ((Jahr.toInt() != 2020) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
 
         databank::Gesamt_Infi = 0;
 
@@ -260,7 +260,6 @@ int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
         Laender* laender = new Laender;
 
         QJsonDocument jsonDoc;
-        QDate date;
 
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -281,9 +280,9 @@ int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
                 QJsonValue jsCountry_code = recordsObject["country_code"];
                 QJsonValue jsIndicator = recordsObject["indicator"];
 
-                if (jsCountry_code == laender->convertToCountryCode(geoID) && jsIndicator == "cases")
+                if (jsCountry_code.toString() == laender->convertToCountryCode(geoID) && jsIndicator.toString() ==  "cases")
                 {
-                    int anzahlWochen = Monat.toInt() * (date.weekNumber(new int (Jahr.toInt())) / 12);
+                    int anzahlWochen = Monat.toInt() * (52 / 12);
 
                     for (int i = 0; i < 4; i++) {
                         if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
@@ -324,7 +323,7 @@ int  databank::gibGesamtInfizierte (QString Monat, QString Jahr, QString geoID)
        QJsonValue jsYear = recordsObject["year"];
        QJsonValue jsGeoId = recordsObject["geoId"];
 
-       if (jsGeoId == geoID  && jsMonth == Monat && jsYear == Jahr)
+       if (jsGeoId.toString() == geoID  && jsMonth.toString() == Monat && jsYear.toString() == Jahr)
        {
 
        databank::Gesamt_Infi += jsCases.toInt();
@@ -368,12 +367,12 @@ int  databank::gibTode(QString Datum, QString geoID)
                 QJsonValue jsCountry_code = recordsObject["country_code"];
                 QJsonValue jsWeekly_count = recordsObject["weekly_count"];
 
-                if (jsCountry_code == laender->convertToCountryCode(geoID)  && jsIndicator == "deaths" && jsYearWeek == Datum)
+                if (jsCountry_code.toString() == laender->convertToCountryCode(geoID)  && jsIndicator.toString() ==  "deaths" && jsYearWeek.toString() ==  Datum)
                 {
 
                     databank::Tode = jsWeekly_count.toInt();
 
-                    return databank::Infiziierte;
+                    return databank::Tode;
 
                 }
             }
@@ -403,7 +402,7 @@ int  databank::gibTode(QString Datum, QString geoID)
         QJsonValue jsDate = recordsObject["dateRep"];
         QJsonValue jsGeoId = recordsObject["geoId"];
 
-        if (jsGeoId == geoID  && jsDate == Datum)
+        if (jsGeoId.toString() == geoID  && jsDate.toString() ==  Datum)
         {
 
         databank::Tode = jsDeaths.toInt();
@@ -423,7 +422,7 @@ int  databank::gibTode(QString Datum, QString geoID)
 //schief gelaufen ist.
 int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
 {
-    if ((Jahr.toInt() == 2021) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
+    if ((Jahr.toInt() != 2020) || (Jahr.toInt() == 2020 && Monat.toInt() == 12)) {
 
         databank::Gesamt_Tode = 0;
 
@@ -431,7 +430,6 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
         Laender* laender = new Laender;
 
         QJsonDocument jsonDoc;
-        QDate date;
 
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -452,13 +450,19 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
                 QJsonValue jsCountry_code = recordsObject["country_code"];
                 QJsonValue jsIndicator = recordsObject["indicator"];
 
-                if (jsCountry_code == laender->convertToCountryCode(geoID) && jsIndicator == "deaths")
+                if (jsCountry_code.toString() == laender->convertToCountryCode(geoID) && jsIndicator.toString() ==  "deaths")
                 {
-                    int anzahlWochen = Monat.toInt() * (date.weekNumber(new int (Jahr.toInt())) / 12);
+                    int anzahlWochen = Monat.toInt() * (52 / 12);
+                    QString AnzahlWochen;
 
                     for (int i = 0; i < 4; i++) {
-                        if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
+                        if (anzahlWochen < 10) {
+
+                        }
+                        if (anzahlWochen >= 4 && jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
                             databank::Gesamt_Tode += jsWeekly_count.toInt();
+                        } else if (jsYear_week == (Jahr + "-" + QString::number(anzahlWochen - i))) {
+
                         }
                     }
 
@@ -495,7 +499,7 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
        QJsonValue jsYear = recordsObject["year"];
        QJsonValue jsGeoId = recordsObject["geoId"];
 
-       if (jsGeoId == geoID  && jsMonth == Monat && jsYear == Jahr)
+       if (jsGeoId.toString() == geoID  && jsMonth.toString() == Monat && jsYear.toString() == Jahr)
        {
 
        databank::Gesamt_Tode += jsDeath.toInt();
@@ -520,27 +524,35 @@ int  databank::gibGesamtTode (QString Monat, QString Jahr, QString geoID)
  */
 QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
 {   
-    QDate datum = QDate(Tag.toInt(), Monat.toInt(), Jahr.toInt());
+    QDate datum = QDate(Jahr.toInt(), Monat.toInt(), Tag.toInt());
 
-    if (Jahr == "2021") {
-        QDate erster_Januar_2021 = QDate(1, 1, 2021);
+    if (Jahr != "2020") {
+        QDate erster_Januar_vom_Jahr = QDate(Jahr.toInt(), 1, 1);
 
         int diffTage = 0;
-        while(!(datum == erster_Januar_2021)) {
+        while(!(datum == erster_Januar_vom_Jahr)) {
             datum = datum.addDays(-1);
             diffTage++;
         }
 
         int Wochenzahl = diffTage/7;
+        QString StringWochenzahl = QString::number(Wochenzahl);
 
+        if (Wochenzahl < 1) {
 
+            return Jahr + "-" + "01";
+        }
 
-        return "2021-" + QString::number(Wochenzahl);
+        if (QString::number(Wochenzahl).length() == 1) {
+            StringWochenzahl = "0" + QString::number(Wochenzahl);
+        }
+
+        return Jahr + "-" + StringWochenzahl;
 
     }
 
-    if (datum > QDate(14, 12, 2020)) {
-        QDate erster_Januar_2020 = QDate(1, 1, 2020);
+    if (datum > QDate(2020, 12, 14)) {
+        QDate erster_Januar_2020 = QDate(2020, 1, 1);
 
         int diffTage = 0;
         while(!(datum == erster_Januar_2020)) {
@@ -549,10 +561,13 @@ QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
         }
 
         int Wochenzahl = diffTage/7;
+        QString StringWochenzahl = QString::number(Wochenzahl);
 
+        if (QString::number(Wochenzahl).length() == 1) {
+            StringWochenzahl = "0" + QString::number(Wochenzahl);
+        }
 
-
-        return "2020-" + QString::number(Wochenzahl);
+        return "2020-" + StringWochenzahl;
 
     }
 
@@ -578,7 +593,7 @@ QString databank::gibDatum(QString Tag, QString Monat, QString Jahr)
             QJsonValue jsYear = recordsObject["year"];
             QJsonValue jsDay = recordsObject["day"];
 
-            if (jsDay == Tag  && jsMonth == Monat && jsYear == Jahr)
+            if (jsDay.toString() == Tag  && jsMonth.toString() == Monat && jsYear.toString() == Jahr)
             {
                 databank::Datum = jsDate.toString();
                 databank::Tag = jsDay.toString();
@@ -619,14 +634,29 @@ QString databank::gibUpdateDatum()
         file.close();
 
         QJsonArray recordsArray = jsonDoc.array();
+        int max = 0;
+        QStringList jahr_monat;
+        for (int i = 0; i < recordsArray.size(); i++) {
 
-        QJsonObject recordsObject = recordsArray[0].toObject();
+            QJsonObject recordsObject = recordsArray[i].toObject();
 
-        QJsonValue jsYear_week = recordsObject["year_week"];
+            QJsonValue jsYear_week = recordsObject["year_week"];
+            QJsonValue jsCountry = recordsObject["country"];
+            QJsonValue jsIndicator = recordsObject["indicator"];
 
-        QStringList jahr_monat= (jsYear_week.toString()).split("-");
+            if (jsCountry.toString() == "Afghanistan" && jsIndicator.toString() == "cases") {
 
-        QString AktuelleDatum = jahr_monat[1] + "/" + jahr_monat[0];
+                jahr_monat = (jsYear_week.toString()).split("-");
+
+                if (jahr_monat[0].toInt() == QDate::currentDate().year() && jahr_monat[1].toInt() > max) {
+                    max = jahr_monat[1].toInt();
+                }
+            } else if (jsCountry.toString() == "Afghanistan" && jsIndicator.toString() == "deaths") {
+                break;
+            }
+        }
+
+        QString AktuelleDatum = jahr_monat[0] + ", Kalenderwoche " + QString::number(max);
         return AktuelleDatum;
 
 
@@ -685,7 +715,7 @@ QString databank::gibLand(QString geoID)
         QJsonValue jsCountrie = recordsObject["country"];
         QJsonValue jsCountry_code = recordsObject["country_code"];
 
-        if (jsCountry_code == laender->convertToCountryCode(geoID))
+        if (jsCountry_code.toString() == laender->convertToCountryCode(geoID))
         {
 
         databank::Land = jsCountrie.toString();
