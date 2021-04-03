@@ -45,6 +45,16 @@ int Laender::getLand_arrayCounter() {
     return land_arrayCounter;
 }
 
+QString Laender::convertToCountryCode(QString geoID) {
+    for (int i = 0; i < 215; i++) {
+        if (laenderGeoID[i] == geoID) {
+            return laenderCode[i];
+        }
+    }
+
+    return "NoCountryCode";
+}
+
 //Rechnet und speichert Gesamtinfiziierte für alle Monate in 2 Feldern, Attributen der Klasse Laender
 void Laender::InfiTodeMonat(QString Jahr)
 {
