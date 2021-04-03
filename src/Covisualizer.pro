@@ -56,6 +56,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    ../img/Flagge_laender/Flags_Ressources.qrc \
     Ressources.qrc
 
 RC_ICONS = covisual.ico
