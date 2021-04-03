@@ -27,7 +27,7 @@ void Datenbank::on_dbConnect_clicked()
     ui->progressBar->setValue(80); //ProgressBar in der UI.
 
 
-    if (datenbank.jsDbConnect().isEmpty())
+    if (datenbank.jsDbConnect()[0].isEmpty() || datenbank.jsDbConnect()[1].isEmpty())
     {
         ui->progressBar->setValue(100);
 
