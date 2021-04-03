@@ -26,10 +26,12 @@ void Downloader::changeURL(QUrl *newURL)
 void Downloader::updateRawData()
 {
     if(!fileURL){               //Schleife prüft, ob der User die URL geändert hat.
-        fileURL = &defaultURL;  // ansonsten wird der Default verwendet.
+        fileURL = &defaultURL;
     }
 
     getFile(fileURL,fileName);
+
+
 }
 
 //Methode übernimmt den Zeiger für die URL und den Dateipfad/Dateinamen und startet den eigentlichen Get-Request, indem
@@ -56,6 +58,7 @@ void Downloader::getFile(QUrl* fileURL, QString fileName)
 void Downloader::onDownloadProgress(qint64 bytesRead,qint64 bytesTotal)
 {
     qDebug() << bytesRead << " - " << bytesTotal;
+
 }
 
 //Methode zum Debugging, die bei auf das finish-Signal des Managers den Status/Fehler der Reply ausgibt.
@@ -66,7 +69,8 @@ void Downloader::onFinished(QNetworkReply *reply)
         case QNetworkReply::NoError:
         {
             qDebug("file is downloaded successfully.");
-        }break;
+            break;
+        }
         default:{
             qDebug() << reply->errorString();
             QMessageBox msgBox;
@@ -76,6 +80,7 @@ void Downloader::onFinished(QNetworkReply *reply)
             msgBox.exec();
         };
     }
+
 }
 //Dieser Slot wird aufgerufen sobald, neue Daten zum Schreiben vorhanden sind, was durch das NetworkReply-Objekt über
 //das Signal "ready read" angezeigt wird. Die Methode überschreibt alle verfügbaren Daten in das QFile-Objekt
@@ -87,7 +92,6 @@ void Downloader::onReadyRead()
         file->open(QIODevice::WriteOnly);
     }
     file->write(reply->readAll());
-
 
 }
 
@@ -111,4 +115,5 @@ void Downloader::onReplyFinished()
         file->close();
         file->deleteLater();
     }
+
 }
