@@ -3,6 +3,10 @@
 *My first Project*   
 [![GitHub release](https://img.shields.io/github/v/release/Josephbisso/Starlink.svg)](https://github.com/JosephBisso/Starlink/releases)
 
+- This project was initially a project we did for the programming course at the University. We were asked to programm a little appilcation as a test to pass the class and we taught a Covid-Tracker would be a pretty nice thing to programm. It was our first project for ll of us, and we learned a lot of things and gained a lot of programming experience. After we passed the class, I decided to continue working on the project myself. Small bugs still need to be fixed and the computing time is still a bit long. The data set used at the beginning has also been changed and the program still needs to be adapted and optimized to this new format. 
+
+- There are two Data sets used in the programm. The [first](https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data) is a once daily updated number of cases and death from the bigining of the pandemic until the December 16th 2020, and the [second](https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data-weekly-from-17-december-2020) is a weekly updated number of cases and deaths from 17th December 2020. 
+
 ## Brief description of the project
 
 Tool for collecting and visualizing Covid-19 infection numbers in europa
